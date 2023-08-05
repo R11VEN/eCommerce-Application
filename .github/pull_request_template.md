@@ -1,6 +1,5 @@
 ## Description
 
-
 ## What type of PR is this?
 
 - [ ] 🍕 Feature
@@ -14,7 +13,6 @@
 
 ## Mobile & Desktop Screenshots
 
-
 ## Added tests?
 
 - [ ] 👍 yes
@@ -26,6 +24,5 @@
 - [ ] 🙅 no documentation needed
 
 ## [optional] Are there any post-deployment tasks we need to perform?
-
 
 ## [optional] What gif best describes this PR or how it makes you feel?
