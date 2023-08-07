@@ -6,6 +6,13 @@ High Voltage - technical website-catalogue aimed at supporting consumers of rela
 
 ![TypeScrypt](https://img.shields.io/badge/TypeScrypt-blue) ![React](https://img.shields.io/badge/React-lightblue) ![Vite](https://img.shields.io/badge/Vite-violet) ![ESLint](https://img.shields.io/badge/ESLint-darkviolet) ![Jest](https://img.shields.io/badge/Jest-green) ![Husky](https://img.shields.io/badge/Husky-orange)
 
+## Getting Started
+
+1. Clone the project repository.
+2. Switch to develop branch.
+3. Execute in terminal `npm run install` to install dependencies.
+4. Execute in terminal `npm run dev` to start a local web server.
+5. Description of all scripts of the project is in the readme.
 
 ### React + TypeScript + Vite
 
