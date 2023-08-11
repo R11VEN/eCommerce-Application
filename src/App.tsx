@@ -1,14 +1,14 @@
 import './App.css';
-import { useState } from 'react';
+
+import { BrowserRouter } from 'react-router-dom';
+
 import Pages from './coponents/pages/pages';
 
 const App = () => {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
+    <BrowserRouter>
       <Pages />
-    </>
+    </BrowserRouter>
   );
 };
 

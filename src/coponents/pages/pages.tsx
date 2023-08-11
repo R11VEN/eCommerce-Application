@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import MainPage from '../../pages/main-page/main-page';
-import Header from '../header/header';
+import { useState } from 'react';
+
 import Footer from '../footer/footer';
+import Header from '../header/header';
+import Router from '../Router.tsx';
 
 const Pages = () => {
-  const [title, setTitle] = useState('');
-  const handlePageNameChange = (name: string) => {
+  const [title, setTitle] = useState<string>('');
+  const handlePageNameChange = (name: string): void => {
     setTitle(name);
   };
   return (
     <div className="pages">
       <Header titlePage={title} />
-      <MainPage showName={handlePageNameChange} />
+      <Router showPageName={handlePageNameChange} />
       <Footer />
     </div>
   );
