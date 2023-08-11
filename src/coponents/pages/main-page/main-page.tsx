@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
+import { PageProps } from '../../../interfaces/pages.intarface';
 
-const MainPage = ({ showName }: { showName: (name: string) => void }) => {
+const MainPage = ({ showName }: PageProps) => {
   useEffect(() => {
     showName('Main Page');
   }, []);

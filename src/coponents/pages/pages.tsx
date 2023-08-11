@@ -4,7 +4,7 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 
 const Pages = () => {
-  const [title, setTitle] = useState<string>('This is Main Page');
+  const [title, setTitle] = useState('');
   const handlePageNameChange = (name: string) => {
     setTitle(name);
   };
