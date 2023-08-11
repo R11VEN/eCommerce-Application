@@ -7,7 +7,11 @@ const MainPage = ({ showName }: PageProps): JSX.Element => {
   useEffect(() => {
     showName && showName('Main Page');
   }, []);
-  return <div className="main">Main Page</div>;
+  return (
+    <div className="main">
+      <h1>I am Main Page</h1>
+    </div>
+  );
 };
 
 export default MainPage;

@@ -14,7 +14,11 @@ const RegPage = ({ showName }: PageProps): JSX.Element => {
     showName && showName(name);
   }, [showName]);
 
-  return <div></div>;
+  return (
+    <div>
+      <h1>I am Reg Page</h1>
+    </div>
+  );
 };
 
 export default RegPage;

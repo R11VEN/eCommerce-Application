@@ -15,12 +15,12 @@ export const routesPages: RouteInterface[] = [
 
 export const routesAuth: RouteInterface[] = [
   {
-    name: 'Authorization',
+    name: 'Sign Up',
     path: AUTH_ROUTE,
     Component: ({ showPageName }) => <AuthPage showName={showPageName} />,
   },
   {
-    name: 'Registration',
+    name: 'Sign in',
     path: REG_ROUTE,
     Component: ({ showPageName }) => <RegPage showName={showPageName} />,
   },
