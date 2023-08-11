@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import MainPage from './main-page/main-page';
+import MainPage from '../../pages/main-page/main-page';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 
