@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { JSX } from 'react/jsx-runtime';
 
-import { PageProps } from '../interfaces/pages.intarface.ts';
+import { PageProps } from '../interfaces/page.interface.ts';
 
 export interface IPageProps {
   showPageName?: (name: string) => void;

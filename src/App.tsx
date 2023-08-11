@@ -2,12 +2,12 @@ import './App.css';
 
 import { BrowserRouter } from 'react-router-dom';
 
-import Pages from './coponents/pages/pages';
+import Layout from './layout/layout.tsx';
 
 const App = () => {
   return (
     <BrowserRouter>
-      <Pages />
+      <Layout />
     </BrowserRouter>
   );
 };
