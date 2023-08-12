@@ -5,12 +5,14 @@ import { PageProps } from '../interfaces/page.interface.ts';
 
 const MainPage = ({ showName }: PageProps): JSX.Element => {
   useEffect(() => {
-    showName && showName('Main Page');
+    showName && showName('High Voltage');
   }, []);
   return (
-    <div className="main">
-      <h1>I am Main Page</h1>
-    </div>
+    <main className="main">
+      <div className="main-container">
+        <h1>I am Main Page</h1>
+      </div>
+    </main>
   );
 };
 
