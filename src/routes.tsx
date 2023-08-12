@@ -7,7 +7,7 @@ import RegPage from './pages/reg-page.tsx';
 
 export const routesPages: RouteInterface[] = [
   {
-    name: 'Main page',
+    name: 'Главная',
     path: MAIN_ROUTE,
     Component: ({ showPageName }) => <MainPage showName={showPageName} />,
   },
@@ -15,12 +15,12 @@ export const routesPages: RouteInterface[] = [
 
 export const routesAuth: RouteInterface[] = [
   {
-    name: 'Sign Up',
+    name: 'Вход',
     path: AUTH_ROUTE,
     Component: ({ showPageName }) => <AuthPage showName={showPageName} />,
   },
   {
-    name: 'Sign in',
+    name: 'Регистрация',
     path: REG_ROUTE,
     Component: ({ showPageName }) => <RegPage showName={showPageName} />,
   },
