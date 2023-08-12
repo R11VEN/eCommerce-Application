@@ -1,14 +1,14 @@
 import './App.css';
-import { useState } from 'react';
-import Pages from './coponents/pages/pages';
+
+import { BrowserRouter } from 'react-router-dom';
+
+import Layout from './layout/layout.tsx';
 
 const App = () => {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <Pages />
-    </>
+    <BrowserRouter>
+      <Layout />
+    </BrowserRouter>
   );
 };
 
