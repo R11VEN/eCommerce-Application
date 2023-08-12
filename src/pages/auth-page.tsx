@@ -11,9 +11,18 @@ const AuthPage = ({ showName }: PageProps): JSX.Element => {
   }, [showName]);
 
   return (
-    <div>
-      <h1>I am Auth Page</h1>
-    </div>
+    <main className="auth-page">
+      <div className="main-container">
+        <h1>Login</h1>
+        <form className="login-form">
+          <label htmlFor="Email">Email</label>
+          <input type="email" placeholder="Email" name="Email"></input>
+          <label htmlFor="Password">Password</label>
+          <input type="password" placeholder="Password" name="Password"></input>
+          <input type="submit"></input>
+        </form>
+      </div>
+    </main>
   );
 };
 
