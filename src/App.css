@@ -1,42 +1,133 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+}
+
+.pages {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+header {
+  height: 80px;
+  border-bottom: #127627 1px solid;
+}
+
+.header-container,
+.footer-container,
+.main-container {
+  display: flex;
+  max-width: 1280px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.header-container {
+  align-items: center;
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  margin: 0;
+  color: #105F20;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.nav-list {
+  display: flex;
+  width: 400px;
+  justify-content: space-between;
+  margin: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.nav-list_item {
+  list-style: none;
 }
 
-.card {
-  padding: 2em;
+.nav-list_item > a,
+.header-link {
+  text-decoration: none;
+  color: #2E3846;
 }
 
-.read-the-docs {
-  color: #888;
+.login-registration {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 200px;
+  height: 40px;
+  margin-left: auto;
+  background-color: #C4C4C4;
+  color: #2E3846;
+}
+
+.nav-list_item > a:hover,
+.header-link:hover {
+  color: #FC8917;
+}
+
+main {
+  flex-grow: 5;
+}
+
+.main-container {
+  align-items: center;
+  flex-direction: column;
+}
+
+footer {
+  height: 160px;
+  background-color: #127627;
+}
+
+.footer-container {
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-logo {
+  color: #ffffff;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  gap: 5px
+}
+
+.login-form > input {
+  border: 1px solid #127627;
+}
+
+.login-form > input[type="submit"] {
+  margin-top: 10px;
+}
+
+.registration-form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 300px;
+  font-size: 0.8rem;
+}
+
+.registration-form > div {
+  display: flex;
+  align-items: center;
+}
+
+.registration-form > input[type="submit"] {
+  margin-top: 10px;
+}
+
+.adress {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+}
+
+.adress > input {
+  width: auto;
 }
