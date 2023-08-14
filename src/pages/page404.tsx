@@ -20,7 +20,7 @@ const Page404 = ({ showName }: PageProps): JSX.Element => {
       <a>
         {routesPages.map((route: RouteInterface) => (
           <NavLink key={route.name} to={route.path} className={'btn'} end>
-            {route.name}
+            Back to {route.name}
           </NavLink>
         ))}
       </a>
