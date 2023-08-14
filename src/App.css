@@ -131,3 +131,31 @@ footer {
 .adress > input {
   width: auto;
 }
+
+.error-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.error-heading{
+  margin: 0;
+  padding: 0;
+  color:rgb(255, 13, 0);
+  font-size:8rem;
+}
+.error-parag,
+.btn{
+  font-size:2rem;
+  color:#2E3846;
+}
+.btn {
+  display: block;
+  border-radius: 5px;
+  padding: 10px 15px;
+  color:#ffffff;
+  text-decoration: none;
+  background-color: #105F20;
+  cursor: pointer;
+}
