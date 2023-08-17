@@ -151,11 +151,26 @@ footer {
   color:#2E3846;
 }
 .btn {
+  padding: 10px 15px;
   display: block;
   border-radius: 5px;
-  padding: 10px 15px;
+  border:none;
   color:#ffffff;
   text-decoration: none;
   background-color: #105F20;
   cursor: pointer;
+  opacity:0.9;
+}
+
+.btn:hover {
+  opacity: 1;
+}
+.btn_toogle {
+  font-size: 0.7rem;
+  padding: 5px;
+  width: fit-content;
+  background-color: rgb(25, 103, 103);
+}
+.input_error {
+  color: rgb(255, 33, 33);
 }
