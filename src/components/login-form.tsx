@@ -2,7 +2,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { Input } from './input';
 import { useState } from 'react';
-const Form = () => {
+const LoginForm = () => {
   const [visibility, setVisibility] = useState(true);
   const methods = useForm();
   const onSubmit = methods.handleSubmit((data) => {
@@ -29,4 +29,4 @@ const Form = () => {
     </FormProvider>
   );
 };
-export default Form;
+export default LoginForm;

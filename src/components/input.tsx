@@ -45,6 +45,29 @@ export const Input = ({ label, type, id, placeholder }: inputType) => {
         },
       };
       break;
+    case 'First name':
+    case 'Last name':
+      validation = {
+        required: { value: true, message: 'required' },
+        pattern: {
+          value: /[A-Z-a-z]/,
+          message: 'Must contain at least one character and no special characters or numbers ',
+        },
+      };
+      break;
+    case 'Date of Birth':
+      break;
+    case 'Street':
+      validation = {
+        required: { value: true, message: 'Must contain at least one character ' },
+      };
+      break;
+    case 'City':
+      validation = {
+        required: { value: true, message: 'Must contain at least one character' },
+        pattern: { value: /^[A-Za-z\s]*$/, message: 'no special characters or numbers' },
+      };
+      break;
     default:
       break;
   }

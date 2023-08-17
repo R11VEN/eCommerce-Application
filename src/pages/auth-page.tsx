@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { JSX } from 'react/jsx-runtime';
 
 import { PageProps } from '../interfaces/page.interface.ts';
-import Form from '../components/Form.tsx';
+import LoginForm from '../components/login-form.tsx';
 
 const AuthPage = ({ showName }: PageProps): JSX.Element => {
   const name: string = 'Authorization';
@@ -15,7 +15,7 @@ const AuthPage = ({ showName }: PageProps): JSX.Element => {
     <main className="auth-page">
       <div className="main-container">
         <h1>Login</h1>
-        <Form></Form>
+        <LoginForm></LoginForm>
       </div>
     </main>
   );
