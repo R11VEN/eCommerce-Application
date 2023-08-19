@@ -1,6 +1,8 @@
-import { FormProvider, useForm } from 'react-hook-form';
-import { Input } from './input';
 import { useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+
+import { Input } from './input';
+import { Select } from './select';
 
 const RegisterationForm = () => {
   const [visibility, setVisibility] = useState(true);
@@ -27,7 +29,7 @@ const RegisterationForm = () => {
             id="postalcode"
             placeholder="Postal code"
           ></Input>
-          <Input label="Country" type="text" id="country" placeholder="Country"></Input>
+          <Select></Select>
         </fieldset>
         <div>
           <Input

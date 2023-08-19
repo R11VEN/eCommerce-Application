@@ -19,7 +19,6 @@ export const Input = ({ label, type, id, placeholder }: inputType) => {
     if (Object.keys(err).length > 0) return true;
     return false;
   }
-
   const inputError = findInputError(errors, label);
   const isInvalid = isFormInvalid(inputError);
   let validation;
@@ -56,6 +55,12 @@ export const Input = ({ label, type, id, placeholder }: inputType) => {
       };
       break;
     case 'Date of Birth':
+      validation = {
+        required: { value: true, message: 'required' },
+        validate: (v: string) =>
+          new Date().getFullYear() - new Date(v).getFullYear() > 13 ||
+          'You must be older than 13 years',
+      };
       break;
     case 'Street':
       validation = {

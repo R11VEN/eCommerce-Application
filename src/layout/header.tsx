@@ -12,6 +12,8 @@ const Header = ({ titlePage }: { titlePage: string }) => {
     <header className="header">
       <div className="header-container">
         <h1 className="logo">{titlePage}</h1>
+        <input id="burger-checkbox" type="checkbox"></input>
+        <label htmlFor="burger-checkbox" className="burger"></label>
         <nav className="nav">
           <ul className="nav-list">
             <li className="nav-list_item">
@@ -22,13 +24,13 @@ const Header = ({ titlePage }: { titlePage: string }) => {
               ))}
             </li>
             <li className="nav-list_item">
-              <a href="#">Каталог</a>
+              <a href="#">Catalog</a>
             </li>
             <li className="nav-list_item">
-              <a href="#">Справочник</a>
+              <a href="#">Reference</a>
             </li>
             <li className="nav-list_item">
-              <a href="#">О нас</a>
+              <a href="#">About Us</a>
             </li>
           </ul>
         </nav>
