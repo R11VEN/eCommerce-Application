@@ -10,9 +10,11 @@ const Layout = () => {
     setTitle(name);
   };
   return (
-    <div className="pages">
+    <div className="wrapper">
       <Header titlePage={title} />
-      <Router showPageName={handlePageNameChange} />
+      <main className="main">
+        <Router showPageName={handlePageNameChange} />
+      </main>
       <Footer />
     </div>
   );

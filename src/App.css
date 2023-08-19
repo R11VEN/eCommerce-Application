@@ -1,22 +1,21 @@
+* {
+  box-sizing: border-box;
+}
+
 #root {
   margin: 0 auto;
 }
 
-.pages {
+.wrapper {
   display: flex;
   flex-direction: column;
   height: 100vh;
   width: 100vw;
 }
 
-header {
-  height: 80px;
-  border-bottom: #127627 1px solid;
-}
-
 .header-container,
 .footer-container,
-.main-container {
+.page-container {
   display: flex;
   max-width: 1280px;
   height: 100%;
@@ -24,13 +23,19 @@ header {
   padding: 0 20px;
 }
 
+/*---------------------------------header-----------------------*/
+header {
+  border-bottom: #127627 1px solid;
+}
+
 .header-container {
+  height: 80px;
   align-items: center;
 }
 
 .logo {
   margin: 0;
-  color: #105F20;
+  color: #105f20;
 }
 
 .nav-list {
@@ -47,7 +52,7 @@ header {
 .nav-list_item > a,
 .header-link {
   text-decoration: none;
-  color: #2E3846;
+  color: #2e3846;
 }
 
 .login-registration {
@@ -57,17 +62,17 @@ header {
   width: 160px;
   height: 30px;
   margin-left: auto;
-  background-color: #C4C4C4;
-  color: #2E3846;
+  background-color: #c4c4c4;
+  color: #2e3846;
 }
 
 .nav-list_item > a:hover,
 .header-link:hover {
-  color: #FC8917;
+  color: #fc8917;
 }
 
 .header-link.active {
-  color: #FC8917;
+  color: #fc8917;
 }
 
 #burger-checkbox {
@@ -85,13 +90,17 @@ header {
   cursor: pointer;
 }
 
-#burger-checkbox:checked ~ .nav {
-  right: 0;
-}
+/*#burger-checkbox:checked ~ .nav {*/
+/*  right: 0;*/
+/*}*/
+
+/*---------------------------------layout-----------------------*/
 
 main {
-  flex-grow: 5;
+  flex-grow: 1;
 }
+
+/*---------------------------------main-page-----------------------*/
 
 .main-link-container {
   display: flex;
@@ -108,37 +117,42 @@ main {
 }
 
 .main-container {
+  display: flex;
   align-items: center;
   flex-direction: column;
 }
 
-footer {
-  height: 160px;
-  background-color: #127627;
-}
+/*---------------------------------auth-page-----------------------*/
 
-.footer-container {
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   align-items: center;
-  justify-content: center;
-}
-
-.footer-logo {
-  color: #ffffff;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
   width: 300px;
-  gap: 5px
+  gap: 5px;
 }
 
 .login-form > input {
   border: 1px solid #127627;
 }
 
-.login-form > input[type="submit"] {
+.login-form > input[type='submit'] {
   margin-top: 10px;
+}
+
+/*---------------------------------reg-page-----------------------*/
+
+.reg-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
 }
 
 .registration-form {
@@ -154,8 +168,24 @@ footer {
   align-items: center;
 }
 
-.registration-form > input[type="submit"] {
+.registration-form > input[type='submit'] {
   margin-top: 10px;
+}
+
+/*---------------------------------footer-----------------------*/
+
+footer {
+  height: 160px;
+  background-color: #127627;
+}
+
+.footer-container {
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-logo {
+  color: #ffffff;
 }
 
 .adress {
@@ -177,28 +207,28 @@ footer {
   height: 100%;
 }
 
-.error-heading{
+.error-heading {
   margin: 0;
   padding: 0;
-  color:rgb(255, 13, 0);
-  font-size:8rem;
+  color: rgb(255, 13, 0);
+  font-size: 8rem;
 }
 
 .error-parag,
-.btn{
-  font-size:2rem;
-  color:#2E3846;
+.btn {
+  font-size: 2rem;
+  color: #2e3846;
 }
 .btn {
   padding: 10px 15px;
   display: block;
   border-radius: 5px;
-  border:none;
-  color:#ffffff;
+  border: none;
+  color: #ffffff;
   text-decoration: none;
-  background-color: #105F20;
+  background-color: #105f20;
   cursor: pointer;
-  opacity:0.9;
+  opacity: 0.9;
 }
 
 .btn:hover {
@@ -227,11 +257,15 @@ footer {
     position: fixed;
     top: 80px;
     right: -100%;
-    height: calc(100vh - 240px);
+    height: 100%;
     background-color: #127627;
     font-size: 1.5rem;
     opacity: 0.9;
     transition: right 0.5s;
+    z-index: 1;
+  }
+  .nav.active {
+    right: 0%;
   }
   .nav-list {
     flex-direction: column;

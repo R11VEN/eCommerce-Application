@@ -26,9 +26,10 @@ export const routesAuth: RouteInterface[] = [
   },
 ];
 
+export const routerPagesAndAuth = [...routesPages, ...routesAuth];
+
 export const routesAll: RouteInterface[] = [
-  ...routesPages,
-  ...routesAuth,
+  ...routerPagesAndAuth,
   {
     name: 'Page 404',
     path: PAGE_404,
