@@ -1,6 +1,7 @@
-import { FormProvider, useForm } from 'react-hook-form';
-import { Input } from './input';
 import { useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+
+import { Input } from './input';
 import { Select } from './select';
 
 const RegisterationForm = () => {
