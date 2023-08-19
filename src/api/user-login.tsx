@@ -1,29 +1,3 @@
-//import { ctpClient } from './BuildClientAdmin';
-//import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
-//
-//const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
-//  projectKey: 'jsfe2023q1',
-//});
-//
-//const createCustomer = () => {
-//  return apiRoot
-//    .customers()
-//    .post({
-//      body: {
-//        email: 'sdk@example.com',
-//        password: 'examplePassword',
-//      },
-//    })
-//    .execute();
-//};
-//// Create the customer and output the Customer ID
-////createCustomer()
-////  .then(({ body }) => {
-////    console.log(body.customer.id);
-////  })
-////  .catch(console.error);
-//
-//export default createCustomer;
 //import { apiRootSPA, projectKey } from './BuildClientSPA';
 import { tokenCache } from './tokenCache';
 import { apiRootExistingToken } from './BuildClientToken';
