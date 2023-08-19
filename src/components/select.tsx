@@ -212,7 +212,9 @@ export const Select = () => {
       <select id="select">
         <option>Choose a country</option>
         {countries.map((item) => (
-          <option value={item}>{item}</option>
+          <option value={item} key={item}>
+            {item}
+          </option>
         ))}
       </select>
     </>
