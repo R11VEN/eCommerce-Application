@@ -73,6 +73,7 @@ main {
 .main-container {
   align-items: center;
   flex-direction: column;
+  padding-bottom: 10px;
 }
 
 footer {
