@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { JSX } from 'react/jsx-runtime';
 
-import { PageProps } from '../interfaces/page.interface.ts';
 import RegisterationForm from '../components/registration-form.tsx';
+import { PageProps } from '../interfaces/page.interface.ts';
 
 export interface IPageProps {
   showPageName?: (name: string) => void;
@@ -16,12 +16,10 @@ const RegPage = ({ showName }: PageProps): JSX.Element => {
   }, [showName]);
 
   return (
-    <main className="reg-page">
-      <div className="main-container">
-        <h1>Registration</h1>
-        <RegisterationForm></RegisterationForm>
-      </div>
-    </main>
+    <div className="reg-container">
+      <h1>Registration</h1>
+      <RegisterationForm></RegisterationForm>
+    </div>
   );
 };
 
