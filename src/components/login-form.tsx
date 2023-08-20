@@ -1,19 +1,26 @@
+import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
+import { FormInterface } from '../interfaces/form.interface.ts';
 import { Input } from './input';
-import { useState } from 'react';
 const LoginForm = () => {
   const [visibility, setVisibility] = useState(true);
-  const methods = useForm();
-  const onSubmit = methods.handleSubmit((data) => {
-    console.log(data);
+  const methods = useForm({
+    mode: 'onSubmit',
+    reValidateMode: 'onSubmit',
   });
+
+  const onSubmit = (data: FormInterface) => {
+    console.log(data);
+  };
+
   const togglePasword = () => {
     setVisibility(!visibility);
   };
+
   return (
     <FormProvider {...methods}>
-      <form className="login-form" onSubmit={(e) => e.preventDefault()} noValidate>
+      <form className="login-form" onSubmit={methods.handleSubmit(onSubmit)} noValidate>
         <Input label="Email" type="email" id="email" placeholder="Email"></Input>
         <Input
           label="Password"
@@ -24,7 +31,7 @@ const LoginForm = () => {
         <button className="btn btn_toogle" onClick={togglePasword}>
           {visibility ? 'Show' : 'Hide'} Password
         </button>
-        <button onClick={onSubmit}>Submit</button>
+        <button>Submit</button>
       </form>
     </FormProvider>
   );
