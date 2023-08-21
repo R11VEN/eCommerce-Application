@@ -3,6 +3,7 @@ import {
   //type PasswordAuthMiddlewareOptions,
   ClientBuilder,
   type HttpMiddlewareOptions,
+  UserAuthOptions,
 } from '@commercetools/sdk-client-v2';
 
 import { tokenCache } from './tokenCache';
@@ -11,11 +12,6 @@ const projectKey = 'jsfe2023q1';
 const scopes = [
   'manage_my_business_units:jsfe2023q1 view_products:jsfe2023q1 view_categories:jsfe2023q1 create_anonymous_token:jsfe2023q1 manage_my_payments:jsfe2023q1 manage_my_orders:jsfe2023q1 view_published_products:jsfe2023q1 manage_my_shopping_lists:jsfe2023q1 manage_my_quotes:jsfe2023q1 manage_my_profile:jsfe2023q1 manage_my_quote_requests:jsfe2023q1',
 ];
-
-export type UserAuthOptions = {
-  username: string;
-  password: string;
-};
 
 let authMiddlewareOptions;
 

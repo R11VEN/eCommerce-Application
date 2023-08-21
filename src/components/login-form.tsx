@@ -1,24 +1,33 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import Login from '../api/userLogin.tsx';
-import { FormInterface } from '../interfaces/form.interface.ts';
+import { MAIN_ROUTE } from '../constants/pages.ts';
+import { UserDto } from '../interfaces/user.interface.ts';
 import { Input } from './input';
 
 const LoginForm = () => {
   const [visibility, setVisibility] = useState(true);
+  const navigate = useNavigate();
   const methods = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
   });
 
-  const onSubmit = (data: FormInterface) => {
-    if (data.Email && data.Password) {
-      Login({ username: data.Email, password: data.Password });
-    }
+  const onSubmit = async (data: UserDto): Promise<void> => {
+    const isAuth = await Login(data);
+    isAuth && navigate(MAIN_ROUTE);
   };
 
-  const togglePasword = () => {
+  useEffect(() => {
+    const isAuth = localStorage.getItem('isAuth');
+
+    isAuth === 'true' && navigate(MAIN_ROUTE);
+  }, []);
+
+  useEffect(() => {}, []);
+  const togglePassword = () => {
     setVisibility(!visibility);
   };
 
@@ -32,7 +41,7 @@ const LoginForm = () => {
           id="password"
           placeholder="Password"
         ></Input>
-        <button type="button" className="btn btn_toogle" onClick={togglePasword}>
+        <button type="button" className="btn btn_toogle" onClick={togglePassword}>
           {visibility ? 'Show' : 'Hide'} Password
         </button>
         <button type="submit">Submit</button>

@@ -1,90 +1,79 @@
-import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
+import {
+  createApiBuilderFromCtpClient,
+  CustomerPagedQueryResponse,
+} from '@commercetools/platform-sdk';
+import { CustomerDraft } from '@commercetools/platform-sdk/dist/declarations/src/generated/models/customer';
+import { ClientResponse } from '@commercetools/platform-sdk/dist/declarations/src/generated/shared/utils/common-types';
 
+import { Customer } from '../interfaces/form.interface.ts';
 import { client } from './BuildClientAdmin';
 import { returnCustomerByEmail } from './userGetByEmail';
-import Login from './userLogin';
+import Login from './userLogin.tsx';
+// import Login from './userLogin';
 
 const apiRoot = createApiBuilderFromCtpClient(client).withProjectKey({
   projectKey: 'jsfe2023q1',
 });
 
-const createCustomer = async ({
-  email,
-  password,
-  firsrName,
-  lastName,
-  date,
-  city,
-  street,
-  cityBilling,
-  streetBilling,
-  postalCodeBilling,
-  postalCode,
-  setAddress,
-}: {
-  email: string;
-  password: string;
-  firsrName: string;
-  lastName: string;
-  date: string;
-  city: string;
-  street: string;
-  postalCode: string;
-  cityBilling: string;
-  streetBilling: string;
-  postalCodeBilling: string;
-  setAddress: { defaultBilling: boolean; defaultShiping: boolean; differentBilling: boolean };
-}) => {
-  await returnCustomerByEmail(email)
-    .then(({ body }) => {
-      if (body.count !== 0) {
-        console.log('Такой пользователь уже существует!');
-        return;
-      } else {
-        console.log('Пользователь успешно зарегистрирован!');
+export type userData = ClientResponse | ClientResponse<CustomerPagedQueryResponse>;
 
-        const body = {
-          body: {
-            email: email,
-            password: password,
-            firstName: firsrName,
-            lastName: lastName,
-            dateOfBirth: date,
-            addresses: [
-              {
-                country: 'BY',
-                city: city,
-                streetName: street,
-                postalCode: postalCode,
-              },
-            ],
-            shippingAddresses: [0],
-            billingAddresses: [0],
-          },
-        };
-        if (setAddress.differentBilling) {
-          body.body.addresses[1] = {
-            country: 'BY',
-            city: cityBilling,
-            streetName: streetBilling,
-            postalCode: postalCodeBilling,
-          };
-          body.body.billingAddresses = [1];
-          if (setAddress.defaultBilling) {
-            Object.assign(body.body, { defaultBillingAddress: 1 });
-          }
-        }
-        if (setAddress.defaultShiping) {
-          Object.assign(body.body, { defaultShippingAddress: 0 });
-        }
-        const regAndLogin = async () => {
-          await apiRoot.customers().post(body).execute();
-          Login({ username: email, password: password });
-        };
-        return regAndLogin();
+const createCustomer = async (customerData: Customer): Promise<userData | void> => {
+  try {
+    const data = customerData.email && (await returnCustomerByEmail(customerData.email));
+    if (data) {
+      const body = data && data.body;
+      if (body && body.count !== 0) {
+        return data as userData;
       }
-    })
-    .catch(console.error);
+    }
+
+    const regData = {
+      body: {
+        email: customerData.email,
+        password: customerData.password,
+        firstName: customerData.firstName,
+        lastName: customerData.lastName,
+        dateOfBirth: customerData.date,
+        addresses: [
+          {
+            country: 'BY',
+            city: customerData.city,
+            streetName: customerData.street,
+            postalCode: customerData.postalCode,
+          },
+        ],
+        shippingAddresses: [0],
+        billingAddresses: [0],
+      },
+    };
+
+    if (customerData.differentBilling) {
+      regData.body.addresses[1] = {
+        country: 'BY',
+        city: customerData.cityBilling,
+        streetName: customerData.streetBilling,
+        postalCode: customerData.postalCodeBilling,
+      };
+      regData.body.billingAddresses = [1];
+      if (customerData.defaultBilling) {
+        Object.assign(regData.body, { defaultBillingAddress: 1 });
+      }
+    }
+    if (customerData.defaultShipping) {
+      Object.assign(regData.body, { defaultShippingAddress: 0 });
+    }
+
+    const userData: ClientResponse = await apiRoot
+      .customers()
+      .post({ body: regData.body as CustomerDraft })
+      .execute();
+    if (userData) {
+      await Login({ email: customerData.email, password: customerData.password });
+      return userData as userData;
+    }
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export default createCustomer;

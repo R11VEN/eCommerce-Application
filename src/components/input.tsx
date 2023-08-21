@@ -1,9 +1,9 @@
 import { useFormContext } from 'react-hook-form';
 
-import inputType from '../types/types';
+import { inputType } from '../interfaces/form.interface.ts';
 import { InputError } from './inputError';
 
-export const Input = ({ label, type, id, placeholder }: inputType) => {
+export const Input = ({ label, type, id, placeholder, isDisable }: inputType) => {
   const {
     register,
     formState: { errors },
@@ -72,7 +72,11 @@ export const Input = ({ label, type, id, placeholder }: inputType) => {
   return (
     <>
       <label htmlFor={id}>{label}</label>
-      <input id={id} type={type} placeholder={placeholder} {...register(id, validation)} />
+      {isDisable ? (
+        <input id={id} type={type} placeholder={placeholder} disabled={isDisable} />
+      ) : (
+        <input id={id} type={type} placeholder={placeholder} {...register(id, validation)} />
+      )}
       {message && <InputError message={message} key={`message-${id}`} />}
     </>
   );
