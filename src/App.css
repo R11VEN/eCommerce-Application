@@ -98,6 +98,7 @@ header {
 
 main {
   flex-grow: 1;
+  padding-bottom: 10px;
 }
 
 /*---------------------------------main-page-----------------------*/
@@ -172,6 +173,28 @@ main {
   margin-top: 10px;
 }
 
+.adress,
+.adress-billing {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+}
+
+.adress > input
+.adress-billing > input {
+  width: auto;
+}
+
+.different-shipping-address-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#Set-different-shipping-address:checked ~ .adress-billing {
+  display: flex;
+}
+
 /*---------------------------------footer-----------------------*/
 
 footer {
@@ -186,17 +209,6 @@ footer {
 
 .footer-logo {
   color: #ffffff;
-}
-
-.adress {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  padding: 10px;
-}
-
-.adress > input {
-  width: auto;
 }
 
 .error-page {

@@ -1,4 +1,4 @@
-import { ApiRoot, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
+import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import {
   AuthMiddlewareOptions,
   Client,
@@ -30,8 +30,6 @@ export const client: Client = new ClientBuilder()
   //.withLoggerMiddleware()
   .build();
 
-const getApiRoot: () => ApiRoot = () => {
-  return createApiBuilderFromCtpClient(client);
-};
+const getApiRoot = createApiBuilderFromCtpClient(client).withProjectKey(projectKey);
 
 export { getApiRoot, projectKey };
