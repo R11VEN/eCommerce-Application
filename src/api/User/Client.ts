@@ -4,8 +4,6 @@ import {
   type Credentials,
   type HttpMiddlewareOptions,
   type Middleware,
-  //type PasswordAuthMiddlewareOptions,
-  //type AnonymousAuthMiddlewareOptions,
 } from '@commercetools/sdk-client-v2';
 
 const userClientBuilder = new ClientBuilder();
@@ -16,16 +14,6 @@ interface Options {
   baseUri?: string;
   credentials?: Credentials;
 }
-
-//interface authMiddleware {
-//  authMiddleware: Middleware;
-//  projectKey: string;
-//  credentials: boolean;
-//  httpMiddlewareOptions: {
-//    host: string;
-//    fetch: (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>;
-//  };
-//}
 
 class Client {
   private projectKey: string;
@@ -54,7 +42,7 @@ class Client {
     httpMiddlewareOptions: HttpMiddlewareOptions;
     credentials: Credentials;
   }) {
-    const { projectKey, authMiddleware, httpMiddlewareOptions, credentials } = options;
+    const { authMiddleware, httpMiddlewareOptions, credentials } = options;
     if (credentials) {
       return (
         userClientBuilder

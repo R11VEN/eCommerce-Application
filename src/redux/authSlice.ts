@@ -23,7 +23,7 @@ const authSlice = createSlice({
     },
     authSuccess: (state, action) => {
       state.loading = false;
-      state.token = action.payload;
+      state.isAuth = action.payload.isAuth;
     },
     authFailure: (state) => {
       state.loading = false;

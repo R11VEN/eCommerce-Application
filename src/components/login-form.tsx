@@ -1,15 +1,18 @@
 import { MouseEvent, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import Login from '../api/userLogin.tsx';
 import { MAIN_ROUTE } from '../constants/pages.ts';
 import { UserDto } from '../interfaces/user.interface.ts';
+import { authSuccess } from '../redux/authSlice.ts';
 import { Input } from './input';
 
 const LoginForm = ({ openModal }: { openModal: (content: string) => void }) => {
   const [visibility, setVisibility] = useState<boolean>(true);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const methods = useForm({
     mode: 'onChange',
@@ -29,6 +32,7 @@ const LoginForm = ({ openModal }: { openModal: (content: string) => void }) => {
 
   const onSubmit = async (data: UserDto): Promise<void> => {
     const isAuth = await Login(data);
+    isAuth && dispatch(authSuccess({ isAuth: true }));
     isAuth && redirect('Вы успешно авторизованы!');
   };
 
