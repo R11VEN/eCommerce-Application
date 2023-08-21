@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,9 +9,10 @@ import { Input } from './input';
 import { useDispatch } from 'react-redux';
 import { authSuccess } from '../redux/authSlice.ts';
 
-const LoginForm = () => {
-  const [visibility, setVisibility] = useState(true);
+const LoginForm = ({ openModal }: { openModal: (content: string) => void }) => {
+  const [visibility, setVisibility] = useState<boolean>(true);
   const navigate = useNavigate();
+
   const methods = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -25,14 +26,13 @@ const LoginForm = () => {
     isAuth && navigate(MAIN_ROUTE);
   };
 
-  useEffect(() => {
+  useEffect((): void => {
     const isAuth = localStorage.getItem('isAuth');
-
-    isAuth === 'true' && navigate(MAIN_ROUTE);
+    isAuth === 'true' && redirect('Вы уже авторизованы');
   }, []);
 
-  useEffect(() => {}, []);
-  const togglePassword = () => {
+  const togglePassword = (e: MouseEvent): void => {
+    e.preventDefault();
     setVisibility(!visibility);
   };
 
