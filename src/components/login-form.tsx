@@ -6,6 +6,8 @@ import Login from '../api/userLogin.tsx';
 import { MAIN_ROUTE } from '../constants/pages.ts';
 import { UserDto } from '../interfaces/user.interface.ts';
 import { Input } from './input';
+import { useDispatch } from 'react-redux';
+import { authSuccess } from '../redux/authSlice.ts';
 
 const LoginForm = () => {
   const [visibility, setVisibility] = useState(true);
@@ -15,8 +17,11 @@ const LoginForm = () => {
     reValidateMode: 'onChange',
   });
 
+  const dispatch = useDispatch();
+
   const onSubmit = async (data: UserDto): Promise<void> => {
     const isAuth = await Login(data);
+    isAuth && dispatch(authSuccess({ isAuth: true }));
     isAuth && navigate(MAIN_ROUTE);
   };
 
