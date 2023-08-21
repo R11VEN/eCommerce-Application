@@ -1,5 +1,5 @@
 export const Select = () => {
-  const countries = ['Belarus'];
+  const countries = ['Belarus', 'Poland', 'Uzbekistan'];
   return (
     <>
       <label htmlFor="select">Country</label>
@@ -16,7 +16,7 @@ export const Select = () => {
 };
 
 export const SelectBilling = () => {
-  const countries = ['Belarus'];
+  const countries = ['Belarus', 'Poland', 'Uzbekistan'];
   return (
     <>
       <label htmlFor="selectBilling">Country *billing</label>
