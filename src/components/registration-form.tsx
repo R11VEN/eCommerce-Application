@@ -1,16 +1,17 @@
 import { ChangeEvent, MouseEvent, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import createCustomer from '../api/userCreate.tsx';
+import { MAIN_ROUTE } from '../constants/pages.ts';
 import { Customer } from '../interfaces/form.interface.ts';
 import { Input } from './input';
 import { Select, SelectBilling } from './select';
-
 export const RegistrationForm = ({ openModal }: { openModal: (content: string) => void }) => {
   const [visibility, setVisibility] = useState<boolean>(true);
   const [display, setDisplay] = useState<string>('none');
   const [isDisable, setIsDisable] = useState<boolean>(true);
-
+  const navigate = useNavigate();
   function handleModal(content: string): void {
     openModal(content);
   }
@@ -33,6 +34,9 @@ export const RegistrationForm = ({ openModal }: { openModal: (content: string) =
         handleModal('Пользователь уже существует!');
       } else if (code === 201) {
         handleModal('Вы успешно зарегистрировались!');
+        setTimeout(() => {
+          navigate(MAIN_ROUTE);
+        }, 2000);
       }
     }
   };
