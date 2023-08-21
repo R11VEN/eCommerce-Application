@@ -1,34 +1,26 @@
-import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
-import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill';
-import react from '@vitejs/plugin-react';
-import rollupNodePolyFill from 'rollup-plugin-node-polyfills';
 import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  resolve: {
-    alias: {
-      stream: 'rollup-plugin-node-polyfills/polyfills/stream',
-    },
-  },
-  optimizeDeps: {
-    esbuildOptions: {
-      define: {
-        global: 'globalThis',
+  plugins: [
+    react(),
+    nodePolyfills({
+      // To exclude specific polyfills, add them to this list.
+      // exclude: [
+      //   'fs', // Excludes the polyfill for fs and node:fs.
+      // ],
+      // Whether to polyfill specific globals.
+      globals: {
+        Buffer: true, // can also be 'build', 'dev', or false
+        global: true,
+        process: true,
       },
-      plugins: [
-        NodeGlobalsPolyfillPlugin({
-          process: true,
-          buffer: true,
-        }),
-        NodeModulesPolyfillPlugin(),
-      ],
-    },
-  },
-  build: {
-    rollupOptions: {
-      plugins: [rollupNodePolyFill()],
-    },
+      // Whether to polyfill node: protocol imports.
+      protocolImports: true,
+    }),
+  ],
+  define: {
+    global: 'window',
   },
 });
