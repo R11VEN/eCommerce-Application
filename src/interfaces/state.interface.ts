@@ -16,4 +16,5 @@ export interface AuthState {
   registerError: string;
   loginError: string;
   loading: boolean;
+  isAuth: boolean;
 }
