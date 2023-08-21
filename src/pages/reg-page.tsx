@@ -26,10 +26,10 @@ const RegPage = ({ showName }: PageProps): JSX.Element => {
   return (
     <div className="reg-container">
       <h1>Registration</h1>
+      <RegistrationForm openModal={handleModal}></RegistrationForm>
       <Modal visible={modal} setDisplay={setModal}>
         {content && content}
       </Modal>
-      <RegistrationForm openModal={handleModal}></RegistrationForm>
     </div>
   );
 };
