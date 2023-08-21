@@ -10,9 +10,11 @@ export const RegisterationForm = () => {
   const togglePasword = () => {
     setVisibility(!visibility);
   };
-  const methods = useForm();
+  const methods = useForm({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+  });
   const onSubmit = methods.handleSubmit((data) => {
-    console.log(data);
     createCustomer({
       email: data.Email,
       password: data.Password,
@@ -43,9 +45,9 @@ export const RegisterationForm = () => {
   return (
     <FormProvider {...methods}>
       <form className="registration-form" onSubmit={(e) => e.preventDefault()} noValidate>
-        <Input label="First name" type="text" id="firstName" placeholder="First name"></Input>
-        <Input label="Last name" type="text" id="lastName" placeholder="Last name"></Input>
-        <Input label="Date of Birth" type="date" id="birthDate" placeholder="Date of Birth"></Input>
+        <Input label="First name" type="text" id="first-name" placeholder="First name"></Input>
+        <Input label="Last name" type="text" id="last-name" placeholder="Last name"></Input>
+        <Input label="Date of Birth" type="date" id="birthdate" placeholder="Date of Birth"></Input>
         <fieldset name="adress" className="adress">
           <legend>Shiping address</legend>
           <Input label="Street" type="text" id="street" placeholder="Street"></Input>
@@ -79,13 +81,13 @@ export const RegisterationForm = () => {
           <Input
             label="Street *billing"
             type="text"
-            id="streetBilling"
+            id="street-billing"
             placeholder="Street *billing"
           ></Input>
           <Input
             label="City *billing"
             type="text"
-            id="cityBilling"
+            id="city-billing"
             placeholder="City *billing"
           ></Input>
           <Input

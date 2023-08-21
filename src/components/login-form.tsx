@@ -8,8 +8,8 @@ import { Input } from './input';
 const LoginForm = () => {
   const [visibility, setVisibility] = useState(true);
   const methods = useForm({
-    mode: 'onSubmit',
-    reValidateMode: 'onSubmit',
+    mode: 'onChange',
+    reValidateMode: 'onChange',
   });
 
   const onSubmit = (data: FormInterface) => {
