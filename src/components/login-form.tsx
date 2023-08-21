@@ -6,6 +6,8 @@ import Login from '../api/userLogin.tsx';
 import { MAIN_ROUTE } from '../constants/pages.ts';
 import { UserDto } from '../interfaces/user.interface.ts';
 import { Input } from './input';
+import { useDispatch } from 'react-redux';
+import { authSuccess } from '../redux/authSlice.ts';
 
 const LoginForm = ({ openModal }: { openModal: (content: string) => void }) => {
   const [visibility, setVisibility] = useState<boolean>(true);
@@ -16,20 +18,12 @@ const LoginForm = ({ openModal }: { openModal: (content: string) => void }) => {
     reValidateMode: 'onChange',
   });
 
-  function handleModal(content: string): void {
-    openModal(content);
-  }
-
-  const redirect = (mess: string): void => {
-    handleModal(mess);
-    setTimeout((): void => {
-      navigate(MAIN_ROUTE);
-    }, 3000);
-  };
+  const dispatch = useDispatch();
 
   const onSubmit = async (data: UserDto): Promise<void> => {
     const isAuth = await Login(data);
-    isAuth && redirect('Вы успешно авторизованы!');
+    isAuth && dispatch(authSuccess({ isAuth: true }));
+    isAuth && navigate(MAIN_ROUTE);
   };
 
   useEffect((): void => {

@@ -1,10 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+import { userLogout } from '../api/userLogout.tsx';
 import { RouteInterface } from '../interfaces/route.interface.ts';
+import { RootState } from '../interfaces/state.interface.ts';
+import { authLogout } from '../redux/authSlice.ts';
 import { routesAuth, routesPages } from '../routes.tsx';
 
 const Header = ({ titlePage }: { titlePage: string }) => {
+  const dispatch = useDispatch();
   const [mobileMenuActive, setMobileMenuActive] = useState<boolean>(false);
 
   const showClassName = ({ isActive }: { isActive: boolean }): string => {
@@ -13,6 +18,20 @@ const Header = ({ titlePage }: { titlePage: string }) => {
 
   const showMobileMenu = () => {
     setMobileMenuActive(!mobileMenuActive);
+  };
+
+  const auth = useSelector((state: RootState) => state.auth);
+
+  const [logout, setLogout] = useState({ backgroundColor: '#000000' });
+
+  useEffect(() => {
+    const value = auth.isAuth ? { backgroundColor: '#ffffff' } : { backgroundColor: '#000000' };
+    setLogout(value);
+  }, [auth.isAuth]);
+
+  const checkLogout = () => {
+    dispatch(authLogout());
+    userLogout();
   };
 
   return (
@@ -54,6 +73,7 @@ const Header = ({ titlePage }: { titlePage: string }) => {
           </ul>
         </nav>
         <div className="login-registration">
+          <div className="logout" style={logout} onClick={checkLogout}></div>
           {routesAuth.map((route: RouteInterface) => (
             <NavLink
               key={route.name}
