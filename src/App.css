@@ -66,6 +66,18 @@ header {
   color: #2e3846;
 }
 
+.logout {
+  width: 20px;
+  height: 18px;
+  -webkit-mask-image: url(./assets/energy.svg);
+  mask-image: url(./assets/energy.svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  background-color: #000000;
+}
+
 .nav-list_item > a:hover,
 .header-link:hover {
   color: #fc8917;

@@ -46,7 +46,7 @@ class Client {
     if (credentials) {
       return (
         userClientBuilder
-          //.withProjectKey(projectKey)
+          .withProjectKey(projectKey)
           .withMiddleware(authMiddleware)
           //.withPasswordFlow(authMiddleware)
           .withHttpMiddleware(httpMiddlewareOptions)
