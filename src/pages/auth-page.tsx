@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { JSX } from 'react/jsx-runtime';
+import { NavLink } from 'react-router-dom';
+import { REG_ROUTE } from '../constants/pages.ts';
 
 import LoginForm from '../components/login-form.tsx';
 import { PageProps } from '../interfaces/page.interface.ts';
@@ -15,6 +17,9 @@ const AuthPage = ({ showName }: PageProps): JSX.Element => {
     <div className="auth-container">
       <h1>Login</h1>
       <LoginForm></LoginForm>
+      <NavLink key="SingUp" to={REG_ROUTE} className="btn" end>
+        Sing up
+      </NavLink>
     </div>
   );
 };

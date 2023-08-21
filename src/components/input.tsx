@@ -63,11 +63,13 @@ export const Input = ({ label, type, id, placeholder }: inputType) => {
       };
       break;
     case 'Street':
+    case 'Street *billing':
       validation = {
         required: { value: true, message: 'Must contain at least one character ' },
       };
       break;
     case 'City':
+    case 'City *billing':
       validation = {
         required: { value: true, message: 'Must contain at least one character' },
         pattern: { value: /^[A-Za-z\s]*$/, message: 'no special characters or numbers' },

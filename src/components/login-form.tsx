@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
+import Login from '../api/userLogin.tsx';
 import { FormInterface } from '../interfaces/form.interface.ts';
 import { Input } from './input';
+
 const LoginForm = () => {
   const [visibility, setVisibility] = useState(true);
   const methods = useForm({
@@ -11,7 +13,9 @@ const LoginForm = () => {
   });
 
   const onSubmit = (data: FormInterface) => {
-    console.log(data);
+    if (data.Email && data.Password) {
+      Login({ username: data.Email, password: data.Password });
+    }
   };
 
   const togglePasword = () => {
@@ -28,10 +32,10 @@ const LoginForm = () => {
           id="password"
           placeholder="Password"
         ></Input>
-        <button className="btn btn_toogle" onClick={togglePasword}>
+        <button type="button" className="btn btn_toogle" onClick={togglePasword}>
           {visibility ? 'Show' : 'Hide'} Password
         </button>
-        <button>Submit</button>
+        <button type="submit">Submit</button>
       </form>
     </FormProvider>
   );

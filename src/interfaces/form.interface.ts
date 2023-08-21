@@ -1,4 +1,4 @@
 export interface FormInterface {
-  email?: string;
-  password?: string;
+  Email?: string;
+  Password?: string;
 }
