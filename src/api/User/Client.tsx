@@ -46,7 +46,7 @@ class Client {
     if (credentials) {
       return (
         userClientBuilder
-          .withProjectKey(projectKey)
+          .withProjectKey('jsfe2023q1')
           .withMiddleware(authMiddleware)
           //.withPasswordFlow(authMiddleware)
           .withHttpMiddleware(httpMiddlewareOptions)

@@ -34,7 +34,6 @@ const LoginForm = ({ openModal }: { openModal: (content: string) => void }) => {
     const isAuth = await Login(data);
     isAuth && dispatch(authSuccess({ isAuth: true }));
     isAuth && redirect('Вы успешно авторизованы!');
-    isAuth && navigate(MAIN_ROUTE);
   };
 
   useEffect((): void => {

@@ -53,6 +53,26 @@ header {
 .header-link {
   text-decoration: none;
   color: #2e3846;
+  background-color: unset;
+}
+
+.header-link-auth {
+  width: 30px;
+  height: 30px;
+  text-decoration: none;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #acacac;
+  padding: 5px;
+  color: #006600;
+}
+
+.header-link-auth.active {
+  text-decoration: none;
+  background-color: #006600;
+  border: 1px solid white;
+  padding: 5px;
+  color: white;
 }
 
 .login-registration {
@@ -62,21 +82,38 @@ header {
   width: 160px;
   height: 30px;
   margin-left: auto;
-  background-color: #c4c4c4;
+  /*background-color: #c4c4c4;*/
   color: #2e3846;
 }
 
 .logout {
-  width: 20px;
-  height: 18px;
-  -webkit-mask-image: url(./assets/energy.svg);
-  mask-image: url(./assets/energy.svg);
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  background-color: #000000;
+  display: none;
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #acacac;
 }
+
+.logout.active {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.logout img {
+  cursor: pointer;
+}
+
+.signin {
+  display: none;
+}
+
+.signin.active {
+  display: block;
+}
+
+
 
 .nav-list_item > a:hover,
 .header-link:hover {

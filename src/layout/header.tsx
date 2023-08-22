@@ -3,31 +3,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import { userLogout } from '../api/userLogout.tsx';
+import loginImg from '../assets/login.svg';
+import { AUTH_ROUTE, REG_ROUTE } from '../constants/pages.ts';
 import { RouteInterface } from '../interfaces/route.interface.ts';
 import { RootState } from '../interfaces/state.interface.ts';
 import { authLogout } from '../redux/authSlice.ts';
-import { routesAuth, routesPages } from '../routes.tsx';
+import { routesPages } from '../routes.tsx';
 
 const Header = ({ titlePage }: { titlePage: string }) => {
   const dispatch = useDispatch();
   const [mobileMenuActive, setMobileMenuActive] = useState<boolean>(false);
 
+  const auth = useSelector((state: RootState) => state.auth);
+
   const showClassName = ({ isActive }: { isActive: boolean }): string => {
-    return isActive ? 'header-link active' : 'header-link';
+    return isActive ? 'header-link-auth active' : 'header-link-auth';
   };
 
   const showMobileMenu = () => {
     setMobileMenuActive(!mobileMenuActive);
   };
 
-  const auth = useSelector((state: RootState) => state.auth);
-
-  const [logout, setLogout] = useState({ backgroundColor: '#000000' });
-
-  useEffect(() => {
-    const value = auth.isAuth ? { backgroundColor: '#ffffff' } : { backgroundColor: '#000000' };
-    setLogout(value);
-  }, [auth.isAuth]);
+  useEffect(() => {}, [auth.isAuth]);
 
   const checkLogout = () => {
     dispatch(authLogout());
@@ -73,18 +70,31 @@ const Header = ({ titlePage }: { titlePage: string }) => {
           </ul>
         </nav>
         <div className="login-registration">
-          <div className="logout" style={logout} onClick={checkLogout}></div>
-          {routesAuth.map((route: RouteInterface) => (
+          <div className={auth.isAuth ? 'logout active' : 'logout'} onClick={checkLogout}>
+            <img src={loginImg} />
+          </div>
+          <div className={auth.isAuth ? 'signin' : 'signin active'}>
             <NavLink
-              key={route.name}
-              to={route.path}
+              key={AUTH_ROUTE}
+              to={AUTH_ROUTE}
               className={showClassName}
               onClick={() => setMobileMenuActive(false)}
               end
             >
-              {route.name}
+              Sign In
             </NavLink>
-          ))}
+          </div>
+          <div className="signup">
+            <NavLink
+              key={REG_ROUTE}
+              to={REG_ROUTE}
+              className={showClassName}
+              onClick={() => setMobileMenuActive(false)}
+              end
+            >
+              Sign UP
+            </NavLink>
+          </div>
         </div>
       </div>
     </header>
