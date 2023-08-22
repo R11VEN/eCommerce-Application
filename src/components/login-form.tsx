@@ -1,24 +1,34 @@
 import { MouseEvent, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import Login from '../api/userLogin.tsx';
 import { MAIN_ROUTE } from '../constants/pages.ts';
 import { UserDto } from '../interfaces/user.interface.ts';
-import { Input } from './input';
-import { useDispatch } from 'react-redux';
 import { authSuccess } from '../redux/authSlice.ts';
+import { Input } from './input';
 
 const LoginForm = ({ openModal }: { openModal: (content: string) => void }) => {
   const [visibility, setVisibility] = useState<boolean>(true);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const methods = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
   });
 
-  const dispatch = useDispatch();
+  function handleModal(content: string): void {
+    openModal(content);
+  }
+
+  const redirect = (mess: string): void => {
+    handleModal(mess);
+    setTimeout((): void => {
+      navigate(MAIN_ROUTE);
+    }, 3000);
+  };
 
   const onSubmit = async (data: UserDto): Promise<void> => {
     const isAuth = await Login(data);
