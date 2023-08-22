@@ -193,8 +193,7 @@ main {
   padding: 10px;
 }
 
-.adress > input
-.adress-billing > input {
+.adress > input .adress-billing > input {
   width: auto;
 }
 
