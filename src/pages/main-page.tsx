@@ -12,7 +12,7 @@ const MainPage = ({ showName }: PageProps): JSX.Element => {
   };
 
   useEffect((): void => {
-    showName && showName('High Voltage');
+    showName && showName('Main Page');
   }, []);
 
   const createRoute = (route: RouteInterface) => {
