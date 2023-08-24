@@ -19,21 +19,17 @@ const LoginForm = ({ openModal }: { openModal: (content: string) => void }) => {
     reValidateMode: 'onChange',
   });
 
-  function handleModal(content: string): void {
-    openModal(content);
-  }
-
   const redirect = (mess: string): void => {
-    handleModal(mess);
+    openModal(mess);
     setTimeout((): void => {
       navigate(MAIN_ROUTE);
-    }, 3000);
+    }, 2000);
   };
 
   const onSubmit = async (data: UserDto): Promise<void> => {
     const isAuth = await Login(data);
     isAuth && dispatch(authSuccess({ isAuth: true }));
-    isAuth && navigate(MAIN_ROUTE);
+    isAuth && redirect('Вы успешно авторизованы!');
   };
 
   useEffect((): void => {

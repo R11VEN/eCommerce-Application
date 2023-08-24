@@ -11,6 +11,21 @@ export const routesPages: RouteInterface[] = [
     path: MAIN_ROUTE,
     Component: ({ showPageName }) => <MainPage showName={showPageName} />,
   },
+  {
+    name: 'Catalog',
+    path: '#',
+    Component: () => <></>,
+  },
+  {
+    name: 'Reference',
+    path: '#',
+    Component: () => <></>,
+  },
+  {
+    name: 'About Us',
+    path: '#',
+    Component: () => <></>,
+  },
 ];
 
 export const routesAuth: RouteInterface[] = [

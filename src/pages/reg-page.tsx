@@ -16,7 +16,7 @@ const RegPage = ({ showName }: PageProps): JSX.Element => {
 
   useEffect(() => {
     showName && showName(name);
-  }, [showName]);
+  }, []);
 
   function handleModal(content: string) {
     setModal(true);
