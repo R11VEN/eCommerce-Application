@@ -1,29 +1,17 @@
 import { useFormContext } from 'react-hook-form';
 
-import inputType from '../types/types';
+import { inputType } from '../interfaces/form.interface.ts';
 import { InputError } from './inputError';
-export const Input = ({ label, type, id, placeholder }: inputType) => {
+
+export const Input = ({ label, type, id, placeholder, isDisable }: inputType) => {
   const {
     register,
     formState: { errors },
   } = useFormContext();
-  function findInputError(errors, name: string) {
-    return Object.keys(errors)
-      .filter((key) => key.includes(name))
-      .reduce((cur, key) => {
-        return Object.assign(cur, { error: errors[key] });
-      }, {});
-  }
 
-  function isFormInvalid(err) {
-    if (Object.keys(err).length > 0) return true;
-    return false;
-  }
-  const inputError = findInputError(errors, label);
-  const isInvalid = isFormInvalid(inputError);
   let validation;
-  switch (label) {
-    case 'Email':
+  switch (id) {
+    case 'email':
       validation = {
         required: { value: true, message: 'required' },
         pattern: {
@@ -33,7 +21,7 @@ export const Input = ({ label, type, id, placeholder }: inputType) => {
         },
       };
       break;
-    case 'Password':
+    case 'password':
       validation = {
         required: { value: true, message: 'required' },
         minLength: { value: 8, message: 'Password must be at least 8 characters long.' },
@@ -44,30 +32,32 @@ export const Input = ({ label, type, id, placeholder }: inputType) => {
         },
       };
       break;
-    case 'First name':
-    case 'Last name':
+    case 'first-name':
+    case 'last-name':
       validation = {
         required: { value: true, message: 'required' },
         pattern: {
-          value: /[A-Z-a-z]/,
+          value: /^[a-zA-Z]+$/,
           message: 'Must contain at least one character and no special characters or numbers ',
         },
       };
       break;
-    case 'Date of Birth':
+    case 'birthdate':
       validation = {
         required: { value: true, message: 'required' },
         validate: (v: string) =>
-          new Date().getFullYear() - new Date(v).getFullYear() > 13 ||
+          Math.abs(new Date(Date.now() - new Date(v).getTime()).getUTCFullYear() - 1970) >= 13 ||
           'You must be older than 13 years',
       };
       break;
-    case 'Street':
+    case 'street':
+    case 'street-billing':
       validation = {
         required: { value: true, message: 'Must contain at least one character ' },
       };
       break;
-    case 'City':
+    case 'city':
+    case 'city-billing':
       validation = {
         required: { value: true, message: 'Must contain at least one character' },
         pattern: { value: /^[A-Za-z\s]*$/, message: 'no special characters or numbers' },
@@ -76,13 +66,18 @@ export const Input = ({ label, type, id, placeholder }: inputType) => {
     default:
       break;
   }
+  const error = errors && errors[id];
+  const message = error?.message?.toString() as string;
+
   return (
     <>
       <label htmlFor={id}>{label}</label>
-      <input id={id} type={type} placeholder={placeholder} {...register(label, validation)} />
-      {isInvalid && (
-        <InputError message={inputError.error.message} key={inputError.error.message} />
+      {isDisable ? (
+        <input id={id} type={type} placeholder={placeholder} disabled={isDisable} />
+      ) : (
+        <input id={id} type={type} placeholder={placeholder} {...register(id, validation)} />
       )}
+      {message && <InputError message={message} key={`message-${id}`} />}
     </>
   );
 };

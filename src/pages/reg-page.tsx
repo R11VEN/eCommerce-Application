@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { JSX } from 'react/jsx-runtime';
 
+import Modal from '../components/Modal.tsx';
+import { RegistrationForm } from '../components/registration-form.tsx';
 import { PageProps } from '../interfaces/page.interface.ts';
-import RegisterationForm from '../components/registration-form.tsx';
 
 export interface IPageProps {
   showPageName?: (name: string) => void;
@@ -10,18 +11,26 @@ export interface IPageProps {
 
 const RegPage = ({ showName }: PageProps): JSX.Element => {
   const name: string = 'Registration';
+  const [modal, setModal] = useState<boolean>(false);
+  const [content, setContent] = useState<string>('');
 
   useEffect(() => {
     showName && showName(name);
-  }, [showName]);
+  }, []);
+
+  function handleModal(content: string) {
+    setModal(true);
+    setContent(content);
+  }
 
   return (
-    <main className="reg-page">
-      <div className="main-container">
-        <h1>Registration</h1>
-        <RegisterationForm></RegisterationForm>
-      </div>
-    </main>
+    <div className="reg-container">
+      <h1>Registration</h1>
+      <RegistrationForm openModal={handleModal}></RegistrationForm>
+      <Modal visible={modal} setDisplay={setModal}>
+        {content && content}
+      </Modal>
+    </div>
   );
 };
 

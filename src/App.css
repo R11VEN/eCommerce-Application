@@ -1,22 +1,15 @@
+* {
+  box-sizing: border-box;
+}
+
 #root {
   margin: 0 auto;
-}
-
-.pages {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-}
-
-header {
-  height: 80px;
-  border-bottom: #127627 1px solid;
+  width: 100%;
 }
 
 .header-container,
 .footer-container,
-.main-container {
+.page-container {
   display: flex;
   max-width: 1280px;
   height: 100%;
@@ -24,18 +17,55 @@ header {
   padding: 0 20px;
 }
 
+/*---------------------------------header-----------------------*/
+header {
+  border-bottom: #127627 1px solid;
+}
+
+.bread-camps {
+  position: absolute;
+  bottom: -25px;
+  height: 25px;
+  font-size: 14px;
+}
+
 .header-container {
+  position: relative;
+  display: flex;
+  height: 80px;
   align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  align-content: center;
+  flex-wrap: nowrap;
+}
+
+.logo-container {
+  display: flex;
+  flex-grow: 0;
+  align-items: center;
+}
+
+.nav-container {
+  display: flex;
+  flex-grow: 0;
 }
 
 .logo {
   margin: 0;
-  color: #105F20;
+  color: #105f20;
+  padding-right: 10px;
+  transition: font-size 0.3s;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .nav-list {
   display: flex;
-  width: 400px;
   justify-content: space-between;
   margin: 0;
 }
@@ -47,27 +77,75 @@ header {
 .nav-list_item > a,
 .header-link {
   text-decoration: none;
-  color: #2E3846;
+  color: #2e3846;
+  background-color: unset;
+}
+
+.header-link-auth {
+  text-decoration: none;
+  color: dimgray;
+  padding: 5px;
+  display: flex;
+  vertical-align: middle;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-link-auth.active {
+  color: #FC8917;
+}
+
+.header-link-auth.active img {
+  color: #FC8917;
 }
 
 .login-registration {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  width: 160px;
   height: 30px;
   margin-left: auto;
-  background-color: #C4C4C4;
-  color: #2E3846;
+  /*background-color: #c4c4c4;*/
+  color: #2e3846;
 }
+
+.logout {
+  margin: 3px;
+  cursor: pointer;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #acacac;
+}
+
+.logout img {
+  cursor: pointer;
+}
+
+.signin {
+  margin: 3px;
+  display: block;
+  cursor: pointer;
+}
+
+.signup {
+  margin: 3px;
+  display: block;
+  cursor: pointer;
+}
+
 
 .nav-list_item > a:hover,
 .header-link:hover {
-  color: #FC8917;
+  color: #fc8917;
 }
 
 .header-link.active {
-  color: #FC8917;
+  color: #fc8917;
 }
 
 #burger-checkbox {
@@ -85,14 +163,7 @@ header {
   cursor: pointer;
 }
 
-#burger-checkbox:checked ~ .nav {
-  transform: translateX(0);
-  transition: transform 0.5s;
-}
-
-main {
-  flex-grow: 5;
-}
+/*---------------------------------main-page-----------------------*/
 
 .main-link-container {
   display: flex;
@@ -109,37 +180,42 @@ main {
 }
 
 .main-container {
+  display: flex;
   align-items: center;
   flex-direction: column;
 }
 
-footer {
-  height: 160px;
-  background-color: #127627;
-}
+/*---------------------------------auth-page-----------------------*/
 
-.footer-container {
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   align-items: center;
-  justify-content: center;
-}
-
-.footer-logo {
-  color: #ffffff;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
   width: 300px;
-  gap: 5px
+  gap: 5px;
 }
 
 .login-form > input {
   border: 1px solid #127627;
 }
 
-.login-form > input[type="submit"] {
+.login-form > input[type='submit'] {
   margin-top: 10px;
+}
+
+/*---------------------------------reg-page-----------------------*/
+
+.reg-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
 }
 
 .registration-form {
@@ -155,19 +231,45 @@ footer {
   align-items: center;
 }
 
-.registration-form > input[type="submit"] {
+.registration-form > input[type='submit'] {
   margin-top: 10px;
 }
 
-.adress {
+.adress,
+.adress-billing {
   display: flex;
   flex-direction: column;
   gap: 5px;
   padding: 10px;
 }
 
-.adress > input {
+.adress > input .adress-billing > input {
   width: auto;
+}
+
+.different-shipping-address-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#Set-different-shipping-address:checked ~ .adress-billing {
+  display: flex;
+}
+
+/*---------------------------------footer-----------------------*/
+
+footer {
+  height: 160px;
+  background-color: #127627;
+}
+
+.footer-container {
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-logo {
+  color: #ffffff;
 }
 
 .error-page {
@@ -177,38 +279,42 @@ footer {
   align-items: center;
   height: 100%;
 }
-.error-heading{
+
+.error-heading {
   margin: 0;
   padding: 0;
-  color:rgb(255, 13, 0);
-  font-size:8rem;
+  color: rgb(255, 13, 0);
+  font-size: 8rem;
 }
+
 .error-parag,
-.btn{
-  font-size:2rem;
-  color:#2E3846;
+.btn {
+  font-size: 2rem;
+  color: #2e3846;
 }
 .btn {
   padding: 10px 15px;
   display: block;
   border-radius: 5px;
-  border:none;
-  color:#ffffff;
+  border: none;
+  color: #ffffff;
   text-decoration: none;
-  background-color: #105F20;
+  background-color: #105f20;
   cursor: pointer;
-  opacity:0.9;
+  opacity: 0.9;
 }
 
 .btn:hover {
   opacity: 1;
 }
+
 .btn_toogle {
   font-size: 0.7rem;
   padding: 5px;
   width: fit-content;
   background-color: rgb(25, 103, 103);
 }
+
 .input_error {
   color: rgb(255, 33, 33);
 }
@@ -221,15 +327,21 @@ footer {
     display: block;
   }
   .nav {
+    display: flex;
+    flex-direction: column;
     position: fixed;
     top: 80px;
-    right: 0;
-    height: calc(100vh - 240px);
+    right: -100%;
+    height: 100%;
     background-color: #127627;
     font-size: 1.5rem;
     opacity: 0.9;
-    transform: translateX(100%);
-    transition: transform 0.5s;
+    transition: right 0.5s;
+    z-index: 1;
+  }
+  .nav.active {
+    right: 0%;
+    min-width: 160px;
   }
   .nav-list {
     flex-direction: column;
@@ -247,14 +359,5 @@ footer {
   }
   .nav-list_item > a {
     color: #ffffff;
-  }
-}
-
-@keyframes side-menu {
-  form {
-    right: -100%;
-  }
-  to {
-    right: 0;
   }
 }
