@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { AuthState, RootState } from './interfaces/state.interface.ts';
 import Layout from './layout/Layout.tsx';
+import { CatalogPage } from './pages/catalog-page.tsx';
 
 const App = () => {
   const auth: AuthState = useSelector((state: RootState) => state.auth);
