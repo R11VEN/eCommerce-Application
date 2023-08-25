@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { PageProps } from '../interfaces/page.interface.ts';
 import { RouteInterface } from '../interfaces/route.interface.ts';
 import { routerPagesAndAuth } from '../routes.tsx';
+import { CatalogPage } from './catalog-page.tsx';
 
 const MainPage = ({ showName }: PageProps): JSX.Element => {
   const showClassName = ({ isActive }: { isActive: boolean }): string => {
@@ -29,6 +30,7 @@ const MainPage = ({ showName }: PageProps): JSX.Element => {
   return (
     <div className="main-container" key="main-page">
       <h1 key="h1-main-page">I am Main Page</h1>
+      <CatalogPage></CatalogPage>
       {routerPagesAndAuth.map(createRoute)}
     </div>
   );
