@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import { userLogout } from '../api/userLogout.tsx';
-import loginImg from '../assets/login.svg';
+import loginImg from '../assets/lock_white.svg';
 import logoutImg from '../assets/logout.svg';
 import { AUTH_ROUTE, REG_ROUTE } from '../constants/pages.ts';
 import { RootState } from '../interfaces/state.interface.ts';
+import classes from '../layout/layout.module.css';
 import { authLogout } from '../redux/authSlice.ts';
 import Modal from './Modal.tsx';
 
@@ -44,7 +45,7 @@ const NavAuth = ({ setMobileMenuActive }: INav) => {
           <img src={logoutImg} title="Logout" alt="Logout" />
         </div>
       ) : (
-        <div className={'signin'}>
+        <div className={classes['tool-icon'] + ' ' + classes['tool-green']}>
           <NavLink
             key={AUTH_ROUTE}
             to={AUTH_ROUTE}
