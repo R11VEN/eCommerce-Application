@@ -4,7 +4,6 @@ import Router from '../components/Router.tsx';
 import Footer from './Footer.tsx';
 import Header from './Header.tsx';
 import classes from './layout.module.css';
-import { CatalogPage } from '../pages/catalog-page.tsx';
 
 const Layout = () => {
   const [title, setTitle] = useState<string>('');
