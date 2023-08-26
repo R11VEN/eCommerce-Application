@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { PAGE_404 } from '../constants/pages';
 import { RouteInterface, RouterProps } from '../interfaces/route.interface.ts';
 import { routesAll } from '../routes.tsx';
+import { DetailedProductPage } from '../pages/detailedProductPage.tsx';
 
 const AppRouter = ({ showPageName }: RouterProps) => {
   const renderRoutes = (route: RouteInterface) => {

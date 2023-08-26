@@ -4,7 +4,7 @@ export const CatalogPage = () => {
   return (
     <>
       <div className="cards-container">
-        <Card title="Product A" price={25} />
+        <Card title="Product A" price={25} id={5} />
       </div>
     </>
   );
