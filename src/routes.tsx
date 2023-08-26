@@ -54,6 +54,6 @@ export const routesAll: RouteInterface[] = [
   {
     name: 'Detailed Product Page',
     path: PRODUCT_ROUTE + '/:id',
-    Component: ({ showPageName }) => <DetailedProductPage />,
+    Component: () => <DetailedProductPage />,
   },
 ];
