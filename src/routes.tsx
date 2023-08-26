@@ -1,4 +1,11 @@
-import { AUTH_ROUTE, MAIN_ROUTE, PAGE_404, REG_ROUTE } from './constants/pages.ts';
+import {
+  AUTH_ROUTE,
+  BASKET_ROUTE,
+  MAIN_ROUTE,
+  PAGE_404,
+  REG_ROUTE,
+  USER_ROUTE,
+} from './constants/pages.ts';
 import { RouteInterface } from './interfaces/route.interface.ts';
 import AuthPage from './pages/auth-page.tsx';
 import BasketPage from './pages/basketPage.tsx';
@@ -49,12 +56,12 @@ export const routesAll: RouteInterface[] = [
   ...routerPagesAndAuth,
   {
     name: 'Корзина',
-    path: PAGE_404,
+    path: BASKET_ROUTE,
     Component: ({ showPageName }) => <BasketPage showName={showPageName} />,
   },
   {
     name: 'Персональная страница',
-    path: PAGE_404,
+    path: USER_ROUTE,
     Component: ({ showPageName }) => <UserPage showName={showPageName} />,
   },
   {

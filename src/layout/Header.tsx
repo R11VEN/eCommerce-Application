@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import BreadCamps from '../components/BreadCamps.tsx';
+import MenuProfile from '../components/MenuProfile.tsx';
 import NavAuth from '../components/NavAuth.tsx';
 import NavBar from '../components/NavBar.tsx';
 import Tools from '../components/Tools.tsx';
@@ -8,7 +9,7 @@ import classes from './layout.module.css';
 
 const Header = ({ titlePage }: { titlePage: string }) => {
   const [mobileMenuActive, setMobileMenuActive] = useState<boolean>(false);
-
+  const [visible, setVisible] = useState<boolean>(false);
   const showMobileMenu = () => {
     setMobileMenuActive(!mobileMenuActive);
   };
@@ -23,9 +24,14 @@ const Header = ({ titlePage }: { titlePage: string }) => {
         </div>
         <div className={classes['tools-container']}>
           <Tools />
-          <NavAuth setMobileMenuActive={setMobileMenuActive} />
+          <NavAuth
+            setMobileMenuActive={setMobileMenuActive}
+            menuProfileVisible={visible}
+            showMenuProfile={setVisible}
+          />
         </div>
         <BreadCamps titlePage={titlePage} />
+        <MenuProfile visible={visible} onVisible={setVisible} />
       </div>
     </header>
   );

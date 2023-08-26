@@ -46,8 +46,6 @@ header {
   align-items: center;
 }
 
-
-
 .logo {
   margin: 0;
   color: #105f20;
@@ -89,11 +87,11 @@ header {
 }
 
 .header-link-auth.active {
-  color: #FC8917;
+  color: #fc8917;
 }
 
 .header-link-auth.active img {
-  color: #FC8917;
+  color: #fc8917;
 }
 
 .login-registration {
@@ -134,7 +132,6 @@ header {
   display: block;
   cursor: pointer;
 }
-
 
 .nav-list_item > a:hover,
 .header-link:hover {
@@ -192,10 +189,16 @@ header {
 }
 
 .login-form {
+  opacity: 1;
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 300px;
   gap: 5px;
+}
+
+.login-form.loading {
+  opacity: 0.5;
 }
 
 .login-form > input {
@@ -371,5 +374,29 @@ footer {
   }
   .nav-list_item > a {
     color: #ffffff;
+  }
+}
+
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 48px;
+  height: 48px;
+  border: 5px solid #FFF;
+  border-bottom-color: #FF3D00;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

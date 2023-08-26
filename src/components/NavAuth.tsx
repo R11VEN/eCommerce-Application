@@ -1,47 +1,34 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { userLogout } from '../api/userLogout.tsx';
 import loginImg from '../assets/lock_white.svg';
 import logoutImg from '../assets/logout.svg';
 import { AUTH_ROUTE, REG_ROUTE } from '../constants/pages.ts';
 import { RootState } from '../interfaces/state.interface.ts';
 import classes from '../layout/layout.module.css';
-import { authLogout } from '../redux/authSlice.ts';
-import Modal from './Modal.tsx';
 
 export interface INav {
   mobileMenuActive?: boolean;
   setMobileMenuActive: (value: boolean) => void;
+  menuProfileVisible?: boolean;
+  showMenuProfile?: (value: boolean) => void;
 }
 
-const NavAuth = ({ setMobileMenuActive }: INav) => {
-  const dispatch = useDispatch();
+const NavAuth = ({ setMobileMenuActive, menuProfileVisible, showMenuProfile }: INav) => {
   const auth = useSelector((state: RootState) => state.auth);
-  const [isModal, setIsModal] = useState<boolean>(false);
 
   const showClassName = ({ isActive }: { isActive: boolean }): string => {
     return isActive ? 'header-link-auth active' : 'header-link-auth';
   };
 
-  const checkLogout = () => {
-    if (!window.confirm('Вы уверены, что хотите выйти?')) return;
-    dispatch(authLogout());
-    userLogout();
-    setIsModal(true);
-    setTimeout(() => {
-      setIsModal(false);
-    }, 2000);
-  };
-
   return (
     <div className="login-registration">
-      <Modal visible={isModal} setDisplay={setIsModal}>
-        {'Вы вышли!'}
-      </Modal>
       {auth.isAuth ? (
-        <div className={'logout'} onClick={checkLogout}>
+        <div
+          className={'logout'}
+          // onClick={checkLogout}
+          onClick={() => showMenuProfile && showMenuProfile(!menuProfileVisible)}
+        >
           <img src={logoutImg} title="Logout" alt="Logout" />
         </div>
       ) : (
