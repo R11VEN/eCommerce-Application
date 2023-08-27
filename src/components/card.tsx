@@ -3,7 +3,17 @@ import { NavLink } from 'react-router-dom';
 import { PRODUCT_ROUTE } from '../constants/pages';
 import classes from '../css/ui.module.css';
 
-export const Card = ({ title, price, url, id }: { title: string; price: number; url: string; id: number }) => {
+export const Card = ({
+  title,
+  price,
+  url,
+  id,
+}: {
+  title: string;
+  price: number;
+  url: string;
+  id: string;
+}) => {
   return (
     <NavLink to={`${PRODUCT_ROUTE}/${id}`}>
       <div className={classes.card}>

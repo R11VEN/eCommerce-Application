@@ -27,6 +27,7 @@ export const CatalogPage = () => {
             return (
               <Card
                 key={item.id}
+                id={item.id}
                 url={item.masterData.current.masterVariant.images[0].url}
                 title={item.masterData.current.name['ru-BY']}
                 price={item.masterData.current.masterVariant.prices[0].value.centAmount}
