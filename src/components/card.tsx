@@ -1,8 +1,7 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { PRODUCT_ROUTE } from '../constants/pages';
-import { DetailedProductPage } from '../pages/detailedProductPage';
-import classes from './css/ui.module.css';
+import classes from '../css/ui.module.css';
 
 export const Card = ({ title, price, id }: { title: string; price: number; id: number }) => {
   return (
