@@ -1,6 +1,6 @@
 import { UserDto } from '../interfaces/user.interface.ts';
 import { apiRootPass, projectKey } from './BuildClientPassword';
-import { apiRootExistingToken } from './BuildClientToken';
+import { apiRootExistingToken } from './BuildClientToken.tsx';
 import { tokenCache } from './tokenCache';
 //import { useDispatch } from 'react-redux';
 
@@ -10,7 +10,6 @@ const Login = async ({ email, password }: UserDto) => {
     console.log('Вход уже выполнен!');
     return true;
   }
-
   try {
     email &&
       password &&

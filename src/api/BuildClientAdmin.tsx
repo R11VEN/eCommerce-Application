@@ -6,7 +6,7 @@ import {
   HttpMiddlewareOptions,
 } from '@commercetools/sdk-client-v2';
 
-const projectKey = import.meta.env.VITE_CTP_PROJECT_KEY || 'jsfe2023q1';
+const projectKey = 'jsfe2023q1';
 const authMiddlewareOptions: AuthMiddlewareOptions = {
   host: 'https://auth.europe-west1.gcp.commercetools.com',
   projectKey,
@@ -30,6 +30,6 @@ export const client: Client = new ClientBuilder()
   //.withLoggerMiddleware()
   .build();
 
-const getApiRoot = createApiBuilderFromCtpClient(client).withProjectKey(projectKey);
+const getApiRoot = createApiBuilderFromCtpClient(client).withProjectKey({ projectKey: projectKey });
 
 export { getApiRoot, projectKey };
