@@ -42,7 +42,7 @@ header {
 
 .logo-container {
   display: flex;
-  flex-grow: 0;
+  flex-grow: 1;
   align-items: center;
 }
 
@@ -66,6 +66,7 @@ header {
 
 .nav-list {
   display: flex;
+  width: 400px;
   justify-content: space-between;
   margin: 0;
 }
@@ -92,11 +93,11 @@ header {
 }
 
 .header-link-auth.active {
-  color: #FC8917;
+  color: #fc8917;
 }
 
 .header-link-auth.active img {
-  color: #FC8917;
+  color: #fc8917;
 }
 
 .login-registration {
@@ -137,7 +138,6 @@ header {
   display: block;
   cursor: pointer;
 }
-
 
 .nav-list_item > a:hover,
 .header-link:hover {
@@ -319,7 +319,7 @@ footer {
   color: rgb(255, 33, 33);
 }
 
-@media (max-width: 920px) {
+@media (max-width: 768px) {
   .logo {
     font-size: 1.5rem;
   }
