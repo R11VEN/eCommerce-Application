@@ -49,18 +49,26 @@
   flex-wrap: wrap;
   justify-content: center;
 }
-
+.cardlink{
+  text-decoration: none;
+}
 .card {
   padding: 5px;
   width: 250px;
   height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color:#000000;
   border-radius: 5px;
   border: 1px solid green;
   background-color: antiquewhite;
+  overflow: hidden ;
 }
 
 .card:hover {
-  transform: scale(1.1);
+  transform: scale(1.03);
   box-shadow: 2px 2px 5px rgb(93, 129, 93);
   background-color: rgb(225, 185, 131);
   transition: all 0.3s ease-in-out;
@@ -69,4 +77,36 @@
 
 .card__img {
   width: 60%;
+  min-height: 0;
+}
+
+.description{
+  padding: 15px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.title,
+.price,
+.carddescription
+ {
+  margin: 0;
+  padding: 0;
+}
+.classes.pricecontainer{
+  display: flex;
+  flex-direction: column;
+}
+.price,
+.discountprice {
+  font-size: 1.3rem;
+}
+.discountprice{
+  font-weight: 500;
+  color:rgba(255, 0, 76, 0.888);
+}
+.discount {
+  text-decoration: line-through;
 }

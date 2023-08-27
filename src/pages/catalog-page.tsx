@@ -19,6 +19,7 @@ export const CatalogPage = () => {
     <>
       <div className={classes.cardsContainer}>
         {products?.results.map((item) => {
+          console.log('item', item);
           if (
             item.masterData.current.masterVariant.prices &&
             item.masterData.published &&
@@ -31,6 +32,8 @@ export const CatalogPage = () => {
                 url={item.masterData.current.masterVariant.images[0].url}
                 title={item.masterData.current.name['ru-BY']}
                 price={item.masterData.current.masterVariant.prices[0].value.centAmount}
+                discounted={1}
+                description={item.masterData.current.description['ru-BY']}
               />
             );
           }
