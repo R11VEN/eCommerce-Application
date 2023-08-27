@@ -11,6 +11,7 @@ export const Card = ({ title, price, url, id }: { title: string; price: number; 
         <div className="description">
           <h2 className="card__title">{title}</h2>
           <p className="card__price">{price}</p>
+        </div>
       </div>
     </NavLink>
   );
