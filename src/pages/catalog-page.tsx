@@ -2,9 +2,9 @@ import { ProductPagedQueryResponse } from '@commercetools/platform-sdk';
 import { useCallback, useEffect, useState } from 'react';
 
 import Products from '../api/productsGet.tsx';
+import { Button } from '../components/button.tsx';
 import { Card } from '../components/card.tsx';
 import classes from '../css/ui.module.css';
-import { Button } from '../components/button.tsx';
 
 export const CatalogPage = () => {
   const [products, setProducts] = useState<ProductPagedQueryResponse>();
@@ -23,11 +23,12 @@ export const CatalogPage = () => {
           if (
             item.masterData.current.masterVariant.prices &&
             item.masterData.published &&
-            item.masterData.current.masterVariant.images
+            item.masterData.current.masterVariant.images &&
+            item.masterData.current.description
           ) {
             return (
               <Card
-                key={item.id}
+                uniqueKey={item.id}
                 id={item.id}
                 url={item.masterData.current.masterVariant.images[0].url}
                 title={item.masterData.current.name['ru-BY']}
