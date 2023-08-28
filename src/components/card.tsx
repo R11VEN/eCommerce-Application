@@ -12,7 +12,7 @@ export const Card = ({
   url,
   id,
 }: {
-  key: number;
+  key: string;
   title: string;
   price: number;
   discounted: number;
@@ -23,12 +23,12 @@ export const Card = ({
   return (
     <NavLink className={classes.cardlink} to={`${PRODUCT_ROUTE}/${id}`}>
       <div className={classes.card}>
-       <img className={classes.card__img} src={url} alt={title} />
+        <img className={classes.card__img} src={url} alt={title} />
         <div className={classes.description}>
           <h2 className={classes.title}>{title}</h2>
           <div className={classes.pricecontainer}>
-          <p className={`${classes.price} ${discounted && classes.discount}`}>Price:{price}</p>
-           { discounted ? <p className={classes.discountprice}>Discounted:{discounted}</p> : '' } 
+            <p className={`${classes.price} ${discounted && classes.discount}`}>Price:{price}</p>
+            {discounted ? <p className={classes.discountprice}>Discounted:{discounted}</p> : ''}
           </div>
           <p className={classes.carddescription}>{description}</p>
         </div>

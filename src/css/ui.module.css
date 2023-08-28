@@ -76,7 +76,7 @@
 }
 
 .card__img {
-  width: 60%;
+  width: 70%;
   min-height: 0;
 }
 
@@ -109,4 +109,29 @@
 }
 .discount {
   text-decoration: line-through;
+}
+
+.btncontainer{
+  display: flex;
+  gap: 5px;
+  width: fit-content;
+  margin: auto;
+}
+
+.button {
+  padding: 5px;
+  display: block;
+  text-decoration: none;
+  color: black ;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.button:hover{
+  color: green;
+}
+
+.button.active{
+  background-color: red;
+  border:1px solid black;
 }

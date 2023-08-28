@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import Products from '../api/productsGet.tsx';
 import { Card } from '../components/card.tsx';
 import classes from '../css/ui.module.css';
+import { Button } from '../components/button.tsx';
 
 export const CatalogPage = () => {
   const [products, setProducts] = useState<ProductPagedQueryResponse>();
@@ -19,7 +20,6 @@ export const CatalogPage = () => {
     <>
       <div className={classes.cardsContainer}>
         {products?.results.map((item) => {
-          console.log('item', item);
           if (
             item.masterData.current.masterVariant.prices &&
             item.masterData.published &&
@@ -38,6 +38,11 @@ export const CatalogPage = () => {
             );
           }
         })}
+      </div>
+      <div className={classes.btncontainer}>
+        <Button>1</Button>
+        <Button>2</Button>
+        <Button>3</Button>
       </div>
     </>
   );
