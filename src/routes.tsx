@@ -1,12 +1,17 @@
 import {
   AUTH_ROUTE,
+  CAT_ROUTE,
   BASKET_ROUTE,
   MAIN_ROUTE,
   PAGE_404,
+  PRODUCT_ROUTE,
   REG_ROUTE,
   USER_ROUTE,
 } from './constants/pages.ts';
 import { RouteInterface } from './interfaces/route.interface.ts';
+import { CatalogPage } from './pages/catalog-page.tsx';
+import { DetailedProductPage } from './pages/detailedProductPage.tsx';
+
 import AuthPage from './pages/authPage.tsx';
 import BasketPage from './pages/basketPage.tsx';
 import MainPage from './pages/main-page.tsx';
@@ -22,8 +27,8 @@ export const routesPages: RouteInterface[] = [
   },
   {
     name: 'Catalog',
-    path: '#',
-    Component: () => <></>,
+    path: CAT_ROUTE,
+    Component: () => <CatalogPage />,
   },
   {
     name: 'Reference',
@@ -68,5 +73,10 @@ export const routesAll: RouteInterface[] = [
     name: 'Page 404',
     path: PAGE_404,
     Component: ({ showPageName }) => <Page404 showName={showPageName} />,
+  },
+  {
+    name: 'Detailed Product Page',
+    path: PRODUCT_ROUTE + '/:id',
+    Component: () => <DetailedProductPage />,
   },
 ];
