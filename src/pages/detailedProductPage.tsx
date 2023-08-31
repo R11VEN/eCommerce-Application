@@ -1,24 +1,34 @@
+import { Product } from '@commercetools/platform-sdk';
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Product from '../api/productGet';
-import classes from '../css/ui.module.css';
+
+import ProductItem from '../api/productGet';
 import { Slider } from '../components/slider';
+import classes from '../css/ui.module.css';
 export const DetailedProductPage = () => {
   const { id } = useParams() as { id: string };
   let name, description, price, img;
-  const [product, setProduct] = useState<Product>();
+  name = description = price = img = '';
+  const [item, setProduct] = useState<Product>();
   const getProduct = useCallback(async () => {
-    const product = new Product();
-    await product.getProduct({ ID: id }).then((body) => setProduct(body?.body));
-  }, []);
+    const product = new ProductItem();
+    await product.getProduct(id).then((body) => {
+      setProduct(body?.body);
+    });
+  }, [id]);
   useEffect(() => {
     getProduct();
   }, [getProduct]);
-  if (product) {
-    name = product.masterData.current.name['ru-BY'];
-    price = product.masterData.current.masterVariant.prices[0].value.centAmount;
-    description = product.masterData.current.description['ru-BY'];
-    img = product.masterData.current.masterVariant.images[0].url;
+  if (
+    item &&
+    item.masterData.current.masterVariant.prices &&
+    item.masterData.current.description &&
+    item.masterData.current.masterVariant.images
+  ) {
+    name = item.masterData.current.name['ru-BY'];
+    price = item.masterData.current.masterVariant.prices[0].value.centAmount;
+    description = item.masterData.current.description['ru-BY'];
+    img = item.masterData.current.masterVariant.images[0].url;
   }
   return (
     <div>

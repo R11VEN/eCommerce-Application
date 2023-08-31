@@ -1,11 +1,12 @@
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-export const Slider = ({ images }) => {
+import { A11y, Navigation, Pagination, Scrollbar } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+export const Slider = ({ images }: { images: string[] }) => {
   return (
     <Swiper
       modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -14,10 +15,8 @@ export const Slider = ({ images }) => {
       scrollbar={{ draggable: true }}
       spaceBetween={50}
       slidesPerView={1}
-      onSlideChange={() => console.log('slide change')}
-      onSwiper={(swiper) => console.log(swiper)}
     >
-      {images.map((item) => (
+      {images.map((item: string) => (
         <SwiperSlide>
           <img src={item} alt="" />
         </SwiperSlide>
