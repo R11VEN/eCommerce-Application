@@ -35,7 +35,7 @@ export const DetailedProductPage = () => {
       <div className={classes.detailedpagecontainer}>
         <h2 className={classes.detailedpageheading}>{name}</h2>
         <Slider images={[img, img, img]}></Slider>
-        <div className={classes.pricecontainer}>
+        <div className={classes.pricebox}>
           <p className="detailed-page-price">Price:{price}</p>
           <p className="detailed-page-discounted">Sale:{1}</p>
         </div>

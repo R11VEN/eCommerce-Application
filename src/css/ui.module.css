@@ -144,7 +144,7 @@
   text-align: center;
 }
 
-.pricecontainer {
+.pricebox {
   display: flex;
   justify-content: space-between;
 }
