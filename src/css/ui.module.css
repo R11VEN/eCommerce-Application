@@ -49,7 +49,7 @@
   flex-wrap: wrap;
   justify-content: center;
 }
-.cardlink{
+.cardlink {
   text-decoration: none;
 }
 .card {
@@ -60,11 +60,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color:#000000;
+  color: #000000;
   border-radius: 5px;
   border: 1px solid green;
   background-color: antiquewhite;
-  overflow: hidden ;
+  overflow: hidden;
 }
 
 .card:hover {
@@ -80,7 +80,7 @@
   min-height: 0;
 }
 
-.description{
+.description {
   padding: 15px 0;
   display: flex;
   flex-direction: column;
@@ -90,12 +90,11 @@
 }
 .title,
 .price,
-.carddescription
- {
+.carddescription {
   margin: 0;
   padding: 0;
 }
-.classes.pricecontainer{
+.classes.pricecontainer {
   display: flex;
   flex-direction: column;
 }
@@ -103,15 +102,15 @@
 .discountprice {
   font-size: 1.3rem;
 }
-.discountprice{
+.discountprice {
   font-weight: 500;
-  color:rgba(255, 0, 76, 0.888);
+  color: rgba(255, 0, 76, 0.888);
 }
 .discount {
   text-decoration: line-through;
 }
 
-.btncontainer{
+.btncontainer {
   display: flex;
   gap: 5px;
   width: fit-content;
@@ -122,16 +121,30 @@
   padding: 5px;
   display: block;
   text-decoration: none;
-  color: black ;
+  color: black;
   font-weight: 500;
   cursor: pointer;
 }
 
-.button:hover{
+.button:hover {
   color: green;
 }
 
-.button.active{
+.button.active {
   background-color: red;
-  border:1px solid black;
+  border: 1px solid black;
+}
+.detailedpagecontainer{
+  width: 100%;
+  max-width: 1280px;
+  margin: auto;
+}
+
+.detailedpageheading {
+  text-align: center;
+}
+
+.pricecontainer {
+  display: flex;
+  justify-content: space-between;
 }

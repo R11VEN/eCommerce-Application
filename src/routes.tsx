@@ -1,4 +1,11 @@
-import { AUTH_ROUTE, CAT_ROUTE, MAIN_ROUTE, PAGE_404, PRODUCT_ROUTE, REG_ROUTE } from './constants/pages.ts';
+import {
+  AUTH_ROUTE,
+  CAT_ROUTE,
+  MAIN_ROUTE,
+  PAGE_404,
+  PRODUCT_ROUTE,
+  REG_ROUTE,
+} from './constants/pages.ts';
 import { RouteInterface } from './interfaces/route.interface.ts';
 import AuthPage from './pages/auth-page.tsx';
 import { CatalogPage } from './pages/catalog-page.tsx';
