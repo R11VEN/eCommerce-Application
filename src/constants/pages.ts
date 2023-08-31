@@ -4,3 +4,5 @@ export const AUTH_ROUTE = '/auth';
 export const REG_ROUTE = '/reg';
 export const CAT_ROUTE = '/cat';
 export const PRODUCT_ROUTE = '/product';
+export const BASKET_ROUTE = '/basket';
+export const USER_ROUTE = '/user';

@@ -12,11 +12,11 @@ export type inputType = {
 };
 
 export interface Customer {
-  email?: string;
-  password?: string;
   firstName?: string;
   lastName?: string;
   date?: string;
+  email?: string;
+  password?: string;
   city?: string;
   street?: string;
   postalCode?: string;

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { JSX } from 'react/jsx-runtime';
 import { NavLink } from 'react-router-dom';
 
-import LoginForm from '../components/login-form.tsx';
+import LoginForm from '../components/LoginForm.tsx';
 import Modal from '../components/Modal.tsx';
 import { REG_ROUTE } from '../constants/pages.ts';
 import { PageProps } from '../interfaces/page.interface.ts';

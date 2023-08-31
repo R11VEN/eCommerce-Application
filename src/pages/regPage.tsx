@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { JSX } from 'react/jsx-runtime';
 
 import Modal from '../components/Modal.tsx';
-import { RegistrationForm } from '../components/registration-form.tsx';
+import { RegistrationForm } from '../components/RegistrationForm.tsx';
 import { PageProps } from '../interfaces/page.interface.ts';
 
 export interface IPageProps {
