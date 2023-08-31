@@ -30,12 +30,20 @@
   justify-content: space-between;
 }
 
+.menu-profile-header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .menu-profile-close {
-  border-bottom: 1px solid #188b30;
   cursor: pointer;
   position: relative;
-  height: 40px;
-  width: 100%;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .menu-profile-close span {
@@ -46,8 +54,6 @@
 .menu-profile-close span::before,
 .menu-profile-close span::after {
   position: absolute;
-  top: 50%;
-  right: 5%;
   margin-top: -1px;
   width: 15px;
   height: 2px;
@@ -76,4 +82,55 @@
   font-weight: 600;
   font-size: 16px;
   color: white;
+}
+
+.tools-container {
+  display: flex;
+  flex-grow: 0;
+  align-items: center;
+  flex-direction: row;
+  align-content: center;
+}
+
+.tools {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  align-content: center;
+  padding: 0 10px;
+}
+
+.tool-icon {
+  cursor: pointer;
+  margin: 0 3px;
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid #acacac;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tool-green {
+  background-color: #006600;
+}
+
+.tool-basket {
+  position: relative;
+}
+
+.basket-count {
+  position: absolute;
+  top: -8px;
+  left: 42%;
+  font-size: 14px;
+  color: white;
+  display: flex;
+  background-color: #006600;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
 }

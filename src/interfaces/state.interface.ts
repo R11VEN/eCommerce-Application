@@ -1,5 +1,6 @@
 export interface RootState {
   auth: AuthState;
+  basket: BasketState;
 }
 
 export type Credentials = {
@@ -11,10 +12,19 @@ export interface AuthState {
   token: string | null;
   name: string;
   email: string;
-  _id: string;
+  id: string;
   registerStatus: string;
   registerError: string;
   loginError: string;
   loading: boolean;
   isAuth: boolean;
+}
+
+export interface BasketState {
+  goods: good[];
+}
+
+export interface good {
+  id: string;
+  name: string;
 }
