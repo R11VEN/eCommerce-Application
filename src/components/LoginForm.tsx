@@ -7,7 +7,7 @@ import Login from '../api/userLogin.tsx';
 import { MAIN_ROUTE } from '../constants/pages.ts';
 import { RootState } from '../interfaces/state.interface.ts';
 import { UserDto } from '../interfaces/user.interface.ts';
-import { authFailure, authSuccess, startAuth } from '../redux/authSlice.ts';
+import { authFailure, startAuth } from '../redux/authSlice.ts';
 import { FormInput } from './FormInput.tsx';
 import Modal from './Modal.tsx';
 
@@ -34,8 +34,8 @@ const LoginForm = ({ openModal }: { openModal: (content: string) => void }) => {
       dispatch(startAuth());
       const userData = await Login(data);
       if (!userData) throw new Error('');
-      const { id, email } = userData.body.customer;
-      dispatch(authSuccess({ id, email }));
+      // const { id, email } = userData.body && userData.body.customer;
+      // dispatch(authSuccess({ id, email }));
       redirect('Вы успешно авторизованы!');
     } catch (e) {
       dispatch(authFailure());
