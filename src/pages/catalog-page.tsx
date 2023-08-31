@@ -5,8 +5,9 @@ import Products from '../api/productsGet.tsx';
 import { Button } from '../components/button.tsx';
 import { Card } from '../components/card.tsx';
 import classes from '../css/ui.module.css';
+import { PageProps } from '../interfaces/page.interface.ts';
 
-export const CatalogPage = () => {
+export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
   const [products, setProducts] = useState<ProductPagedQueryResponse>();
   const getProducts = useCallback(async () => {
     const product = new Products();
@@ -15,6 +16,7 @@ export const CatalogPage = () => {
 
   useEffect(() => {
     getProducts();
+    showName && showName('Catalog Page');
   }, [getProducts]);
   return (
     <>

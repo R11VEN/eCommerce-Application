@@ -24,7 +24,7 @@ export const routesPages: RouteInterface[] = [
   {
     name: 'Catalog',
     path: CAT_ROUTE,
-    Component: () => <CatalogPage />,
+    Component: ({ showPageName }) => <CatalogPage showName={showPageName} />,
   },
   {
     name: 'Reference',
