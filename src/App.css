@@ -219,11 +219,16 @@ header {
 }
 
 .registration-form {
+  opacity: 1;
   display: flex;
   flex-direction: column;
   gap: 5px;
   width: 300px;
   font-size: 0.8rem;
+}
+
+.registration-form.loading {
+  opacity: 0.5;
 }
 
 .registration-form > div {
@@ -269,6 +274,63 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+/*---------------------------------user-page-----------------------*/
+
+.user-container {
+  opacity: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: space-between;
+  flex-direction: column;
+}
+
+.user-container.loading {
+  opacity: 0.5;
+}
+
+.user-info {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+
+.profile-row {
+  display: flex;
+  flex-direction: row;
+  margin: 2px 0;
+  padding: 2px;
+}
+
+.profile-row-note {
+  background-color: antiquewhite;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-row-name {
+  flex-basis: 200px;
+}
+
+.profile-header {
+
+}
+
+.profile-info {
+  font-size: 12px;
+}
+
+.profile-tools {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.profile-group-title {
+  text-align: center;
+  background-color: #aca;
 }
 
 /*---------------------------------footer-----------------------*/
@@ -377,15 +439,14 @@ footer {
   }
 }
 
-
 .loader {
   position: absolute;
   top: 50%;
   left: 50%;
   width: 48px;
   height: 48px;
-  border: 5px solid #FFF;
-  border-bottom-color: #FF3D00;
+  border: 5px solid #fff;
+  border-bottom-color: #ff3d00;
   border-radius: 50%;
   display: inline-block;
   box-sizing: border-box;

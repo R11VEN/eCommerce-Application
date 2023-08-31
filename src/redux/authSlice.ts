@@ -6,7 +6,7 @@ const initialState: AuthState = {
   token: localStorage.getItem('token'),
   name: '',
   email: '',
-  _id: '',
+  id: '',
   registerStatus: '',
   registerError: '',
   loginError: '',
@@ -21,9 +21,11 @@ const authSlice = createSlice({
     startAuth: (state) => {
       state.loading = true;
     },
-    authSuccess: (state) => {
+    authSuccess: (state, action) => {
       state.loading = false;
       state.isAuth = true;
+      state.id = action.payload.id;
+      state.email = action.payload.email;
     },
     authFailure: (state) => {
       state.loading = false;
@@ -31,6 +33,9 @@ const authSlice = createSlice({
     },
     authLogout: (state) => {
       state.isAuth = false;
+      state.id = '';
+      state.email = '';
+      state.token = '';
     },
   },
 });

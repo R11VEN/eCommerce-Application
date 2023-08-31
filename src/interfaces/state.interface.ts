@@ -12,7 +12,7 @@ export interface AuthState {
   token: string | null;
   name: string;
   email: string;
-  _id: string;
+  id: string;
   registerStatus: string;
   registerError: string;
   loginError: string;

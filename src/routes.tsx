@@ -7,11 +7,11 @@ import {
   USER_ROUTE,
 } from './constants/pages.ts';
 import { RouteInterface } from './interfaces/route.interface.ts';
-import AuthPage from './pages/auth-page.tsx';
+import AuthPage from './pages/authPage.tsx';
 import BasketPage from './pages/basketPage.tsx';
 import MainPage from './pages/main-page.tsx';
 import Page404 from './pages/page404.tsx';
-import RegPage from './pages/reg-page.tsx';
+import RegPage from './pages/regPage.tsx';
 import UserPage from './pages/userPage.tsx';
 
 export const routesPages: RouteInterface[] = [

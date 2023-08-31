@@ -30,24 +30,39 @@
   justify-content: space-between;
 }
 
-.menu-profile-close {
-  border-bottom: 1px solid #188b30;
-  cursor: pointer;
-  position: relative;
+.menu-profile-header {
   height: 40px;
   width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  border-bottom: 1px solid #188b30;
+  align-items: center;
+}
+
+.menu-profile-close {
+  cursor: pointer;
+  position: relative;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .menu-profile-close span {
   display: contents;
 }
 
+.menu-profile-close:hover span::before,
+.menu-profile-close:hover span::after {
+  background-color: #006600;
+  transition: background-color 0.3s;
+}
+
 .menu-profile-close span,
 .menu-profile-close span::before,
 .menu-profile-close span::after {
   position: absolute;
-  top: 50%;
-  right: 5%;
   margin-top: -1px;
   width: 15px;
   height: 2px;

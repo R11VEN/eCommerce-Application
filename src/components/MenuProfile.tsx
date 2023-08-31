@@ -20,13 +20,15 @@ const MenuProfile = ({ visible, onVisible }: IMenuProfile) => {
   visible && rootClasses.push(classes.active);
 
   const logout = () => {
-    if (!window.confirm('Вы уверены, что хотите выйти?')) return;
-    dispatch(authLogout());
-    userLogout();
-    setIsModal(true);
-    setTimeout(() => {
-      setIsModal(false);
-    }, 2000);
+    try {
+      if (!window.confirm('Вы уверены, что хотите выйти?')) return;
+      dispatch(authLogout());
+      userLogout();
+      setIsModal(true);
+      setTimeout(() => {
+        setIsModal(false);
+      }, 2000);
+    } catch (e) {}
   };
 
   return (
@@ -34,8 +36,10 @@ const MenuProfile = ({ visible, onVisible }: IMenuProfile) => {
       <Modal visible={isModal} setDisplay={setIsModal}>
         {'Вы вышли!'}
       </Modal>
-      <div className={classes['menu-profile-close']}>
-        <span onClick={hideMenu}></span>
+      <div className={classes['menu-profile-header']}>
+        <div className={classes['menu-profile-close']}>
+          <span onClick={hideMenu}></span>
+        </div>
       </div>
       <div className={classes['menu-profile-body']}>
         <NavLink to={USER_ROUTE} onClick={hideMenu} end>
