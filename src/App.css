@@ -316,9 +316,6 @@ header {
   flex-basis: 200px;
 }
 
-.profile-header {
-}
-
 .profile-info {
   font-size: 12px;
 }
@@ -396,6 +393,15 @@ footer {
   color: rgb(255, 33, 33);
 }
 
+.swiper .swiper-button-prev,
+.swiper .swiper-button-next {
+  color: green;
+}
+
+.swiper-pagination .swiper-pagination-bullet-active {
+  background-color: green;
+}
+
 @media (max-width: 768px) {
   .logo {
     font-size: 1.5rem;
@@ -414,7 +420,7 @@ footer {
     font-size: 1.5rem;
     opacity: 0.9;
     transition: right 0.5s;
-    z-index: 1;
+    z-index: 5;
   }
   .nav.active {
     right: 0%;

@@ -2,8 +2,8 @@ import { ProductPagedQueryResponse } from '@commercetools/platform-sdk';
 import { useCallback, useEffect, useState } from 'react';
 
 import Products from '../api/productsGet.tsx';
-import { Button } from '../components/button.tsx';
-import { Card } from '../components/card.tsx';
+import { Button } from '../components/Button';
+import { Card } from '../components/Card';
 import classes from '../css/ui.module.css';
 import { PageProps } from '../interfaces/page.interface.ts';
 
@@ -17,7 +17,7 @@ export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
   useEffect(() => {
     getProducts();
     showName && showName('Catalog Page');
-  }, [getProducts]);
+  }, [getProducts, showName]);
   return (
     <>
       <div className={classes.cardsContainer}>
