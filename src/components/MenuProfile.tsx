@@ -28,7 +28,9 @@ const MenuProfile = ({ visible, onVisible }: IMenuProfile) => {
       setTimeout(() => {
         setIsModal(false);
       }, 2000);
-    } catch (e) {}
+    } catch (e) {
+      /* empty */
+    }
   };
 
   return (

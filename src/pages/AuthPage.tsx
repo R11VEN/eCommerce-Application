@@ -20,7 +20,7 @@ const AuthPage = ({ showName }: PageProps): JSX.Element => {
 
   useEffect(() => {
     showName && showName(name);
-  }, []);
+  }, [showName]);
 
   const redirect = (): void => {
     setModal(true);

@@ -11,7 +11,7 @@ const BasketPage = ({ showName }: PageProps) => {
 
   useEffect((): void => {
     showName && showName('Корзина');
-  }, []);
+  }, [showName]);
 
   const addHandler = (): void => {
     const id = Date.now().toString();
