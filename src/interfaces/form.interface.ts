@@ -15,8 +15,8 @@ export interface Customer {
   firstName?: string;
   lastName?: string;
   date?: string;
-  email?: string;
-  password?: string;
+  email: string;
+  password: string;
   city?: string;
   street?: string;
   postalCode?: string;

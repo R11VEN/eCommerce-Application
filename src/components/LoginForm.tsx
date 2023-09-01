@@ -1,23 +1,20 @@
-import { MouseEvent, useEffect, useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { MouseEvent, useState } from 'react';
+import { FieldValues, FormProvider, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import Login from '../api/userLogin.tsx';
+import { LoginAnton } from '../api/controllers/user.controller.ts';
 import { MAIN_ROUTE } from '../constants/pages.ts';
 import { RootState } from '../interfaces/state.interface.ts';
-import { UserDto } from '../interfaces/user.interface.ts';
-import { authFailure, startAuth } from '../redux/authSlice.ts';
+import { authFailure, authSuccess, endAuth, startAuth } from '../redux/authSlice.ts';
 import { FormInput } from './FormInput.tsx';
-import Modal from './Modal.tsx';
 
 const LoginForm = ({ openModal }: { openModal: (content: string) => void }) => {
   const [visibility, setVisibility] = useState<boolean>(true);
-  const [isModal, setIsModal] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, isAuth } = useSelector((state: RootState) => state.auth);
+  const { loading } = useSelector((state: RootState) => state.auth);
   const methods = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -29,23 +26,19 @@ const LoginForm = ({ openModal }: { openModal: (content: string) => void }) => {
       navigate(MAIN_ROUTE);
     }, 2000);
   };
-  const onSubmit = async (data: UserDto): Promise<void> => {
+  const onSubmit = async ({ email, password }: FieldValues): Promise<void> => {
     try {
       dispatch(startAuth());
-      const userData = await Login(data);
-      if (!userData) throw new Error('');
-      // const { id, email } = userData.body && userData.body.customer;
-      // dispatch(authSuccess({ id, email }));
+      const { token, userData } = await LoginAnton(email, password);
+      const { id } = userData.body.customer;
+      const { clientId } = userData.body.customer.createdBy;
+      dispatch(authSuccess({ id, email, token, clientId }));
+      dispatch(endAuth());
       redirect('Вы успешно авторизованы!');
     } catch (e) {
       dispatch(authFailure());
-      setIsModal(true);
     }
   };
-
-  useEffect((): void => {
-    isAuth && redirect('Вы уже авторизованы');
-  }, []);
 
   const togglePassword = (e: MouseEvent): void => {
     e.preventDefault();
@@ -71,9 +64,6 @@ const LoginForm = ({ openModal }: { openModal: (content: string) => void }) => {
         </button>
         <button type="submit">Submit</button>
         {loading && <span className="loader"></span>}
-        <Modal visible={isModal} setDisplay={setIsModal}>
-          {'Неврный логин или пароль!'}
-        </Modal>
       </form>
     </FormProvider>
   );

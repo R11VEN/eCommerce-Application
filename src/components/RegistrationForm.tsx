@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 import createCustomer, { userData } from '../api/userCreate.tsx';
 import { MAIN_ROUTE } from '../constants/pages.ts';
-import { UserCreateDto } from '../interfaces/user.interface.ts';
 import { FormInput } from './FormInput.tsx';
 import { Select, SelectBilling } from './Select.tsx';
 
@@ -26,10 +25,10 @@ export const RegistrationForm = ({ openModal }: { openModal: (content: string) =
     reValidateMode: 'onChange',
   });
 
-  const onSubmit = async (data: FieldValues): Promise<void> => {
+  const onSubmit = async ({ email, password }: FieldValues): Promise<void> => {
     setLoading(true);
     try {
-      const userData = (await createCustomer(data as UserCreateDto)) as userData;
+      const userData = (await createCustomer({ email, password })) as userData;
 
       if (userData.statusCode === 200) {
         openModal('Пользователь уже существует!');

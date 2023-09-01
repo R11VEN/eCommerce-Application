@@ -9,7 +9,7 @@ export type Credentials = {
 };
 
 export interface AuthState {
-  token: string | null;
+  token: string;
   name: string;
   email: string;
   id: string;
@@ -18,6 +18,7 @@ export interface AuthState {
   loginError: string;
   loading: boolean;
   isAuth: boolean;
+  clientId: string;
 }
 
 export interface BasketState {

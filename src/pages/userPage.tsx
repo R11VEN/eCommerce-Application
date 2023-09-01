@@ -1,22 +1,15 @@
-import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { client } from '../api/BuildClientAdmin.tsx';
+import { CheckAuthorization, getUserById } from '../api/controllers/user.controller.ts';
+import { API_CLIENT_ID } from '../constants/api.ts';
 import { PageProps } from '../interfaces/page.interface.ts';
 import { RootState } from '../interfaces/state.interface.ts';
 import { Address, UserResponse } from '../interfaces/user.interface.ts';
 
 const UserPage = ({ showName }: PageProps) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const getApiRoot = createApiBuilderFromCtpClient(client).withProjectKey({
-    projectKey: 'jsfe2023q1',
-  });
-
-  useEffect((): void => {
-    showName && showName('Страница пользователя');
-  }, []);
-
+  const [message, setMessage] = useState<string>('');
   const [user, setUser] = useState<UserResponse>({
     id: '',
     email: '',
@@ -27,33 +20,32 @@ const UserPage = ({ showName }: PageProps) => {
     createdAt: '',
   });
 
+  const auth = useSelector((state: RootState) => state.auth);
   const { id, email } = useSelector((state: RootState) => state.auth);
 
   const getUser = async () => {
     setLoading(true);
-    const { body, statusCode } = await getApiRoot.customers().withId({ ID: id }).get().execute();
-    console.log(statusCode);
-    console.log(body);
-
-    const userEntity: UserResponse = {
-      id: body.id,
-      email: body.email,
-      addresses: body.addresses,
-      isEmailVerified: body.isEmailVerified,
-      shippingAddressIds: body.shippingAddressIds,
-      version: body.version,
-      createdAt: body.createdAt,
-    };
+    const userEntity = await getUserById(id);
     setUser(userEntity);
     setLoading(false);
   };
 
-  useEffect(() => {
-    const data = async () => {
-      await getUser();
-    };
-    data();
+  useEffect((): void => {
+    showName && showName('Страница пользователя');
   }, []);
+
+  useEffect(() => {
+    const checkAuth = async (): Promise<void> => {
+      const token = auth.token;
+      const { active, client_id } = await CheckAuthorization(token);
+      if (active && client_id === API_CLIENT_ID) {
+        await getUser();
+      } else {
+        setMessage('Вы не авторизованы');
+      }
+    };
+    checkAuth();
+  }, [auth.isAuth]);
 
   const prepareDate = (timeplate: string) => {
     const date = new Date(timeplate);
@@ -88,43 +80,48 @@ const UserPage = ({ showName }: PageProps) => {
     );
   };
 
-  console.log(user);
   return (
     <div className={loading ? 'user-container loading' : 'user-container'}>
       {loading && <span className="loader"></span>}
-      <div className="user-info">
-        <div className="profile-header">
-          <div className="profile-info">
-            <div className="profile-created">Дата создания: {prepareDate(user.createdAt)}</div>
-            <div className="profile-modified">
-              Дата последнего обновления: {user.versionModifiedAt && user.versionModifiedAt}
+      {message ? (
+        <div className="message">{message}</div>
+      ) : (
+        <div className="user-info">
+          <div className="profile-header">
+            <div className="profile-info">
+              <div className="profile-created">Дата создания: {prepareDate(user.createdAt)}</div>
+              <div className="profile-modified">
+                Дата последнего обновления: {user.versionModifiedAt && user.versionModifiedAt}
+              </div>
+            </div>
+            <div className="profile-tools">
+              <div className="profil-edit" onClick={() => {}}>
+                Редактировать
+              </div>
             </div>
           </div>
-          <div className="profile-tools">
-            <div className="profil-edit" onClick={() => {}}>
-              Редактировать
+          {!user.isEmailVerified && (
+            <div className="profile-row profile-row-note">
+              Email: {user.email} не верифицирован{' '}
+            </div>
+          )}
+          <div className="profile-group">
+            <div className="profile-group-title">Общая информация</div>
+            <div className="profile-row">
+              <div className="profile-row-name">Email:</div>
+              <div className="profile-row-value">{email}</div>
+            </div>
+            <div className="profile-row">
+              <div className="profile-row-name">ID:</div>
+              <div className="profile-row-value">{id}</div>
             </div>
           </div>
-        </div>
-        {!user.isEmailVerified && (
-          <div className="profile-row profile-row-note">Email: {user.email} не верифицирован </div>
-        )}
-        <div className="profile-group">
-          <div className="profile-group-title">Общая информация</div>
-          <div className="profile-row">
-            <div className="profile-row-name">Email:</div>
-            <div className="profile-row-value">{email}</div>
-          </div>
-          <div className="profile-row">
-            <div className="profile-row-name">ID:</div>
-            <div className="profile-row-value">{id}</div>
+          <div className="profile-group">
+            <div className="profile-group-title">Shipping address</div>
+            {user.addresses.map(printShippingAddresses)}
           </div>
         </div>
-        <div className="profile-group">
-          <div className="profile-group-title">Shipping address</div>
-          {user.addresses.map(printShippingAddresses)}
-        </div>
-      </div>
+      )}
     </div>
   );
 };
