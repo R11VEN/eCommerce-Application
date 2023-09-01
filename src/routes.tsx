@@ -9,15 +9,15 @@ import {
   USER_ROUTE,
 } from './constants/pages.ts';
 import { RouteInterface } from './interfaces/route.interface.ts';
-import { CatalogPage } from './pages/catalog-page.tsx';
-import { DetailedProductPage } from './pages/detailedProductPage.tsx';
+import { CatalogPage } from './pages/CatalogPage.tsx';
+import { DetailedProductPage } from './pages/DetailedProductPage.tsx';
 
-import AuthPage from './pages/authPage.tsx';
-import BasketPage from './pages/basketPage.tsx';
-import MainPage from './pages/main-page.tsx';
-import Page404 from './pages/page404.tsx';
-import RegPage from './pages/regPage.tsx';
-import UserPage from './pages/userPage.tsx';
+import AuthPage from './pages/AuthPage.tsx';
+import BasketPage from './pages/BasketPage.tsx';
+import MainPage from './pages/MainPage.tsx';
+import Page404 from './pages/Page404.tsx';
+import RegPage from './pages/RegPage.tsx';
+import UserPage from './pages/UserPage.tsx';
 
 export const routesPages: RouteInterface[] = [
   {
