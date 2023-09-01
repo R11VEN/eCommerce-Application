@@ -11,19 +11,17 @@ const Login = async ({ email, password }: UserDto) => {
     return true;
   }
   try {
-    email &&
-      password &&
-      (await apiRootPass({ username: email, password: password })
-        .withProjectKey({ projectKey })
-        .me()
-        .login()
-        .post({
-          body: {
-            email,
-            password,
-          },
-        })
-        .execute());
+    await apiRootPass({ username: email, password: password })
+      .withProjectKey({ projectKey })
+      .me()
+      .login()
+      .post({
+        body: {
+          email,
+          password,
+        },
+      })
+      .execute();
     const token = tokenCache.get().token;
     localStorage.setItem('loginToken', token);
     localStorage.setItem('isAuth', 'true');

@@ -1,6 +1,6 @@
 export interface UserDto {
-  email?: string;
-  password?: string;
+  email: string;
+  password: string;
 }
 
 export interface Address {
@@ -39,4 +39,5 @@ export interface UserResponse {
   version: number;
   createdAt: string;
   versionModifiedAt?: string;
+  statusCode?: number;
 }

@@ -24,7 +24,7 @@ const BasketPage = ({ showName }: PageProps) => {
 
   const printGood = (good: good) => {
     return (
-      <div className="list-goods">
+      <div className="list-goods" key={good.id}>
         <div>{good.id}</div>
         <div>{good.name}</div>
         <div onClick={() => removeHandler(good.id)}>Remove good</div>
