@@ -17,8 +17,8 @@ export const Slider = ({ images }: { images: string[] }) => {
       spaceBetween={50}
       slidesPerView={1}
     >
-      {images.map((item: string) => (
-        <SwiperSlide>
+      {images.map((item: string, index) => (
+        <SwiperSlide key={index}>
           <img className={classes.swiperimage} src={item} alt="" />
         </SwiperSlide>
       ))}

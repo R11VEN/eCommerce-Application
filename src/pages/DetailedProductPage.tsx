@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import ProductItem from '../api/productGet';
 import { Slider } from '../components/Slider';
 import classes from '../css/ui.module.css';
+
 export const DetailedProductPage = () => {
   const { id } = useParams() as { id: string };
   let name, description, price, img;

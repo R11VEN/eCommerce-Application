@@ -402,9 +402,9 @@ footer {
   background-color: green;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 850px) {
   .logo {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
   .burger {
     display: block;

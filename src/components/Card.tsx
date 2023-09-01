@@ -11,14 +11,16 @@ export const Card = ({
   description,
   url,
   id,
+  currency,
 }: {
   uniqueKey: string;
   title: string;
   price: number;
-  discounted: number;
+  discounted?: number;
   description: string;
   url: string;
   id: string;
+  currency: string;
 }) => {
   return (
     <NavLink className={classes.cardlink} to={`${PRODUCT_ROUTE}/${id}`}>
@@ -27,8 +29,16 @@ export const Card = ({
         <div className={classes.description}>
           <h2 className={classes.title}>{title}</h2>
           <div className={classes.pricecontainer}>
-            <p className={`${classes.price} ${discounted && classes.discount}`}>Price:{price}</p>
-            {discounted ? <p className={classes.discountprice}>Discounted:{discounted}</p> : ''}
+            <p className={`${classes.price} ${discounted && classes.discount}`}>
+              Price: {price} {currency}
+            </p>
+            {discounted ? (
+              <p className={classes.discountprice}>
+                Discounted: {discounted} {currency}
+              </p>
+            ) : (
+              ''
+            )}
           </div>
           <p className={classes.carddescription}>{description}</p>
         </div>
