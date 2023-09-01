@@ -3,22 +3,23 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-import { A11y, Navigation, Pagination, Scrollbar } from 'swiper/modules';
+import { A11y, FreeMode, Navigation, Pagination, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+
+import classes from '../css/ui.module.css';
 
 export const Slider = ({ images }: { images: string[] }) => {
   return (
     <Swiper
-      modules={[Navigation, Pagination, Scrollbar, A11y]}
-      navigation
+      modules={[FreeMode, Navigation, Pagination, A11y, Thumbs]}
+      navigation={true}
       pagination={{ clickable: true }}
-      scrollbar={{ draggable: true }}
       spaceBetween={50}
       slidesPerView={1}
     >
-      {images.map((item: string) => (
-        <SwiperSlide>
-          <img src={item} alt="" />
+      {images.map((item: string, index) => (
+        <SwiperSlide key={index}>
+          <img className={classes.swiperimage} src={item} alt="" />
         </SwiperSlide>
       ))}
     </Swiper>

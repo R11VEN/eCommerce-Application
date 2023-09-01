@@ -147,3 +147,14 @@
   display: flex;
   justify-content: space-between;
 }
+
+.swiperimage {
+  display: block;
+  margin: auto;
+}
+
+@media (max-width: 768px) {
+  .swiperimage {
+    width: 70%;
+  }
+}

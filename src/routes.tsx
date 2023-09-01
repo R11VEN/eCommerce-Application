@@ -1,7 +1,7 @@
 import {
   AUTH_ROUTE,
-  CAT_ROUTE,
   BASKET_ROUTE,
+  CAT_ROUTE,
   MAIN_ROUTE,
   PAGE_404,
   PRODUCT_ROUTE,
@@ -9,15 +9,14 @@ import {
   USER_ROUTE,
 } from './constants/pages.ts';
 import { RouteInterface } from './interfaces/route.interface.ts';
-import { CatalogPage } from './pages/catalog-page.tsx';
-import { DetailedProductPage } from './pages/detailedProductPage.tsx';
-
-import AuthPage from './pages/authPage.tsx';
-import BasketPage from './pages/basketPage.tsx';
-import MainPage from './pages/main-page.tsx';
-import Page404 from './pages/page404.tsx';
-import RegPage from './pages/regPage.tsx';
-import UserPage from './pages/userPage.tsx';
+import AuthPage from './pages/AuthPage';
+import BasketPage from './pages/BasketPage';
+import { CatalogPage } from './pages/CatalogPage';
+import { DetailedProductPage } from './pages/DetailedProductPage';
+import MainPage from './pages/MainPage';
+import Page404 from './pages/Page404';
+import RegPage from './pages/RegPage';
+import UserPage from './pages/UserPage';
 
 export const routesPages: RouteInterface[] = [
   {

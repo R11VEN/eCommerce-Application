@@ -2,14 +2,11 @@ import { ProductProjectionPagedQueryResponse } from '@commercetools/platform-sdk
 import { useCallback, useEffect, useState } from 'react';
 
 import Products from '../api/productsGet.tsx';
-import { Card } from '../components/card.tsx';
+import { Card } from '../components/Card';
 import classes from '../css/ui.module.css';
 import { PageProps } from '../interfaces/page.interface.ts';
 
 export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
-  useEffect(() => {
-    showName && showName('Catalog');
-  }, []);
   const [productsOffset, setPagin] = useState(0);
   const [products, setProducts] = useState<ProductProjectionPagedQueryResponse>();
   const [page, setPage] = useState(1);
@@ -39,7 +36,8 @@ export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
 
   useEffect(() => {
     getProducts();
-  }, [getProducts]);
+    showName && showName('Catalog Page');
+  }, [getProducts, showName]);
   return (
     <>
       <div className={classes.cardsContainer}>
