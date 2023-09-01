@@ -17,7 +17,7 @@ export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
   useEffect(() => {
     getProducts();
     showName && showName('Catalog Page');
-  }, [getProducts]);
+  }, [getProducts, showName]);
   return (
     <>
       <div className={classes.cardsContainer}>
