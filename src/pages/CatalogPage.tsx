@@ -2,8 +2,8 @@ import { ProductPagedQueryResponse } from '@commercetools/platform-sdk';
 import { useCallback, useEffect, useState } from 'react';
 
 import Products from '../api/productsGet.tsx';
-import { Button } from '../components/Button.tsx';
-import { Card } from '../components/Card.tsx';
+import { Button } from '../components/Button';
+import { Card } from '../components/Card';
 import classes from '../css/ui.module.css';
 import { PageProps } from '../interfaces/page.interface.ts';
 
