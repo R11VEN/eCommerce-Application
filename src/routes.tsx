@@ -1,7 +1,7 @@
 import {
   AUTH_ROUTE,
-  CAT_ROUTE,
   BASKET_ROUTE,
+  CAT_ROUTE,
   MAIN_ROUTE,
   PAGE_404,
   PRODUCT_ROUTE,
@@ -9,11 +9,10 @@ import {
   USER_ROUTE,
 } from './constants/pages.ts';
 import { RouteInterface } from './interfaces/route.interface.ts';
-import { CatalogPage } from './pages/CatalogPage.tsx';
-import { DetailedProductPage } from './pages/DetailedProductPage.tsx';
-
 import AuthPage from './pages/AuthPage.tsx';
 import BasketPage from './pages/BasketPage.tsx';
+import { CatalogPage } from './pages/CatalogPage.tsx';
+import { DetailedProductPage } from './pages/DetailedProductPage.tsx';
 import MainPage from './pages/MainPage.tsx';
 import Page404 from './pages/Page404.tsx';
 import RegPage from './pages/RegPage.tsx';
