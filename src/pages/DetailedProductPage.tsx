@@ -3,9 +3,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import ProductItem from '../api/productGet';
+import Modal from '../components/Modal';
 import { Slider } from '../components/Slider';
 import classes from '../css/ui.module.css';
-import Modal from '../components/Modal';
 
 export const DetailedProductPage = () => {
   const { id } = useParams() as { id: string };

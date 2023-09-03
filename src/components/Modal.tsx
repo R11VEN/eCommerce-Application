@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import classes from '../css/ui.module.css';
 import { UIModal } from '../interfaces/ui.interface.ts';
 import { ModalSlider } from './ModalSlider.tsx';
 
-const Modal = ({ children, visible, setDisplay, images }: UIModal) => {
+const Modal = ({ children, visible, setDisplay, images = [''] }: UIModal) => {
   const rootClasses = [classes.modal];
   if (visible) {
     rootClasses.push(classes.active);
