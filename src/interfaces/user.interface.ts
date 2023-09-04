@@ -31,9 +31,12 @@ export interface UserCreateDto {
 }
 
 export interface UserResponse {
+  dateOfBirth?: string;
+  firstName?: string;
+  lastName?: string;
   id: string;
   email: string;
-  addresses: Address[];
+  addresses?: Address[];
   isEmailVerified: boolean;
   shippingAddressIds?: string[];
   version: number;

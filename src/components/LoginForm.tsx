@@ -1,10 +1,10 @@
 import { MouseEvent, useState } from 'react';
 import { FieldValues, FormProvider, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import { LoginAnton } from '../api/controllers/user.controller.ts';
-import { MAIN_ROUTE } from '../constants/pages.ts';
+import { MAIN_ROUTE, REG_ROUTE } from '../constants/pages.ts';
 import { RootState } from '../interfaces/state.interface.ts';
 import { authFailure, authSuccess, endAuth, startAuth } from '../redux/authSlice.ts';
 import { FormInput } from './FormInput.tsx';
@@ -30,13 +30,14 @@ const LoginForm = ({ openModal }: { openModal: (content: string) => void }) => {
     try {
       dispatch(startAuth());
       const { token, userData } = await LoginAnton(email, password);
-      const { id } = userData.body.customer;
+      const { id, name, version } = userData.body.customer;
       const { clientId } = userData.body.customer.createdBy;
-      dispatch(authSuccess({ id, email, token, clientId }));
+      dispatch(authSuccess({ id, email, name, token, clientId, version }));
       dispatch(endAuth());
       redirect('Вы успешно авторизованы!');
     } catch (e) {
       dispatch(authFailure());
+      openModal('Неверный логин или пароль!');
     }
   };
 
@@ -64,6 +65,12 @@ const LoginForm = ({ openModal }: { openModal: (content: string) => void }) => {
         </button>
         <button type="submit">Submit</button>
         {loading && <span className="loader"></span>}
+        <div style={{ textAlign: 'center' }}>
+          Нет аккаунта?{' '}
+          <NavLink key="SingUp" to={REG_ROUTE} end>
+            Зарегистрироваться
+          </NavLink>
+        </div>
       </form>
     </FormProvider>
   );
