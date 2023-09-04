@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import { userLogout } from '../api/userLogout.tsx';
 import { USER_ROUTE } from '../constants/pages.ts';
 import { IMenuProfile } from '../interfaces/layout.interface.ts';
+import { RootState } from '../interfaces/state.interface.ts';
 import classes from '../layout/layout.module.css';
 import { authLogout } from '../redux/authSlice.ts';
 import Modal from './Modal.tsx';
@@ -12,16 +13,17 @@ import Modal from './Modal.tsx';
 const MenuProfile = ({ visible, onVisible }: IMenuProfile) => {
   const [isModal, setIsModal] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const auth = useSelector((state: RootState) => state.auth);
   const rootClasses = [classes['menu-profile']];
 
   const hideMenu = () => {
     onVisible(false);
   };
   visible && rootClasses.push(classes.active);
-
+  !auth.isAuth && hideMenu();
   const logout = () => {
     try {
-      if (!window.confirm('Вы уверены, что хотите выйти?')) return;
+      // if (!window.confirm('Вы уверены, что хотите выйти?')) return;
       dispatch(authLogout());
       userLogout();
       setIsModal(true);

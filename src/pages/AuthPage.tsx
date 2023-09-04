@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { JSX } from 'react/jsx-runtime';
 import { useSelector } from 'react-redux';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { CheckAuthorization } from '../api/controllers/user.controller.ts';
 import LoginForm from '../components/LoginForm.tsx';
 import Modal from '../components/Modal.tsx';
 import { API_CLIENT_ID } from '../constants/api.ts';
-import { MAIN_ROUTE, REG_ROUTE } from '../constants/pages.ts';
+import { MAIN_ROUTE } from '../constants/pages.ts';
 import { PageProps } from '../interfaces/page.interface.ts';
 import { RootState } from '../interfaces/state.interface.ts';
 
@@ -50,9 +50,6 @@ const AuthPage = ({ showName }: PageProps): JSX.Element => {
     <div className="auth-container">
       <h1>Login</h1>
       <LoginForm openModal={handleModal}></LoginForm>
-      <NavLink key="SingUp" to={REG_ROUTE} className="btn" end>
-        Sing up
-      </NavLink>
       <Modal visible={modal} setDisplay={setModal}>
         {content && content}
       </Modal>

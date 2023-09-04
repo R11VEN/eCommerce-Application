@@ -2,8 +2,11 @@ import { ChangeEvent, MouseEvent, useState } from 'react';
 import { FieldValues, FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
-import createCustomer, { userData } from '../api/userCreate.tsx';
+import { CreateUser } from '../api/controllers/user.controller.ts';
+import { userData } from '../api/userCreate.tsx';
 import { MAIN_ROUTE } from '../constants/pages.ts';
+import { UserFormEnum } from '../constants/userForm.ts';
+import { Customer } from '../interfaces/form.interface.ts';
 import { FormInput } from './FormInput.tsx';
 import { Select, SelectBilling } from './Select.tsx';
 
@@ -25,11 +28,10 @@ export const RegistrationForm = ({ openModal }: { openModal: (content: string) =
     reValidateMode: 'onChange',
   });
 
-  const onSubmit = async ({ email, password }: FieldValues): Promise<void> => {
+  const onSubmit = async (data: FieldValues): Promise<void> => {
     setLoading(true);
     try {
-      const userData = (await createCustomer({ email, password })) as userData;
-
+      const userData = (await CreateUser(data as Customer)) as userData;
       if (userData.statusCode === 200) {
         openModal('Пользователь уже существует!');
       } else if (userData.statusCode === 201) {
@@ -62,29 +64,39 @@ export const RegistrationForm = ({ openModal }: { openModal: (content: string) =
           <FormInput
             label="First name"
             type="text"
-            id="firstName"
+            id={UserFormEnum.FIRST_NAME}
             placeholder="First name"
           ></FormInput>
           <FormInput
             label="Last name"
             type="text"
-            id="lastName"
+            id={UserFormEnum.LAST_NAME}
             placeholder="Last name"
           ></FormInput>
           <FormInput
             label="Date of Birth"
             type="date"
-            id="birthdate"
+            id={UserFormEnum.DATE_OF_BIRTH}
             placeholder="Date of Birth"
           ></FormInput>
           <fieldset name="adress" className="adress">
             <legend>Shipping address</legend>
-            <FormInput label="Street" type="text" id="street" placeholder="Street"></FormInput>
-            <FormInput label="City" type="text" id="city" placeholder="City"></FormInput>
+            <FormInput
+              label="Street"
+              type="text"
+              id={UserFormEnum.STREET}
+              placeholder="Street"
+            ></FormInput>
+            <FormInput
+              label="City"
+              type="text"
+              id={UserFormEnum.CITY}
+              placeholder="City"
+            ></FormInput>
             <FormInput
               label="Postal code"
               type="number"
-              id="postalCode"
+              id={UserFormEnum.POSTAL_CODE}
               placeholder="Postal code"
             ></FormInput>
             <Select></Select>
@@ -92,7 +104,7 @@ export const RegistrationForm = ({ openModal }: { openModal: (content: string) =
               <FormInput
                 label="Set as default shiping address"
                 type="checkbox"
-                id="default-address"
+                id={UserFormEnum.DEFAULT_ADDRESS}
                 placeholder=""
               ></FormInput>
             </div>
@@ -101,7 +113,7 @@ export const RegistrationForm = ({ openModal }: { openModal: (content: string) =
             <FormInput
               label="Set a different billing address"
               type="checkbox"
-              id="differentBilling"
+              id={UserFormEnum.DIFFERENT_BILLING}
               placeholder=""
             ></FormInput>
           </div>
@@ -110,21 +122,21 @@ export const RegistrationForm = ({ openModal }: { openModal: (content: string) =
             <FormInput
               label="Street *billing"
               type="text"
-              id="street-billing"
+              id={UserFormEnum.STREET_BILLING}
               placeholder="Street billing"
               isDisable={isDisable}
             ></FormInput>
             <FormInput
               label="City *billing"
               type="text"
-              id="city-billing"
+              id={UserFormEnum.CITY_BILLING}
               placeholder="City billing"
               isDisable={isDisable}
             ></FormInput>
             <FormInput
               label="Postal code *billing"
               type="number"
-              id="postalCodeBilling"
+              id={UserFormEnum.POSTAL_CODE_BILLING}
               placeholder="Postal code billing"
               isDisable={isDisable}
             ></FormInput>
@@ -133,17 +145,22 @@ export const RegistrationForm = ({ openModal }: { openModal: (content: string) =
               <FormInput
                 label="Set as default billing address"
                 type="checkbox"
-                id="defaultBilling"
+                id={UserFormEnum.DEFAULT_BILLING}
                 placeholder=""
               ></FormInput>
             </div>
           </fieldset>
 
-          <FormInput label="Email" type="email" id="email" placeholder="Email"></FormInput>
+          <FormInput
+            label="Email"
+            type="email"
+            id={UserFormEnum.EMAIL}
+            placeholder="Email"
+          ></FormInput>
           <FormInput
             label="Password"
             type={visibility ? 'password' : 'text'}
-            id="password"
+            id={UserFormEnum.PASSWORD}
             placeholder="Password"
           ></FormInput>
           <button className="btn btn_toogle" onClick={togglePassword}>

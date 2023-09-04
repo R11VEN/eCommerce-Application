@@ -1,18 +1,42 @@
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
+import {
+  CustomerChangePassword,
+  CustomerDraft,
+  CustomerUpdateAction,
+} from '@commercetools/platform-sdk/dist/declarations/src/generated/models/customer';
 import { ClientResponse } from '@commercetools/platform-sdk/dist/declarations/src/generated/shared/utils/common-types';
 
 import { PROJECT_KEY } from '../../constants/api.ts';
+import { Customer } from '../../interfaces/form.interface.ts';
 import { UserResponse } from '../../interfaces/user.interface.ts';
 import { client } from '../BuildClientAdmin.tsx';
 import { tokenCache } from '../tokenCache.tsx';
-import { signIn, tokenInspection } from './user.service.ts';
+import { signIn, tokenInspection, updateCustomer, updateCustomerPassword } from './user.service.ts';
 
 export interface userResponse {
   userData: ClientResponse;
   token: string;
 }
 
-export const LoginAnton = async (email: string, password: string): Promise<userResponse> => {
+const apiRoot = createApiBuilderFromCtpClient(client).withProjectKey({
+  projectKey: PROJECT_KEY,
+});
+
+export async function userUpdate(
+  id: string,
+  version: number,
+  actions: CustomerUpdateAction[]
+): Promise<ClientResponse> {
+  try {
+    const userData = await updateCustomer(id, version, actions);
+    console.log(userData);
+    return userData;
+  } catch {
+    throw new Error();
+  }
+}
+
+export async function LoginAnton(email: string, password: string): Promise<userResponse> {
   try {
     const userData = await signIn(email, password);
     const token = tokenCache.get().token;
@@ -20,7 +44,21 @@ export const LoginAnton = async (email: string, password: string): Promise<userR
   } catch {
     throw new Error();
   }
-};
+}
+
+export async function userUpdatePassword(data: CustomerChangePassword) {
+  try {
+    const userData = await updateCustomerPassword(data);
+    tokenCache.set({
+      token: '',
+      refreshToken: '',
+      expirationTime: 0,
+    });
+    return userData;
+  } catch {
+    throw new Error();
+  }
+}
 
 export async function CheckAuthorization(token: string) {
   try {
@@ -32,19 +70,11 @@ export async function CheckAuthorization(token: string) {
 }
 
 export async function getUserById(id: string) {
-  const getApiRoot = createApiBuilderFromCtpClient(client).withProjectKey({
-    projectKey: PROJECT_KEY,
-  });
   try {
-    const { body, statusCode } = await getApiRoot.customers().withId({ ID: id }).get().execute();
+    const { body, statusCode } = await apiRoot.customers().withId({ ID: id }).get().execute();
+    // console.log(body);
     const userEntity: UserResponse = {
-      id: body.id,
-      email: body.email,
-      addresses: body.addresses,
-      isEmailVerified: body.isEmailVerified,
-      shippingAddressIds: body.shippingAddressIds,
-      version: body.version,
-      createdAt: body.createdAt,
+      ...body,
       statusCode: statusCode,
     };
     return userEntity;
@@ -53,50 +83,47 @@ export async function getUserById(id: string) {
   }
 }
 
-// const rrr = {
-//   active: true,
-//   scope:
-//     'manage_my_business_units:jsfe2023q1 view_products:jsfe2023q1 customer_id:91596296-6a2a-42a2-868b-a1690fac0a03 view_categories:jsfe2023q1 create_anonymous_token:jsfe2023q1 manage_my_payments:jsfe2023q1 manage_my_orders:jsfe2023q1 view_published_products:jsfe2023q1 manage_my_shopping_lists:jsfe2023q1 manage_my_quotes:jsfe2023q1 manage_my_profile:jsfe2023q1 manage_my_quote_requests:jsfe2023q1',
-//   exp: 1693747092209,
-//   client_id: 'bfHk24F2gUsdAnMFAUvZwNs6',
-// };
-// const rrtt = {
-//   userData: {
-//     body: {
-//       customer: {
-//         id: '91596296-6a2a-42a2-868b-a1690fac0a03',
-//         version: 1,
-//         versionModifiedAt: '2023-08-21T19:45:20.259Z',
-//         lastMessageSequenceNumber: 1,
-//         createdAt: '2023-08-21T19:45:20.259Z',
-//         lastModifiedAt: '2023-08-21T19:45:20.259Z',
-//         lastModifiedBy: {
-//           clientId: 'K0utiNLlhYan_BQyOkJAbbBD',
-//           isPlatformClient: false,
-//         },
-//         createdBy: {
-//           clientId: 'K0utiNLlhYan_BQyOkJAbbBD',
-//           isPlatformClient: false,
-//         },
-//         email: 'info@rza.by',
-//         password: '****hXY=',
-//         addresses: [
-//           {
-//             id: 't2FZcwFO',
-//             streetName: 'Ssdfsdf',
-//             postalCode: '222222',
-//             city: 'Wroclaw',
-//             country: 'BY',
-//           },
-//         ],
-//         shippingAddressIds: ['t2FZcwFO'],
-//         billingAddressIds: ['t2FZcwFO'],
-//         isEmailVerified: false,
-//         stores: [],
-//         authenticationMode: 'Password',
-//       },
-//     },
-//     statusCode: 200,
-//   },
-//   token: 'cJwv-STA6_EXUh20rUZSksJMPMuaN9iJ',
-// };
+export const CreateUser = async (data: Customer) => {
+  try {
+    const body = {
+      email: data.email,
+      password: data.password,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      dateOfBirth: data.dateOfBirth,
+      addresses: [
+        {
+          country: 'BY',
+          city: data.city,
+          streetName: data.street,
+          postalCode: data.postalCode,
+        },
+      ],
+      shippingAddresses: [0],
+      billingAddresses: [0],
+    };
+
+    if (data.differentBilling) {
+      body.addresses[1] = {
+        country: 'BY',
+        city: data.cityBilling,
+        streetName: data.streetBilling,
+        postalCode: data.postalCodeBilling,
+      };
+      body.billingAddresses = [1];
+      if (data.defaultBilling) {
+        Object.assign(body, { defaultBillingAddress: 1 });
+      }
+    }
+    if (data.defaultShipping) {
+      Object.assign(body, { defaultShippingAddress: 0 });
+    }
+    const userData: ClientResponse = await apiRoot
+      .customers()
+      .post({ body: body as CustomerDraft })
+      .execute();
+    return userData;
+  } catch {
+    throw new Error();
+  }
+};

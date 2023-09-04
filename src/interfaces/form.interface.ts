@@ -14,9 +14,9 @@ export type inputType = {
 export interface Customer {
   firstName?: string;
   lastName?: string;
-  date?: string;
-  email: string;
-  password: string;
+  dateOfBirth?: string;
+  email?: string;
+  password?: string;
   city?: string;
   street?: string;
   postalCode?: string;
