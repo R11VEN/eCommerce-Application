@@ -30,7 +30,7 @@ const UserPage = ({ showName }: PageProps) => {
   const getUser = async () => {
     setLoading(true);
     const userEntity = await getUserById(userId);
-    console.log(user);
+    // console.log(user);
     setUser(userEntity);
     setLoading(false);
   };

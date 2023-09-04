@@ -1,11 +1,13 @@
 import { ProductProjectionPagedQueryResponse } from '@commercetools/platform-sdk';
 import React, { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import Products from '../api/productsGet.tsx';
 import { Card } from '../components/Card';
 import { Category } from '../components/Category.tsx';
 import classes from '../css/ui.module.css';
 import { PageProps } from '../interfaces/page.interface.ts';
+import { RootState } from '../interfaces/state.interface.ts';
 
 export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
   const [productsOffset, setPagin] = useState(0);
@@ -14,13 +16,14 @@ export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
   const [filterParam, setFilterParam] = useState('categories:exists');
   const [sortParam, setSortParam] = useState('price asc');
   const [coordinates, setСoordinates] = useState({ left: '0', top: '0' });
+  const { value: searchValue } = useSelector((state: RootState) => state.search);
 
   const getProducts = useCallback(async () => {
     const product = new Products();
     await product
-      .getProducts(productsOffset, filterParam, sortParam)
+      .getProducts(productsOffset, filterParam, sortParam, searchValue)
       .then((body) => setProducts(body?.body));
-  }, [productsOffset, filterParam, sortParam]);
+  }, [productsOffset, filterParam, sortParam, searchValue]);
 
   const changePage = useCallback(
     (event: React.MouseEvent) => {

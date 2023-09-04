@@ -9,7 +9,7 @@ const ctpClient = () => {
     force: true,
   };
   if (savedToken) {
-    console.log(savedToken);
+    // console.log(savedToken);
     return new ClientBuilder().withExistingTokenFlow(savedToken, options).build();
   }
 };

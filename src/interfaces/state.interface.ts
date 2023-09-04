@@ -4,6 +4,12 @@ export interface RootState {
   auth: AuthState;
   basket: BasketState;
   userProfile: UserProfileState;
+  search: SearchState;
+}
+
+export interface SearchState {
+  value: string;
+  visible: boolean;
 }
 
 export type Credentials = {
