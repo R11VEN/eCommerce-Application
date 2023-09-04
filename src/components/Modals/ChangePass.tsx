@@ -45,12 +45,12 @@ const ChangePass = () => {
         currentPassword,
         newPassword,
       };
-      const { body, statusCode } = await userUpdatePassword(data);
-      console.log(body, statusCode);
+      const { statusCode } = await userUpdatePassword(data);
+      // console.log(body, statusCode);
       if (statusCode === 200) {
-        console.log(email, newPassword);
-        const { userData, token } = await LoginAnton(email, newPassword);
-        console.log(userData);
+        // console.log(email, newPassword);
+        const { token } = await LoginAnton(email, newPassword);
+        // console.log(userData);
         dispatch(setToken({ token }));
         setMessage('Пароль успешно сохранён!');
       }

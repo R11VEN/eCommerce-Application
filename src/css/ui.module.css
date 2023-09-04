@@ -187,14 +187,14 @@
   height: 200px;
   border: green 1px;
   border-style: none solid solid solid;
-  transition: height .3s ease-out;
+  transition: height 0.3s ease-out;
 }
 
 .navigationList:hover {
   height: 200px;
   border: green 1px;
   border-style: none solid solid solid;
-  transition: height .3s ease-out;
+  transition: height 0.3s ease-out;
 }
 
 .navigationList,
@@ -206,12 +206,12 @@
   height: 0;
   overflow: hidden;
   background-color: antiquewhite;
-  transition: height .3s ease-out;
+  transition: height 0.3s ease-out;
   line-height: 2rem;
 }
 
 .navigationListItem:hover,
-.sortListItem:hover  {
+.sortListItem:hover {
   background-color: rgb(225, 185, 131);
   cursor: pointer;
 }
@@ -235,7 +235,7 @@
   height: 260px;
   border: green 1px;
   border-style: none solid solid solid;
-  transition: height .3s ease-out;
+  transition: height 0.3s ease-out;
 }
 
 .sortListCeckbox,
