@@ -41,7 +41,6 @@ export const DetailedProductPage = () => {
     price = item.masterData.current.masterVariant.prices[0].value.centAmount;
     discounted = item.masterData.current.masterVariant.prices[0].discounted?.value.centAmount;
     description = item.masterData.current.description['ru-BY'];
-    console.log('images', item.masterData.current.masterVariant.images);
     images = item.masterData.current.masterVariant.images;
   }
   return (
