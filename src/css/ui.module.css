@@ -177,6 +177,7 @@
   padding: 5px;
   cursor: pointer;
   background-color: antiquewhite;
+  user-select: none;
 }
 
 .categoryItem:hover {
@@ -202,12 +203,13 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  width: 201px;
+  width: 200px;
   height: 0;
   overflow: hidden;
   background-color: antiquewhite;
   transition: height 0.3s ease-out;
   line-height: 2rem;
+  user-select: none;
 }
 
 .navigationListItem:hover,
@@ -224,6 +226,7 @@
   padding: 5px;
   cursor: pointer;
   background-color: antiquewhite;
+  user-select: none;
 }
 
 .resetCatalog:hover,
@@ -232,7 +235,7 @@
 }
 
 #sortInput:checked ~ .sortList {
-  height: 260px;
+  height: 300px;
   border: green 1px;
   border-style: none solid solid solid;
   transition: height 0.3s ease-out;

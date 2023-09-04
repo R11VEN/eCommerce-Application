@@ -56,7 +56,7 @@ export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
       setSortParam(sortAttribute);
     } else if (sortAttribute === 'sort') {
       setСoordinates({
-        left: `${categoryItem.getBoundingClientRect().left - 1}px`,
+        left: `${categoryItem.getBoundingClientRect().left}px`,
         top: `${categoryItem.getBoundingClientRect().top + 48}px`,
       });
     }
@@ -122,6 +122,7 @@ export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
                   name="Manufacturer"
                   id="categories:exists"
                   onChange={setManufacturer}
+                  defaultChecked
                 ></input>
                 <label>All</label>
               </div>

@@ -55,7 +55,7 @@ export const Category = () => {
     }
     if (attribute !== 'categories:exists') {
       setСoordinates({
-        left: `${categoryItem.getBoundingClientRect().left - 1}px`,
+        left: `${categoryItem.getBoundingClientRect().left}px`,
         top: `${categoryItem.getBoundingClientRect().top + 48}px`,
       });
     }
