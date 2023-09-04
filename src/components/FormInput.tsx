@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 
+import { UserFormEnum } from '../constants/userForm.ts';
 import { inputType } from '../interfaces/form.interface.ts';
 import { InputError } from './InputError.tsx';
 
@@ -11,7 +12,7 @@ export const FormInput = ({ label, type, id, placeholder, isDisable }: inputType
 
   let validation;
   switch (id) {
-    case 'email':
+    case UserFormEnum.EMAIL:
       validation = {
         required: { value: true, message: 'required' },
         pattern: {
@@ -21,7 +22,7 @@ export const FormInput = ({ label, type, id, placeholder, isDisable }: inputType
         },
       };
       break;
-    case 'password':
+    case UserFormEnum.PASSWORD:
       validation = {
         required: { value: true, message: 'required' },
         minLength: { value: 8, message: 'Password must be at least 8 characters long.' },
@@ -32,8 +33,8 @@ export const FormInput = ({ label, type, id, placeholder, isDisable }: inputType
         },
       };
       break;
-    case 'first-name':
-    case 'last-name':
+    case UserFormEnum.FIRST_NAME:
+    case UserFormEnum.LAST_NAME:
       validation = {
         required: { value: true, message: 'required' },
         pattern: {
@@ -42,7 +43,7 @@ export const FormInput = ({ label, type, id, placeholder, isDisable }: inputType
         },
       };
       break;
-    case 'birthdate':
+    case UserFormEnum.DATE_OF_BIRTH:
       validation = {
         required: { value: true, message: 'required' },
         validate: (v: string) =>
@@ -50,14 +51,14 @@ export const FormInput = ({ label, type, id, placeholder, isDisable }: inputType
           'You must be older than 13 years',
       };
       break;
-    case 'street':
-    case 'street-billing':
+    case UserFormEnum.STREET:
+    case UserFormEnum.STREET_BILLING:
       validation = {
         required: { value: true, message: 'Must contain at least one character ' },
       };
       break;
-    case 'city':
-    case 'city-billing':
+    case UserFormEnum.CITY:
+    case UserFormEnum.CITY_BILLING:
       validation = {
         required: { value: true, message: 'Must contain at least one character' },
         pattern: { value: /^[A-Za-z\s]*$/, message: 'no special characters or numbers' },

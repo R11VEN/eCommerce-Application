@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import ProductItem from '../api/productGet';
+import Modal from '../components/Modal';
 import { Slider } from '../components/Slider';
 import classes from '../css/ui.module.css';
 
@@ -11,6 +12,14 @@ export const DetailedProductPage = () => {
   let name, description, price, discounted, img;
   name = description = price = discounted = img = '';
   const [item, setProduct] = useState<Product>();
+  const [modal, setModal] = useState<boolean>(false);
+  const [content, setContent] = useState<string>('');
+
+  function handleModal(content: string) {
+    setContent(content);
+    setModal(true);
+  }
+
   const getProduct = useCallback(async () => {
     const product = new ProductItem();
     await product.getProduct(id).then((body) => {
@@ -36,7 +45,7 @@ export const DetailedProductPage = () => {
     <div>
       <div className={classes.detailedpagecontainer}>
         <h2 className={classes.detailedpageheading}>{name}</h2>
-        <Slider images={[img, img, img]}></Slider>
+        <Slider images={[img, img, img]} openModal={handleModal}></Slider>
         <div className={classes.pricebox}>
           <p className={`${classes.price} ${discounted && classes.discount}`}>
             Price:
@@ -58,6 +67,9 @@ export const DetailedProductPage = () => {
           )}
         </div>
         <p className={classes.detailedpagedescription}>{description}</p>
+        <Modal visible={modal} setDisplay={setModal} images={[img, img, img]}>
+          {content && content}
+        </Modal>
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import { CustomerDraft } from '@commercetools/platform-sdk/dist/declarations/src
 import { ClientResponse } from '@commercetools/platform-sdk/dist/declarations/src/generated/shared/utils/common-types';
 
 import { Customer } from '../interfaces/form.interface.ts';
+import { UserDto } from '../interfaces/user.interface.ts';
 import { client } from './BuildClientAdmin';
 import { returnCustomerByEmail } from './userGetByEmail';
 import Login from './userLogin.tsx';
@@ -26,14 +27,14 @@ const createCustomer = async (customerData: Customer): Promise<userData | void> 
         return data as userData;
       }
     }
-
+    console.log('customerData: ', customerData);
     const regData = {
       body: {
         email: customerData.email,
         password: customerData.password,
         firstName: customerData.firstName,
         lastName: customerData.lastName,
-        dateOfBirth: customerData.date,
+        dateOfBirth: customerData.dateOfBirth,
         addresses: [
           {
             country: 'BY',
@@ -62,13 +63,13 @@ const createCustomer = async (customerData: Customer): Promise<userData | void> 
     if (customerData.defaultShipping) {
       Object.assign(regData.body, { defaultShippingAddress: 0 });
     }
-
+    console.log('regData: ', regData);
     const userData: ClientResponse = await apiRoot
       .customers()
       .post({ body: regData.body as CustomerDraft })
       .execute();
     if (userData) {
-      await Login({ email: customerData.email, password: customerData.password });
+      await Login({ email: customerData.email, password: customerData.password } as UserDto);
       return userData as userData;
     }
   } catch (e) {

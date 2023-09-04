@@ -287,6 +287,8 @@ header {
   justify-content: center;
   align-content: space-between;
   flex-direction: column;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .user-container.loading {
@@ -316,6 +318,17 @@ header {
   flex-basis: 200px;
 }
 
+.profile-row-value {
+  width: 100%;
+  padding: 2px 5px;
+  border: 1px solid white;
+}
+
+.profile-row-value.editable {
+  border: 1px solid #78a37c;
+  border-radius: 5px;
+}
+
 .profile-info {
   font-size: 12px;
 }
@@ -323,17 +336,60 @@ header {
 .profile-tools {
   display: flex;
   justify-content: flex-end;
+  margin: 5px 0;
+}
+
+.profile-group {
+  padding: 5px;
+}
+
+.profile-group-body {
+  border: 1px solid #e5e5e5;
+  padding: 5px;
 }
 
 .profile-group-title {
   text-align: center;
-  background-color: #aca;
 }
 
 .message {
   display: flex;
   align-content: center;
   justify-content: center;
+}
+
+.btn-profile {
+  padding: 3px 5px;
+  margin: 0px 3px;
+  cursor: pointer;
+}
+
+.profile-return {
+  background-color: red;
+  border-radius: 5px;
+  color: white;
+}
+
+.profile-reset {
+  border: 1px solid green;
+  border-radius: 5px;
+}
+
+.profile-save {
+  background-color: green;
+  border-radius: 5px;
+  color: white;
+}
+
+.profile-edit,
+.profile-password {
+  border: 1px solid green;
+  border-radius: 5px;
+}
+
+.profile-change-password {
+  display: flex;
+  flex-direction: column;
 }
 
 /*---------------------------------footer-----------------------*/

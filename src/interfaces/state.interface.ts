@@ -1,6 +1,9 @@
+import { UserProfileState } from '../redux/userProfileSlice.ts';
+
 export interface RootState {
   auth: AuthState;
   basket: BasketState;
+  userProfile: UserProfileState;
 }
 
 export type Credentials = {
@@ -19,6 +22,7 @@ export interface AuthState {
   loading: boolean;
   isAuth: boolean;
   clientId: string;
+  version: number;
 }
 
 export interface BasketState {
