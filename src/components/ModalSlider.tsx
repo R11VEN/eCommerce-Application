@@ -7,19 +7,10 @@ import { A11y, FreeMode, Navigation, Pagination, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import classes from '../css/ui.module.css';
-
-export const Slider = ({
-  images,
-  openModal,
-}: {
-  images: string[];
-  openModal: (content: string) => void;
-}) => {
-  const handleClick = () => {
-    openModal('modalSlider');
-  };
+export const ModalSlider = ({ images }: { images: string[] }) => {
   return (
     <Swiper
+      className={classes.modalSlider}
       modules={[FreeMode, Navigation, Pagination, A11y, Thumbs]}
       navigation={true}
       pagination={{ clickable: true }}
@@ -28,7 +19,7 @@ export const Slider = ({
     >
       {images.map((item: string, index) => (
         <SwiperSlide key={index}>
-          <img className={classes.swiperimage} src={item} alt="" onClick={handleClick} />
+          <img className={classes.swiperimage} src={item} alt="" />
         </SwiperSlide>
       ))}
     </Swiper>

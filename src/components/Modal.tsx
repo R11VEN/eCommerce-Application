@@ -1,9 +1,9 @@
 import classes from '../css/ui.module.css';
 import { UIModal } from '../interfaces/ui.interface.ts';
+import { ModalSlider } from './ModalSlider.tsx';
 
-const Modal = ({ children, visible, setDisplay }: UIModal) => {
+const Modal = ({ children, visible, setDisplay, images = [''] }: UIModal) => {
   const rootClasses = [classes.modal];
-
   if (visible) {
     rootClasses.push(classes.active);
   }
@@ -14,7 +14,7 @@ const Modal = ({ children, visible, setDisplay }: UIModal) => {
         X
       </div>
       <div className={classes.modalContent} onClick={(e) => e.stopPropagation()}>
-        {children}
+        {children === 'modalSlider' ? <ModalSlider images={images} /> : children}
       </div>
     </div>
   );

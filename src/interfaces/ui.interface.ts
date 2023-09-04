@@ -4,4 +4,5 @@ export interface UIModal {
   children: string | JSX.Element;
   visible: boolean;
   setDisplay: (display: boolean) => void;
+  images?: string[];
 }
