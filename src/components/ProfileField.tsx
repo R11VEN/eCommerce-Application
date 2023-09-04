@@ -4,10 +4,6 @@ import { useDispatch } from 'react-redux';
 import { IEditState } from '../pages/UserPage.tsx';
 import { saveEditForm } from '../redux/userProfileSlice.ts';
 
-export interface IActiveState {
-  [key: string | number]: boolean;
-}
-
 export interface IProfileField {
   id: string;
   type: string;

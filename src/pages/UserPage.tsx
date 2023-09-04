@@ -30,6 +30,7 @@ const UserPage = ({ showName }: PageProps) => {
   const getUser = async () => {
     setLoading(true);
     const userEntity = await getUserById(userId);
+    console.log(user);
     setUser(userEntity);
     setLoading(false);
   };
@@ -117,7 +118,7 @@ const UserPage = ({ showName }: PageProps) => {
                 id={UserFormEnum.EMAIL}
                 name="Email"
                 value={user.email}
-                editable={false}
+                editable={userProfile.editMode}
               />
               <ProfileField
                 type="date"
