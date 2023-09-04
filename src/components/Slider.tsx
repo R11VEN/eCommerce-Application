@@ -7,12 +7,13 @@ import { A11y, FreeMode, Navigation, Pagination, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import classes from '../css/ui.module.css';
+import { Image } from '../interfaces/product.interface';
 
 export const Slider = ({
   images,
   openModal,
 }: {
-  images: string[];
+  images: Image[];
   openModal: (content: string) => void;
 }) => {
   const handleClick = () => {
@@ -26,9 +27,9 @@ export const Slider = ({
       spaceBetween={50}
       slidesPerView={1}
     >
-      {images.map((item: string, index) => (
+      {images.map((item: Image, index) => (
         <SwiperSlide key={index}>
-          <img className={classes.swiperimage} src={item} alt="" onClick={handleClick} />
+          <img className={classes.swiperimage} src={item.url} alt="" onClick={handleClick} />
         </SwiperSlide>
       ))}
     </Swiper>
