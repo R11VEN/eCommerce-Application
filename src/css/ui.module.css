@@ -155,6 +155,92 @@
   margin: auto;
 }
 
+.category {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  font-size: 0.8rem;
+  gap: 2px;
+  padding: 0 10px;
+}
+
+.categoryItem {
+  width: 200px;
+  height: 50px;
+  border: green 1px solid;
+  padding: 5px;
+  cursor: pointer;
+  background-color: antiquewhite;
+}
+
+.categoryItem:hover {
+  background-color: rgb(225, 185, 131);
+}
+
+.categoryItem:hover ~ .navigationList {
+  height: 200px;
+  border: green 1px;
+  border-style: none solid solid solid;
+  transition: height .3s ease-out;
+}
+
+.navigationList:hover {
+  height: 200px;
+  border: green 1px;
+  border-style: none solid solid solid;
+  transition: height .3s ease-out;
+}
+
+.navigationList,
+.sortList {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 201px;
+  height: 0;
+  overflow: hidden;
+  background-color: antiquewhite;
+  transition: height .3s ease-out;
+  line-height: 2rem;
+}
+
+.navigationListItem:hover,
+.sortListItem:hover  {
+  background-color: rgb(225, 185, 131);
+  cursor: pointer;
+}
+
+.resetCatalog,
+.openSortList {
+  width: 200px;
+  height: 50px;
+  border: green 1px solid;
+  padding: 5px;
+  cursor: pointer;
+  background-color: antiquewhite;
+}
+
+.resetCatalog:hover,
+.openSortList:hover {
+  background-color: rgb(225, 185, 131);
+}
+
+#sortInput:checked ~ .sortList {
+  height: 260px;
+  border: green 1px;
+  border-style: none solid solid solid;
+  transition: height .3s ease-out;
+}
+
+.sortListCeckbox,
+#sortInput {
+  display: none;
+}
+
+input:checked ~ .sortListItem {
+  background-color: rgb(225, 185, 131);
+}
+
 @media (max-width: 425px) {
   .pricebox {
     flex-direction: column;

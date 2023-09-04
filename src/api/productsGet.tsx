@@ -10,7 +10,9 @@ interface IProductRepository {
   apiRoot: ApiRoot;
   projectKey: string;
   getProducts(
-    offset: number
+    offset: number,
+    filterParam: string | string[],
+    sortParam: string
   ): Promise<ClientResponse<ProductProjectionPagedQueryResponse> | undefined>;
 }
 
@@ -22,16 +24,18 @@ class Products implements IProductRepository {
     this.projectKey = projectKey;
   }
 
-  async getProducts(offset: number) {
+  async getProducts(offset: number, filterParam: string | string[], sortParam: string) {
     try {
       const products = await this.apiRoot
         .withProjectKey({ projectKey: this.projectKey })
         .productProjections()
+        .search()
         .get({
           queryArgs: {
             limit: 8,
             offset: offset,
-            sort: 'name.ru-BY',
+            sort: sortParam,
+            filter: filterParam,
           },
         })
         .execute();
