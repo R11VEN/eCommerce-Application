@@ -13,6 +13,7 @@ const initialState: AuthState = {
   loading: false,
   isAuth: false,
   clientId: '',
+  version: 0,
 };
 
 const authSlice = createSlice({
@@ -32,10 +33,17 @@ const authSlice = createSlice({
       state.email = action.payload.email;
       state.token = action.payload.token;
       state.clientId = action.payload.clientId;
+      state.version = action.payload.version;
+    },
+    setToken: (state, action) => {
+      state.token = action.payload.token;
     },
     authFailure: (state) => {
       state.loading = false;
       state.token = '';
+    },
+    setVersion: (state, action) => {
+      state.version = action.payload.version;
     },
     authLogout: (state) => {
       state.isAuth = false;
@@ -47,6 +55,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { startAuth, endAuth, authSuccess, authFailure, authLogout } = authSlice.actions;
+export const { setToken, setVersion, startAuth, endAuth, authSuccess, authFailure, authLogout } =
+  authSlice.actions;
 
 export default authSlice.reducer;

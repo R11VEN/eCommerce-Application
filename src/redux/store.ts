@@ -3,6 +3,7 @@ import { configureStore, Middleware } from '@reduxjs/toolkit';
 import { RootState } from '../interfaces/state.interface.ts';
 import authReducer from './authSlice.ts';
 import basketReducer from './basketSlice.ts';
+import userProfileReducer from './userProfileSlice.ts';
 
 const saveToLocalStorage = (state: RootState) => {
   try {
@@ -36,6 +37,7 @@ const store = configureStore({
   reducer: {
     auth: authReducer,
     basket: basketReducer,
+    userProfile: userProfileReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware),
   preloadedState,

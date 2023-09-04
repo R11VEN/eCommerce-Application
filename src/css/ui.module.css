@@ -173,10 +173,10 @@
   .swiperimage {
     width: 70%;
   }
- .modalContent{
-  padding: 0;
- }
+  .modalContent {
+    padding: 0;
+  }
   .modalContent .swiperimage {
-  width: 80%;
-}
+    width: 80%;
+  }
 }
