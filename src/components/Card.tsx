@@ -4,7 +4,6 @@ import { PRODUCT_ROUTE } from '../constants/pages';
 import classes from '../css/ui.module.css';
 
 export const Card = ({
-  uniqueKey,
   title,
   price,
   discounted,
@@ -13,7 +12,6 @@ export const Card = ({
   id,
   currency,
 }: {
-  uniqueKey: string;
   title: string;
   price: number;
   discounted?: number;
@@ -24,7 +22,7 @@ export const Card = ({
 }) => {
   return (
     <NavLink className={classes.cardlink} to={`${PRODUCT_ROUTE}/${id}`}>
-      <div className={classes.card} key={uniqueKey}>
+      <div className={classes.card}>
         <img className={classes.card__img} src={url} alt={title} />
         <div className={classes.description}>
           <h2 className={classes.title}>{title}</h2>
