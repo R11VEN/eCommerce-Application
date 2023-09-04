@@ -18,8 +18,31 @@
 }
 
 /*---------------------------------header-----------------------*/
+
+.search-container {
+  height: 30px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.search-input.active {
+  border: 1px solid green;
+  height: 25px;
+  min-width: 600px;
+  margin: 0 auto;
+}
+
+.search-input {
+  border: 0px;
+  height: 0px;
+  min-width: 600px;
+  margin: 0 auto;
+  transition: all 0.3s;
+}
+
 header {
   border-bottom: #127627 1px solid;
+  position: relative;
 }
 
 .bread-camps {

@@ -12,7 +12,8 @@ interface IProductRepository {
   getProducts(
     offset: number,
     filterParam: string | string[],
-    sortParam: string
+    sortParam: string,
+    searchValue: string
   ): Promise<ClientResponse<ProductProjectionPagedQueryResponse> | undefined>;
 }
 
@@ -24,7 +25,12 @@ class Products implements IProductRepository {
     this.projectKey = projectKey;
   }
 
-  async getProducts(offset: number, filterParam: string | string[], sortParam: string) {
+  async getProducts(
+    offset: number,
+    filterParam: string | string[],
+    sortParam: string,
+    searchValue: string
+  ) {
     try {
       const products = await this.apiRoot
         .withProjectKey({ projectKey: this.projectKey })
@@ -36,6 +42,7 @@ class Products implements IProductRepository {
             offset: offset,
             sort: sortParam,
             filter: filterParam,
+            ['text.ru-BY']: searchValue,
           },
         })
         .execute();
