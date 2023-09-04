@@ -1,6 +1,7 @@
-import { useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { RootState } from '../interfaces/state.interface.ts';
 import { IEditState } from '../pages/UserPage.tsx';
 import { saveEditForm } from '../redux/userProfileSlice.ts';
 
@@ -15,8 +16,7 @@ export interface IProfileField {
 }
 const ProfileField = ({ id, type, name, value, editable }: IProfileField) => {
   const dispatch = useDispatch();
-  // const { userEditForm } = useSelector((state: RootState) => state.userProfile);
-  // const inputValue = (userEditForm && userEditForm[id] ? userEditForm[id] : value) as string;
+  const userProfile = useSelector((state: RootState) => state.userProfile);
   const inputEl = useRef<HTMLInputElement>(null);
 
   const editStateHandler = () => {

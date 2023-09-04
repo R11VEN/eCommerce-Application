@@ -26,4 +26,5 @@ export interface Customer {
   defaultBilling?: boolean;
   defaultShipping?: boolean;
   differentBilling?: boolean;
+  defaultBillingAddress?: boolean;
 }

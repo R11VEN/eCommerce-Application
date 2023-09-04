@@ -74,23 +74,28 @@ const ChangePass = () => {
   return (
     <Fragment>
       <div className="profile-change-password">
-        <div style={{ textAlign: 'center', color: 'red', width: '200px' }}>{message}</div>
-        <label htmlFor="currentPassword">Текущий пароль</label>
-        <input
-          id="currentPassword"
-          type="text"
-          onChange={currentPasswordHandler}
-          value={currentPassword}
-        />
-        <div style={{ textAlign: 'center', color: 'red', width: '200px' }}>
-          {validation.currentPassword && validationMessage.currentPassword}
+        <div style={{ marginBottom: '10px', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ textAlign: 'center', color: 'red', width: '200px' }}>{message}</div>
+          <label htmlFor="currentPassword">Текущий пароль</label>
+          <input
+            id="currentPassword"
+            type="text"
+            onChange={currentPasswordHandler}
+            value={currentPassword}
+          />
+          <div style={{ textAlign: 'center', color: 'red', width: '200px' }}>
+            {validation.currentPassword && validationMessage.currentPassword}
+          </div>
+          <label htmlFor="newPassword">Новый пароль</label>
+          <input id="newPassword" type="text" onChange={newPasswordHandler} value={newPassword} />
+          <div style={{ textAlign: 'center', color: 'red', width: '200px' }}>
+            {validation.newPassword && validationMessage.newPassword}
+          </div>
         </div>
-        <label htmlFor="newPassword">Новый пароль</label>
-        <input id="newPassword" type="text" onChange={newPasswordHandler} value={newPassword} />
-        <div style={{ textAlign: 'center', color: 'red', width: '200px' }}>
-          {validation.newPassword && validationMessage.newPassword}
+
+        <div className="btn-profile profile-save" onClick={saveHandler}>
+          Сохранить
         </div>
-        <input type="button" value="Сохранить" onClick={saveHandler} />
       </div>
     </Fragment>
   );
