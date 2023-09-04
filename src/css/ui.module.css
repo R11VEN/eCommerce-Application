@@ -5,7 +5,8 @@
   right: 0;
   left: 0;
   display: none;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 10;
 }
 
 .modal.active {
@@ -25,6 +26,7 @@
   position: absolute;
   top: 30px;
   right: 30px;
+  z-index: 15;
   border-radius: 50px;
   height: 50px;
   width: 50px;
@@ -153,8 +155,11 @@
 .swiperimage {
   display: block;
   margin: auto;
+  width: 20%;
 }
-
+.modalContent .swiperimage {
+  width: 30%;
+}
 @media (max-width: 425px) {
   .pricebox {
     flex-direction: column;
@@ -168,4 +173,10 @@
   .swiperimage {
     width: 70%;
   }
+ .modalContent{
+  padding: 0;
+ }
+  .modalContent .swiperimage {
+  width: 80%;
+}
 }
