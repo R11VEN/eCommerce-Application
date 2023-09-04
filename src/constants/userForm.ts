@@ -12,5 +12,5 @@ export enum UserFormEnum {
   POSTAL_CODE_BILLING = 'postalCodeBilling',
   DEFAULT_BILLING = 'defaultBilling',
   EMAIL = 'email',
-  PASSWORD = 'Password',
+  PASSWORD = 'password',
 }

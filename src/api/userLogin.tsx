@@ -7,7 +7,7 @@ import { tokenCache } from './tokenCache';
 const Login = async ({ email, password }: UserDto) => {
   if (localStorage.getItem('loginToken')) {
     apiRootExistingToken();
-    console.log('Вход уже выполнен!');
+    // console.log('Вход уже выполнен!');
     return true;
   }
   try {

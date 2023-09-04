@@ -4,12 +4,14 @@ export interface UserProfileState {
   editMode: boolean;
   userEditForm: { [key: string]: string | number | boolean };
   isChanged: boolean;
+  isReset: boolean;
 }
 
 const initialState: UserProfileState = {
   editMode: false,
   userEditForm: {},
   isChanged: false,
+  isReset: false,
 };
 
 const userProfileSlice = createSlice({
@@ -27,6 +29,7 @@ const userProfileSlice = createSlice({
     removeEditMode: (state) => {
       state.editMode = false;
       state.isChanged = false;
+      state.isReset = false;
       state.userEditForm = initialState.userEditForm;
     },
     saveEditForm: (state, action) => {
@@ -35,6 +38,7 @@ const userProfileSlice = createSlice({
     resetEditForm: (state) => {
       state.userEditForm = initialState.userEditForm;
       state.isChanged = false;
+      state.isReset = true;
     },
   },
 });

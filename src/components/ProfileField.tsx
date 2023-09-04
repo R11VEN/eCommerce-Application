@@ -15,8 +15,6 @@ export interface IProfileField {
 }
 const ProfileField = ({ id, type, name, value, editable }: IProfileField) => {
   const dispatch = useDispatch();
-  // const { userEditForm } = useSelector((state: RootState) => state.userProfile);
-  // const inputValue = (userEditForm && userEditForm[id] ? userEditForm[id] : value) as string;
   const inputEl = useRef<HTMLInputElement>(null);
 
   const editStateHandler = () => {

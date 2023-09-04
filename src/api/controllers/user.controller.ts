@@ -29,7 +29,7 @@ export async function userUpdate(
 ): Promise<ClientResponse> {
   try {
     const userData = await updateCustomer(id, version, actions);
-    console.log(userData);
+    // console.log(userData);
     return userData;
   } catch {
     throw new Error();

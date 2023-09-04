@@ -27,7 +27,7 @@ const createCustomer = async (customerData: Customer): Promise<userData | void> 
         return data as userData;
       }
     }
-    console.log('customerData: ', customerData);
+    // console.log('customerData: ', customerData);
     const regData = {
       body: {
         email: customerData.email,
@@ -63,7 +63,7 @@ const createCustomer = async (customerData: Customer): Promise<userData | void> 
     if (customerData.defaultShipping) {
       Object.assign(regData.body, { defaultShippingAddress: 0 });
     }
-    console.log('regData: ', regData);
+    // console.log('regData: ', regData);
     const userData: ClientResponse = await apiRoot
       .customers()
       .post({ body: regData.body as CustomerDraft })
@@ -73,7 +73,7 @@ const createCustomer = async (customerData: Customer): Promise<userData | void> 
       return userData as userData;
     }
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 
