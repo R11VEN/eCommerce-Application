@@ -17,6 +17,8 @@ export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
   const [sortParam, setSortParam] = useState('price asc');
   const [coordinates, setСoordinates] = useState({ left: '0', top: '0' });
   const { value: searchValue } = useSelector((state: RootState) => state.search);
+  const [minPrice, setMinPrice] = useState('0');
+  const [maxPrice, setMaxPrice] = useState('*');
 
   const getProducts = useCallback(async () => {
     const product = new Products();
@@ -91,6 +93,27 @@ export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
     }
   };
 
+  const setPrise = (e: React.FormEvent) => {
+    const target = e.target as HTMLInputElement;
+    if (target.id === 'min') {
+      if (target.value == '') {
+        setMinPrice('0');
+      } else {
+        setMinPrice(target.value);
+      }
+    } else if (target.id === 'max') {
+      if (target.value == '') {
+        setMaxPrice('*');
+      } else {
+        setMaxPrice(target.value);
+      }
+    }
+  };
+
+  useEffect(() => {
+    setFilterParam(`variants.price.centAmount:range (${minPrice} to ${maxPrice})`);
+  }, [maxPrice, minPrice]);
+
   return (
     <>
       <div className={classes.category} onClick={updateCatalog}>
@@ -135,6 +158,23 @@ export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
                 <option>А-Я</option>
                 <option>Я-А</option>
               </select>
+            </fieldset>
+            <fieldset>
+              <legend>Диапазон цен</legend>
+              <input
+                max={10000000}
+                type="number"
+                id="min"
+                placeholder="от"
+                onInput={setPrise}
+              ></input>
+              <input
+                max={10000000}
+                type="number"
+                id="max"
+                placeholder="до"
+                onInput={setPrise}
+              ></input>
             </fieldset>
           </form>
         </div>

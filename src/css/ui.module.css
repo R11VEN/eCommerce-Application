@@ -235,7 +235,7 @@
 }
 
 #sortInput:checked ~ .sortList {
-  height: 300px;
+  height: 400px;
   border: green 1px;
   border-style: none solid solid solid;
   transition: height 0.3s ease-out;
