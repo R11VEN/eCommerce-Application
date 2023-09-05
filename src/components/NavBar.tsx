@@ -2,23 +2,30 @@ import { JSX } from 'react/jsx-runtime';
 import { NavLink } from 'react-router-dom';
 
 import { RouteInterface } from '../interfaces/route.interface.ts';
+import classes from '../layout/layout.module.css';
 import { routesPages } from '../routes.tsx';
 import { INav } from './NavAuth.tsx';
 
 const NavBar = ({ mobileMenuActive, setMobileMenuActive }: INav) => {
   const showClassName = ({ isActive }: { isActive: boolean }): string => {
-    return isActive ? 'header-link-auth active' : 'header-link-auth';
+    return isActive
+      ? classes['header-link-auth'] + ' ' + classes['active']
+      : classes['header-link-auth'];
   };
 
   const createLink = (route: RouteInterface): JSX.Element => {
     return route.path === '#' ? (
-      <li className="nav-list_item" key={`li-${route.name}`}>
-        <a href="#" className="header-link-auth" onClick={() => setMobileMenuActive(false)}>
+      <li className={classes['nav-list_item']} key={`li-${route.name}`}>
+        <a
+          href="#"
+          className={classes['header-link-auth']}
+          onClick={() => setMobileMenuActive(false)}
+        >
           {route.name}
         </a>
       </li>
     ) : (
-      <li className="nav-list_item" key={`li-${route.name}`}>
+      <li className={classes['nav-list_item']} key={`li-${route.name}`}>
         <NavLink
           key={route.name}
           to={route.path}
@@ -32,9 +39,12 @@ const NavBar = ({ mobileMenuActive, setMobileMenuActive }: INav) => {
     );
   };
 
+  const navClasses = [classes.nav];
+  mobileMenuActive && navClasses.push(classes.active);
+
   return (
-    <nav className={mobileMenuActive ? 'nav active' : 'nav'}>
-      <ul className="nav-list">{routesPages.map(createLink)}</ul>
+    <nav className={navClasses.join(' ')}>
+      <ul className={classes['nav-list']}>{routesPages.map(createLink)}</ul>
     </nav>
   );
 };

@@ -18,15 +18,16 @@ const NavAuth = ({ setMobileMenuActive, menuProfileVisible, showMenuProfile }: I
   const auth = useSelector((state: RootState) => state.auth);
 
   const showClassName = ({ isActive }: { isActive: boolean }): string => {
-    return isActive ? 'header-link-auth active' : 'header-link-auth';
+    return isActive
+      ? classes['header-link-auth'] + ' ' + classes['active']
+      : classes['header-link-auth'];
   };
 
   return (
-    <div className="login-registration">
+    <div className={classes['login-registration']}>
       {auth.isAuth ? (
         <div
           className={'logout'}
-          // onClick={checkLogout}
           onClick={() => showMenuProfile && showMenuProfile(!menuProfileVisible)}
         >
           <img src={logoutImg} title="Logout" alt="Logout" />

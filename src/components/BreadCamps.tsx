@@ -1,7 +1,9 @@
+import classes from '../layout/layout.module.css';
+
 const BreadCamps = ({ titlePage }: { titlePage: string }) => {
   const pageName: string = `-> ${titlePage}`;
   return (
-    <div className="bread-camps">
+    <div className={classes['bread-camps']}>
       <a href="/">High voltage</a> {pageName}
     </div>
   );
