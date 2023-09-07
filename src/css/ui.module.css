@@ -140,6 +140,9 @@
   width: 100%;
   max-width: 1280px;
   margin: auto;
+  padding: 0 10px;
+  text-align: center;
+  font-size: 1.2rem;
 }
 
 .detailedpageheading {
@@ -149,7 +152,7 @@
 .pricebox {
   margin-top: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .swiperimage {
@@ -168,6 +171,7 @@
   font-size: 0.8rem;
   gap: 2px;
   padding: 0 10px;
+  margin: 0 auto;
 }
 
 .categoryItem {
