@@ -1,5 +1,6 @@
-import { Image } from './product.interface';
 import { JSX } from 'react/jsx-runtime';
+
+import { Image } from './product.interface';
 
 export interface UIModal {
   children: string | JSX.Element;

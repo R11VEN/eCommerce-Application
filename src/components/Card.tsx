@@ -28,11 +28,22 @@ export const Card = ({
           <h2 className={classes.title}>{title}</h2>
           <div className={classes.pricecontainer}>
             <p className={`${classes.price} ${discounted && classes.discount}`}>
-              Price: {price} {currency}
+              Price:
+              {new Intl.NumberFormat('pl', {
+                style: 'currency',
+                currency: currency,
+                currencySign: 'accounting',
+              }).format(price)}{' '}
             </p>
             {discounted ? (
               <p className={classes.discountprice}>
-                Discounted: {discounted} {currency}
+                Discounted:
+                {discounted &&
+                  new Intl.NumberFormat('pl', {
+                    style: 'currency',
+                    currency: 'EUR',
+                    currencySign: 'accounting',
+                  }).format(+discounted)}
               </p>
             ) : (
               ''
