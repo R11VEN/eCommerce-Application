@@ -2,7 +2,7 @@ import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 
 import { client, projectKey } from './BuildClientAdmin';
 
-const apiRoot = createApiBuilderFromCtpClient(client).withProjectKey({
+export const apiRoot = createApiBuilderFromCtpClient(client).withProjectKey({
   projectKey: projectKey,
 });
 
