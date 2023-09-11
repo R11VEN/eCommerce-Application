@@ -12,13 +12,13 @@ const NavBar = ({ mobileMenuActive, setMobileMenuActive }: INav) => {
 
   const createLink = (route: RouteInterface): JSX.Element => {
     return route.path === '#' ? (
-      <li className="nav-list_item">
+      <li className="nav-list_item" key={`li-${route.name}`}>
         <a href="#" className="header-link-auth" onClick={() => setMobileMenuActive(false)}>
           {route.name}
         </a>
       </li>
     ) : (
-      <li className="nav-list_item">
+      <li className="nav-list_item" key={`li-${route.name}`}>
         <NavLink
           key={route.name}
           to={route.path}
