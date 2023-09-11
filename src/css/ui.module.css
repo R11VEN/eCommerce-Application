@@ -214,6 +214,7 @@
   transition: height 0.3s ease-out;
   line-height: 2rem;
   user-select: none;
+  z-index: 1;
 }
 
 .navigationListItem:hover,
