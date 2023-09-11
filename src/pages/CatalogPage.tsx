@@ -10,6 +10,8 @@ import { PageProps } from '../interfaces/page.interface.ts';
 import { RootState } from '../interfaces/state.interface.ts';
 
 export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>('');
   const [productsOffset, setPagin] = useState(0);
   const [products, setProducts] = useState<ProductProjectionPagedQueryResponse>();
   const [page, setPage] = useState(1);
@@ -21,10 +23,16 @@ export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
   const [maxPrice, setMaxPrice] = useState('*');
 
   const getProducts = useCallback(async () => {
-    const product = new Products();
-    await product
-      .getProducts(productsOffset, filterParam, sortParam, searchValue)
-      .then((body) => setProducts(body?.body));
+    try {
+      setLoading(true);
+      const product = new Products();
+      await product
+        .getProducts(productsOffset, filterParam, sortParam, searchValue)
+        .then((body) => setProducts(body?.body));
+      setLoading(false);
+    } catch (e) {
+      setMessage('Ой!');
+    }
   }, [productsOffset, filterParam, sortParam, searchValue]);
 
   const changePage = useCallback(
@@ -82,9 +90,9 @@ export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
 
   const select = (e: React.FormEvent) => {
     const target = e.target as HTMLSelectElement;
-    if (target.value === 'Цене по убыванию') {
+    if (target.value === 'Цене по возростанию') {
       setSortParam('price asc');
-    } else if (target.value === 'Цене по возростанию') {
+    } else if (target.value === 'Цене по убыванию') {
       setSortParam('price desc');
     } else if (target.value === 'А-Я') {
       setSortParam('name.ru-BY asc');
@@ -116,112 +124,128 @@ export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
 
   return (
     <>
-      <div className={classes.category} onClick={updateCatalog}>
-        <Category />
-        <div className={classes.sortList} style={coordinates}>
-          <form>
-            <fieldset>
-              <legend>Manufacturer</legend>
-              <div>
-                <input
-                  type="radio"
-                  name="Manufacturer"
-                  id="Schneider Electric"
-                  onChange={setManufacturer}
-                ></input>
-                <label>Schneider Electric</label>
-              </div>
-              <div>
-                <input type="radio" name="Manufacturer" id="EMG" onChange={setManufacturer}></input>
-                <label>EMG</label>
-              </div>
-              <div>
-                <input type="radio" name="Manufacturer" id="SEG" onChange={setManufacturer}></input>
-                <label>SEG</label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  name="Manufacturer"
-                  id="categories:exists"
-                  onChange={setManufacturer}
-                  defaultChecked
-                ></input>
-                <label>All</label>
-              </div>
-            </fieldset>
-            <fieldset>
-              <legend>Сортировать по</legend>
-              <select onInput={select}>
-                <option>Цене по убыванию</option>
-                <option>Цене по возростанию</option>
-                <option>А-Я</option>
-                <option>Я-А</option>
-              </select>
-            </fieldset>
-            <fieldset>
-              <legend>Диапазон цен</legend>
-              <input
-                max={10000000}
-                type="number"
-                id="min"
-                placeholder="от"
-                onInput={setPrise}
-              ></input>
-              <input
-                max={10000000}
-                type="number"
-                id="max"
-                placeholder="до"
-                onInput={setPrise}
-              ></input>
-            </fieldset>
-          </form>
-        </div>
-      </div>
-
-      <div className={classes.cardsContainer}>
-        {products?.results.map((item) => {
-          if (
-            item.masterVariant.prices &&
-            item.published &&
-            item.masterVariant.images &&
-            item.description
-          ) {
-            if (item.masterVariant.prices[0].discounted) {
-              return (
-                <Card
-                  key={item.id}
-                  id={item.id}
-                  url={item.masterVariant.images[0].url}
-                  title={item.name['ru-BY']}
-                  price={item.masterVariant.prices[0].value.centAmount}
-                  discounted={item.masterVariant.prices[0].discounted.value.centAmount}
-                  currency={item.masterVariant.prices[0].value.currencyCode}
-                  description={item.description['ru-BY']}
-                />
-              );
-            } else {
-              return (
-                <Card
-                  key={item.id}
-                  id={item.id}
-                  url={item.masterVariant.images[0].url}
-                  title={item.name['ru-BY']}
-                  price={item.masterVariant.prices[0].value.centAmount}
-                  currency={item.masterVariant.prices[0].value.currencyCode}
-                  description={item.description['ru-BY']}
-                />
-              );
-            }
-          }
-        })}
-      </div>
-      <div className={classes.btncontainer}>
-        <input type="button" className="previous-page" value="<" onClick={changePage} />
-        <div>{page}</div>
-        <input type="button" className="next-page" value=">" onClick={changePage} />
-      </div>
+      {loading && <span className="loader"></span>}
+      {message ? (
+        <div className="message">{message}</div>
+      ) : (
+        <>
+          <div className={classes.category} onClick={updateCatalog}>
+            <Category />
+            <div className={classes.sortList} style={coordinates}>
+              <form>
+                <fieldset>
+                  <legend>Manufacturer</legend>
+                  <div>
+                    <input
+                      type="radio"
+                      name="Manufacturer"
+                      id="Schneider Electric"
+                      onChange={setManufacturer}
+                    ></input>
+                    <label>Schneider Electric</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="Manufacturer"
+                      id="EMG"
+                      onChange={setManufacturer}
+                    ></input>
+                    <label>EMG</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="Manufacturer"
+                      id="SEG"
+                      onChange={setManufacturer}
+                    ></input>
+                    <label>SEG</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="Manufacturer"
+                      id="categories:exists"
+                      onChange={setManufacturer}
+                      defaultChecked
+                    ></input>
+                    <label>All</label>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <legend>Сортировать по</legend>
+                  <select onInput={select}>
+                    <option>Цене по возростанию</option>
+                    <option>Цене по убыванию</option>
+                    <option>А-Я</option>
+                    <option>Я-А</option>
+                  </select>
+                </fieldset>
+                <fieldset>
+                  <legend>Диапазон цен</legend>
+                  <input
+                    max={10000000}
+                    type="number"
+                    id="min"
+                    placeholder="от"
+                    onInput={setPrise}
+                  ></input>
+                  <input
+                    max={10000000}
+                    type="number"
+                    id="max"
+                    placeholder="до"
+                    onInput={setPrise}
+                  ></input>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+          <div className={classes.cardsContainer}>
+            {products?.results.map((item) => {
+              if (
+                item.masterVariant.prices &&
+                item.published &&
+                item.masterVariant.images &&
+                item.description
+              ) {
+                if (item.masterVariant.prices[0].discounted) {
+                  return (
+                    <Card
+                      key={item.id}
+                      id={item.id}
+                      url={item.masterVariant.images[0].url}
+                      title={item.name['ru-BY']}
+                      price={item.masterVariant.prices[0].value.centAmount}
+                      discounted={item.masterVariant.prices[0].discounted.value.centAmount}
+                      currency={item.masterVariant.prices[0].value.currencyCode}
+                      description={item.description['ru-BY']}
+                    />
+                  );
+                } else {
+                  return (
+                    <Card
+                      key={item.id}
+                      id={item.id}
+                      url={item.masterVariant.images[0].url}
+                      title={item.name['ru-BY']}
+                      price={item.masterVariant.prices[0].value.centAmount}
+                      currency={item.masterVariant.prices[0].value.currencyCode}
+                      description={item.description['ru-BY']}
+                    />
+                  );
+                }
+              }
+            })}
+          </div>
+          <div className={classes.btncontainer}>
+            <input type="button" className="previous-page" value="<" onClick={changePage} />
+            <div>{page}</div>
+            <input type="button" className="next-page" value=">" onClick={changePage} />
+          </div>
+        </>
+      )}
     </>
   );
 };
