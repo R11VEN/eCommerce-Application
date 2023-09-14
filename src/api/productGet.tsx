@@ -1,6 +1,8 @@
 import { ApiRoot, ClientResponse, Product } from '@commercetools/platform-sdk';
 
-import { apiRootSPA, projectKey } from './BuildClientSPA';
+//import { apiRootSPA, projectKey } from './BuildClientSPA';
+import Client from './User/Client';
+import { getOptions } from './User/options.tsx';
 
 interface IProductRepository {
   apiRoot: ApiRoot;
@@ -12,8 +14,10 @@ class ProductItem implements IProductRepository {
   apiRoot: ApiRoot;
   projectKey: string;
   constructor() {
-    this.apiRoot = apiRootSPA();
-    this.projectKey = projectKey;
+    const options = getOptions();
+    const rootClient = new Client(options);
+    this.apiRoot = rootClient.getApiRoot(rootClient.getClientFromOption(options));
+    this.projectKey = rootClient.getProjectKey();
   }
 
   async getProduct(id: string) {

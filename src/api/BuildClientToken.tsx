@@ -4,13 +4,13 @@ import { ClientBuilder } from '@commercetools/sdk-client-v2';
 const projectKey = 'jsfe2023q1';
 
 const ctpClient = () => {
-  const savedToken = localStorage.getItem('loginToken');
+  const authorization = localStorage.getItem('loginToken');
   const options = {
     force: true,
   };
-  if (savedToken) {
-    // console.log(savedToken);
-    return new ClientBuilder().withExistingTokenFlow(savedToken, options).build();
+  if (authorization) {
+    //console.log(authorization);
+    return new ClientBuilder().withExistingTokenFlow(`Bearer ${authorization}`, options).build();
   }
 };
 

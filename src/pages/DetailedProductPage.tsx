@@ -1,8 +1,11 @@
-import { Product } from '@commercetools/platform-sdk';
+import { Cart, ClientResponse, Product } from '@commercetools/platform-sdk';
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import ProductItem from '../api/productGet';
+import { tokenCache } from '../api/tokenCache.tsx';
+import CartRepository from '../api/User/Cart.tsx';
+import { getOptions } from '../api/User/options.tsx';
 import Modal from '../components/Modal';
 import { Slider } from '../components/Slider';
 import classes from '../css/ui.module.css';
@@ -28,9 +31,44 @@ export const DetailedProductPage = () => {
       setProduct(body?.body);
     });
   }, [id]);
+
   useEffect(() => {
     getProduct();
   }, [getProduct]);
+
+  //Создаем или получаем корзину и добавляем в нее товар
+  useEffect(() => {
+    const cart = async () => {
+      const opt = getOptions();
+      const cartRep = new CartRepository(opt);
+      const currentCart = (await cartRep
+        .createCartForCurrentCustomer({ currency: 'EUR' })
+        .then((body) => body)) as ClientResponse<Cart>;
+      //console.log('currentCart.body.id', currentCart.body.id);
+
+      cartRep.updateActiveCart({
+        cartId: currentCart.body.id,
+        cartUpdateDraft: {
+          version: currentCart.body.version,
+          productId: id,
+          variantId: 1,
+          quantity: 1,
+        },
+      });
+
+      //Тут токен для теста, нужно переделать
+      const token = tokenCache.get().token;
+      if (token) {
+        localStorage.setItem('token', token);
+        console.log(token);
+      }
+
+      return cartRep;
+    };
+
+    cart();
+  }, [id]);
+
   if (
     item &&
     item.masterData.current.masterVariant.prices &&

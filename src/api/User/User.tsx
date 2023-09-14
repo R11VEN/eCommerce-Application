@@ -1,6 +1,7 @@
 import {
   ApiRoot,
   type ClientResponse,
+  //type CustomerSignin,
   type CustomerSignInResult,
 } from '@commercetools/platform-sdk';
 import {
@@ -111,12 +112,11 @@ export class CustomerRepository implements ICustomerRepository {
             email,
             password,
             updateProductData: true,
-            //anonymousId: options.anonymousId,
-            //anonymousCartSignInMode: 'MergeWithExistingCustomerCart',
+            //anonymousId: options,
+            activeCartSignInMode: 'MergeWithExistingCustomerCart',
           },
         })
         .execute();
-
       return customer;
     } catch (error) {
       return error;
