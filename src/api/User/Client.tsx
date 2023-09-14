@@ -8,6 +8,8 @@ import {
 
 const userClientBuilder = new ClientBuilder();
 const anonymousClientBuilder = new ClientBuilder();
+const tokenClientBuilder = new ClientBuilder();
+
 interface Credentials {
   clientId: string;
   clientSecret: string;
@@ -64,7 +66,7 @@ class Client {
 
     if (localStorage.getItem('token') && !credentials.user) {
       console.log('token Client');
-      return userClientBuilder
+      return tokenClientBuilder
         .withProjectKey('jsfe2023q1')
         .withMiddleware(authMiddleware)
         .withHttpMiddleware(httpMiddlewareOptions)
