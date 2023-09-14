@@ -1,10 +1,11 @@
-import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
+import { Cart, ClientResponse, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import {
   CustomerChangePassword,
+  CustomerSignInResult,
   CustomerUpdateAction,
 } from '@commercetools/platform-sdk/dist/declarations/src/generated/models/customer';
-import { ClientResponse } from '@commercetools/platform-sdk/dist/declarations/src/generated/shared/utils/common-types';
 
+//import { ClientResponse } from '@commercetools/platform-sdk/dist/declarations/src/generated/shared/utils/common-types';
 import {
   API_CLIENT_ID,
   API_CLIENT_SECRET,
@@ -12,7 +13,11 @@ import {
   PROJECT_KEY,
 } from '../../constants/api.ts';
 import { client } from '../BuildClientAdmin.tsx';
-import { apiRootPass, projectKey } from '../BuildClientPassword.tsx';
+import { tokenCache } from '../tokenCache.tsx';
+import CartRepository from '../User/Cart.tsx';
+import { getOptions } from '../User/options.tsx';
+//import { apiRootPass, projectKey } from '../BuildClientPassword.tsx';
+import { CustomerRepository } from '../User/User.tsx';
 
 const apiRoot = createApiBuilderFromCtpClient(client).withProjectKey({
   projectKey: PROJECT_KEY,
@@ -20,17 +25,55 @@ const apiRoot = createApiBuilderFromCtpClient(client).withProjectKey({
 
 export async function signIn(email: string, password: string) {
   try {
-    const userData = await apiRootPass({ username: email, password: password })
-      .withProjectKey({ projectKey })
-      .me()
-      .login()
-      .post({
-        body: {
-          email,
-          password,
-        },
-      })
-      .execute();
+    console.log(tokenCache);
+    //tokenCache.set({
+    //  token: '',
+    //  expirationTime: 0,
+    //  refreshToken: '',
+    //});
+
+    const options = getOptions({ username: email, password: password });
+    const userData = (await new CustomerRepository(options).getCustomer({
+      email: email,
+      password: password,
+    })) as unknown as ClientResponse<CustomerSignInResult>;
+
+    //Переделать, добавлено для теста
+    const token = tokenCache.get().token;
+    console.log(token);
+    localStorage.setItem('auth', 'true');
+    if (token) {
+      localStorage.setItem('token', token);
+      console.log(token);
+    }
+
+    //const userData = await apiRootPass({ username: email, password: password })
+    //  .withProjectKey({ projectKey })
+    //  .me()
+    //  .login()
+    //  .post({
+    //    body: {
+    //      email,
+    //      password,
+    //    },
+    //  })
+    //  .execute();
+
+    //Тут, поидее, нужно создать/обновить/объединить корзину нашего юзера
+
+    const cart = async () => {
+      const cartRep = new CartRepository(options);
+      const currentCart = (await cartRep
+        .createCartForCurrentCustomer({ currency: 'EUR', customerEmail: email })
+        .then((body) => body)) as ClientResponse<Cart>;
+      console.log(currentCart.body.id);
+      return currentCart;
+    };
+    cart();
+
+    //После логина у пользователя появляется корзина
+    console.log(userData.body.cart?.lineItems);
+    //console.log(cart.bod);
     return userData;
   } catch (e) {
     throw new Error();
