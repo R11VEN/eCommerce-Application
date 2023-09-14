@@ -19,7 +19,7 @@ export function getOptions(credentials?: { username: string; password: string })
     force: true,
   };
 
-  if (localStorage.getItem('token')) {
+  if (localStorage.getItem('token') && !credentials) {
     console.log('token Options', authorization);
     const authMiddleware = createAuthWithExistingToken(authorization, options);
     return {

@@ -51,6 +51,7 @@ class Client {
     credentials: Credentials;
   }) {
     const { authMiddleware, httpMiddlewareOptions, credentials } = options;
+    console.log(credentials);
 
     if (credentials.user) {
       console.log('user Client', credentials);
@@ -61,7 +62,7 @@ class Client {
         .build();
     }
 
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('token') && !credentials.user) {
       console.log('token Client');
       return userClientBuilder
         .withProjectKey('jsfe2023q1')

@@ -1,7 +1,7 @@
 import { Cart, ClientResponse, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import {
   CustomerChangePassword,
-  CustomerSignInResult,
+  //CustomerSignInResult,
   CustomerUpdateAction,
 } from '@commercetools/platform-sdk/dist/declarations/src/generated/models/customer';
 
@@ -15,9 +15,10 @@ import {
 import { client } from '../BuildClientAdmin.tsx';
 import { tokenCache } from '../tokenCache.tsx';
 import CartRepository from '../User/Cart.tsx';
-import { getOptions } from '../User/options.tsx';
 //import { apiRootPass, projectKey } from '../BuildClientPassword.tsx';
-import { CustomerRepository } from '../User/User.tsx';
+//import { CustomerRepository } from '../User/User.tsx';
+import Client from '../User/Client';
+import { getOptions } from '../User/options.tsx';
 
 const apiRoot = createApiBuilderFromCtpClient(client).withProjectKey({
   projectKey: PROJECT_KEY,
@@ -33,10 +34,20 @@ export async function signIn(email: string, password: string) {
     //});
 
     const options = getOptions({ username: email, password: password });
-    const userData = (await new CustomerRepository(options).getCustomer({
-      email: email,
-      password: password,
-    })) as unknown as ClientResponse<CustomerSignInResult>;
+    const rootClient = new Client(options);
+    const apiRoot = rootClient.getApiRoot(rootClient.getClientFromOption(options));
+    const projectKey = rootClient.getProjectKey();
+    const userData = apiRoot
+      .withProjectKey({ projectKey: projectKey })
+      .me()
+      .login()
+      .post({
+        body: {
+          email,
+          password,
+        },
+      })
+      .execute();
 
     //Переделать, добавлено для теста
     const token = tokenCache.get().token;
@@ -72,8 +83,7 @@ export async function signIn(email: string, password: string) {
     cart();
 
     //После логина у пользователя появляется корзина
-    console.log(userData.body.cart?.lineItems);
-    //console.log(cart.bod);
+
     return userData;
   } catch (e) {
     throw new Error();
