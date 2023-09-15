@@ -1,4 +1,4 @@
-import { Cart, ClientResponse, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
+import { ClientResponse, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import {
   CustomerChangePassword,
   //CustomerSignInResult,
@@ -13,12 +13,12 @@ import {
   PROJECT_KEY,
 } from '../../constants/api.ts';
 import { client } from '../BuildClientAdmin.tsx';
+//import { apiRootPass, projectKey } from '../BuildClientPassword.tsx';
 import { tokenCache } from '../tokenCache.tsx';
 import CartRepository from '../User/Cart.tsx';
-//import { apiRootPass, projectKey } from '../BuildClientPassword.tsx';
-//import { CustomerRepository } from '../User/User.tsx';
-import Client from '../User/Client';
+//import Client from '../User/Client';
 import { getOptions } from '../User/options.tsx';
+import { CustomerRepository } from '../User/User.tsx';
 
 const apiRoot = createApiBuilderFromCtpClient(client).withProjectKey({
   projectKey: PROJECT_KEY,
@@ -27,29 +27,37 @@ const apiRoot = createApiBuilderFromCtpClient(client).withProjectKey({
 export async function signIn(email: string, password: string) {
   try {
     console.log(tokenCache);
-    //tokenCache.set({
-    //  token: '',
-    //  expirationTime: 0,
-    //  refreshToken: '',
-    //});
+    tokenCache.set({
+      token: '',
+      expirationTime: 0,
+      refreshToken: '',
+    });
 
     const options = getOptions({ username: email, password: password });
-    const rootClient = new Client(options);
-    const apiRoot = rootClient.getApiRoot(rootClient.getClientFromOption(options));
-    const projectKey = rootClient.getProjectKey();
-    const userData = apiRoot
-      .withProjectKey({ projectKey: projectKey })
-      .me()
-      .login()
-      .post({
-        body: {
-          email,
-          password,
-        },
-      })
-      .execute();
+    const userData = await new CustomerRepository(options).getCustomer({
+      email: email,
+      password: password,
+    });
 
-    //Переделать, добавлено для теста
+    //const rootClient = new Client(options);
+    //const apiRoot = rootClient.getApiRoot(rootClient.getClientFromOption(options));
+    //const projectKey = rootClient.getProjectKey();
+    //const apiRoot = cartRep.apiRoot;
+    //const projectKey = cartRep.projectKey;
+    //const userData = await apiRoot
+    //  .withProjectKey({ projectKey: projectKey })
+    //  .me()
+    //  .login()
+    //  .post({
+    //    body: {
+    //      email,
+    //      password,
+    //      updateProductData: true,
+    //      activeCartSignInMode: 'MergeWithExistingCustomerCart',
+    //    },
+    //  })
+    //  .execute();
+
     const token = tokenCache.get().token;
     console.log(token);
     localStorage.setItem('auth', 'true');
@@ -57,6 +65,19 @@ export async function signIn(email: string, password: string) {
       localStorage.setItem('token', token);
       console.log(token);
     }
+
+    //const cart = async () => {
+    //  //const options = getOptions();
+    //  const cartRep = new CartRepository(options);
+    //  const currentCart = await cartRep.createCartForCurrentCustomer({
+    //    currency: 'EUR',
+    //    customerEmail: email,
+    //  });
+    //  return currentCart;
+    //};
+    //cart();
+
+    //Переделать, добавлено для теста
 
     //const userData = await apiRootPass({ username: email, password: password })
     //  .withProjectKey({ projectKey })
@@ -66,21 +87,13 @@ export async function signIn(email: string, password: string) {
     //    body: {
     //      email,
     //      password,
+    //      updateProductData: true,
+    //      activeCartSignInMode: 'MergeWithExistingCustomerCart',
     //    },
     //  })
     //  .execute();
 
     //Тут, поидее, нужно создать/обновить/объединить корзину нашего юзера
-
-    const cart = async () => {
-      const cartRep = new CartRepository(options);
-      const currentCart = (await cartRep
-        .createCartForCurrentCustomer({ currency: 'EUR', customerEmail: email })
-        .then((body) => body)) as ClientResponse<Cart>;
-      console.log(currentCart.body.id);
-      return currentCart;
-    };
-    cart();
 
     //После логина у пользователя появляется корзина
 
