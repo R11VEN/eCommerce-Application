@@ -1,7 +1,6 @@
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import {
   ClientBuilder,
-  //type Credentials,
   type HttpMiddlewareOptions,
   type Middleware,
 } from '@commercetools/sdk-client-v2';
@@ -53,7 +52,6 @@ class Client {
     credentials: Credentials;
   }) {
     const { authMiddleware, httpMiddlewareOptions, credentials } = options;
-    console.log(credentials);
 
     if (credentials.user) {
       console.log('user Client', credentials);

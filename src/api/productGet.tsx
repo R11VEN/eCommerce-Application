@@ -1,6 +1,5 @@
 import { ApiRoot, ClientResponse, Product } from '@commercetools/platform-sdk';
 
-//import { apiRootSPA, projectKey } from './BuildClientSPA';
 import Client from './User/Client';
 import { getOptions } from './User/options.tsx';
 

@@ -26,7 +26,6 @@ const apiRoot = createApiBuilderFromCtpClient(client).withProjectKey({
 
 export async function signIn(email: string, password: string) {
   try {
-    console.log(tokenCache);
     tokenCache.set({
       token: '',
       expirationTime: 0,
@@ -59,11 +58,10 @@ export async function signIn(email: string, password: string) {
     //  .execute();
 
     const token = tokenCache.get().token;
-    console.log(token);
+
     localStorage.setItem('auth', 'true');
     if (token) {
       localStorage.setItem('token', token);
-      console.log(token);
     }
 
     //const cart = async () => {

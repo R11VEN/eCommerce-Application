@@ -37,16 +37,16 @@ export const DetailedProductPage = () => {
   }, [getProduct]);
 
   //Создаем или получаем корзину и добавляем в нее товар
+
   useEffect(() => {
     const cart = async () => {
       const opt = getOptions();
       const cartRep = new CartRepository(opt);
-      const currentCart = (await cartRep
-        .createCartForCurrentCustomer({ currency: 'EUR' })
-        .then((body) => body)) as ClientResponse<Cart>;
-      //console.log('currentCart.body.id', currentCart.body.id);
+      const currentCart = (await cartRep.createCartForCurrentCustomer({
+        currency: 'EUR',
+      })) as ClientResponse<Cart>;
 
-      cartRep.updateActiveCart({
+      await cartRep.updateActiveCart({
         cartId: currentCart.body.id,
         cartUpdateDraft: {
           version: currentCart.body.version,
@@ -56,18 +56,19 @@ export const DetailedProductPage = () => {
         },
       });
 
+      localStorage.setItem('id', `${currentCart.body.id}`);
+      localStorage.setItem('anonymousId', `${currentCart.body.anonymousId}`);
+
       //Тут токен для теста, нужно переделать
       const token = tokenCache.get().token;
       if (token) {
         localStorage.setItem('token', token);
-        console.log(token);
       }
 
       return cartRep;
     };
-
     cart();
-  }, [id]);
+  }, []);
 
   if (
     item &&

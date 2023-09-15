@@ -5,7 +5,6 @@ import {
 } from '@commercetools/sdk-client-v2';
 
 import { tokenCache } from '../tokenCache.tsx';
-//import { tokenCacheAnon } from '../tokenCacheAnon.tsx';
 
 const _credentials = {
   clientId: 'bfHk24F2gUsdAnMFAUvZwNs6',

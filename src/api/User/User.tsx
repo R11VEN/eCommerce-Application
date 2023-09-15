@@ -1,16 +1,15 @@
 import {
   ApiRoot,
   type ClientResponse,
-  //type CustomerSignin,
   type CustomerSignInResult,
 } from '@commercetools/platform-sdk';
 import {
   type Credentials,
   type HttpMiddlewareOptions,
-  //type PasswordAuthMiddlewareOptions,
   type Middleware,
 } from '@commercetools/sdk-client-v2';
 
+import { getApiRoot } from '../BuildClientAdmin';
 import Client from './Client';
 
 export type CustomerData = {
@@ -103,21 +102,31 @@ export class CustomerRepository implements ICustomerRepository {
     password: string;
   }): Promise<ClientResponse<CustomerSignInResult> | unknown> {
     try {
-      const customer = await this.apiRoot
+      await this.apiRoot
         .withProjectKey({ projectKey: this.projectKey })
         .me()
-        .login()
-        .post({
-          body: {
-            email,
-            password,
-            updateProductData: true,
-            //anonymousId: options,
-            activeCartSignInMode: 'MergeWithExistingCustomerCart',
-          },
-        })
+        .activeCart()
+        .get()
         .execute();
-      return customer;
+
+      const id = localStorage.getItem('id');
+      const anonymousId = localStorage.getItem('anonymousId');
+      if (id && anonymousId) {
+        const customer = await getApiRoot
+          .login()
+          .post({
+            body: {
+              email,
+              password,
+              anonymousCartId: id,
+              updateProductData: true,
+              anonymousId: anonymousId,
+              anonymousCartSignInMode: 'MergeWithExistingCustomerCart',
+            },
+          })
+          .execute();
+        return customer;
+      }
     } catch (error) {
       return error;
     }
