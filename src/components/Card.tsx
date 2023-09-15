@@ -23,7 +23,7 @@ export const Card = ({
 }) => {
   const handleNavClick = (e: React.MouseEvent) => {
     const target = e.target as HTMLAnchorElement;
-    if (target?.className !== `${classes.cardlink}`) {
+    if (target?.className === 'button-image' || target?.className === 'button-span') {
       e.preventDefault();
     }
   };
