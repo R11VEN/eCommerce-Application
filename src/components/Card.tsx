@@ -21,8 +21,14 @@ export const Card = ({
   id: string;
   currency: string;
 }) => {
+  const handleNavClick = (e: React.MouseEvent) => {
+    const target = e.target as HTMLAnchorElement;
+    if (target?.className === 'button-image' || target?.className === 'button-span') {
+      e.preventDefault();
+    }
+  };
   return (
-    <NavLink className={classes.cardlink} to={`${PRODUCT_ROUTE}/${id}`}>
+    <NavLink className={classes.cardlink} to={`${PRODUCT_ROUTE}/${id}`} onClick={handleNavClick}>
       <div className={classes.card}>
         <img className={classes.card__img} src={url} alt={title} />
         <CardButton></CardButton>
