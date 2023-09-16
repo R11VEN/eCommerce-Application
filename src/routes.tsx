@@ -1,4 +1,5 @@
 import {
+  ABOUT_ROUTE,
   AUTH_ROUTE,
   BASKET_ROUTE,
   CAT_ROUTE,
@@ -9,6 +10,7 @@ import {
   USER_ROUTE,
 } from './constants/pages.ts';
 import { RouteInterface } from './interfaces/route.interface.ts';
+import { AboutUsPage } from './pages/AboutUsPage.tsx';
 import AuthPage from './pages/AuthPage';
 import BasketPage from './pages/BasketPage';
 import { CatalogPage } from './pages/CatalogPage';
@@ -36,8 +38,8 @@ export const routesPages: RouteInterface[] = [
   },
   {
     name: 'About Us',
-    path: '#',
-    Component: () => <></>,
+    path: ABOUT_ROUTE,
+    Component: ({ showPageName }) => <AboutUsPage showName={showPageName} />,
   },
 ];
 
