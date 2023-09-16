@@ -2,8 +2,9 @@ import anton from '../assets/anton.jpg';
 import maksim from '../assets/maksim.jpg';
 import ruslan from '../assets/ruslan.jfif';
 import { MemberProfile } from '../components/MemberProfile';
+import { PageProps } from '../interfaces/page.interface';
 
-export const AboutUsPage = () => {
+export const AboutUsPage = ({ showName }: PageProps) => {
   const data = [
     {
       name: 'Maksim Komarov',
