@@ -39,7 +39,7 @@ export const routesPages: RouteInterface[] = [
   {
     name: 'About Us',
     path: ABOUT_ROUTE,
-    Component: ({ showPageName }) => <AboutUsPage showName={showPageName} />,
+    Component: () => <AboutUsPage />,
   },
 ];
 
