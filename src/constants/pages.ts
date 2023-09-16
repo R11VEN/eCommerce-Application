@@ -6,3 +6,4 @@ export const CAT_ROUTE = '/cat';
 export const PRODUCT_ROUTE = '/product';
 export const BASKET_ROUTE = '/basket';
 export const USER_ROUTE = '/user';
+export const ABOUT_ROUTE = '/about';
