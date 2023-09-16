@@ -1,5 +1,6 @@
 import anton from '../assets/anton.jpg';
 import maksim from '../assets/maksim.jpg';
+import logo from '../assets/RSS-Logo.png';
 import ruslan from '../assets/ruslan.jfif';
 import { MemberProfile } from '../components/MemberProfile';
 
@@ -57,6 +58,9 @@ export const AboutUsPage = () => {
           helped us a lot in collarating smoothly and documenting our progress.
         </p>
       </div>
+      <a href="https://rs.school/" className="logo-link" title="Go to RS School website">
+        <img src={logo} alt="RSS logo" className="logo-link__img" />
+      </a>
     </div>
   );
 };
