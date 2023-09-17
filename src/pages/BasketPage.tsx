@@ -13,7 +13,6 @@ const BasketPage = ({ showName }: PageProps) => {
   useEffect((): void => {
     showName && showName('Корзина');
   }, [showName]);
-
   const [cart, setCart] = useState<Cart>(); //Корзина
 
   const dispatch = useDispatch();

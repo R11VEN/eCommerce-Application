@@ -5,8 +5,7 @@ import {
 } from '@commercetools/platform-sdk';
 
 import Client from './User/Client';
-//import { apiRootSPA, projectKey } from './BuildClientSPA';
-import { getOptions } from './User/options';
+import { getOptions } from './User/options.tsx';
 
 interface IProductRepository {
   apiRoot: ApiRoot;

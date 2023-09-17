@@ -1,13 +1,14 @@
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import {
   ClientBuilder,
-  //type Credentials,
   type HttpMiddlewareOptions,
   type Middleware,
 } from '@commercetools/sdk-client-v2';
 
 const userClientBuilder = new ClientBuilder();
 const anonymousClientBuilder = new ClientBuilder();
+const tokenClientBuilder = new ClientBuilder();
+
 interface Credentials {
   clientId: string;
   clientSecret: string;
@@ -51,7 +52,6 @@ class Client {
     credentials: Credentials;
   }) {
     const { authMiddleware, httpMiddlewareOptions, credentials } = options;
-    console.log(credentials);
 
     if (credentials.user) {
       console.log('user Client', credentials);
@@ -64,7 +64,7 @@ class Client {
 
     if (localStorage.getItem('token') && !credentials.user) {
       console.log('token Client');
-      return userClientBuilder
+      return tokenClientBuilder
         .withProjectKey('jsfe2023q1')
         .withMiddleware(authMiddleware)
         .withHttpMiddleware(httpMiddlewareOptions)

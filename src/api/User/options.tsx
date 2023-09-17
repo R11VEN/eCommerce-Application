@@ -34,9 +34,7 @@ export function getOptions(credentials?: { username: string; password: string })
         fetch,
       },
     };
-  }
-
-  if (credentials) {
+  } else if (credentials) {
     console.log('user Options');
     const authMiddleware = createAuthForPasswordFlow({
       host: 'https://auth.europe-west1.gcp.commercetools.com',
@@ -51,7 +49,7 @@ export function getOptions(credentials?: { username: string; password: string })
       scopes: [
         'manage_my_business_units:jsfe2023q1 view_products:jsfe2023q1 view_categories:jsfe2023q1 create_anonymous_token:jsfe2023q1 manage_my_payments:jsfe2023q1 manage_my_orders:jsfe2023q1 view_published_products:jsfe2023q1 manage_my_shopping_lists:jsfe2023q1 manage_my_quotes:jsfe2023q1 manage_my_profile:jsfe2023q1 manage_my_quote_requests:jsfe2023q1',
       ],
-      tokenCache: tokenCache,
+      tokenCache,
       fetch,
     });
 
@@ -82,7 +80,7 @@ export function getOptions(credentials?: { username: string; password: string })
       scopes: [
         'manage_my_business_units:jsfe2023q1 view_products:jsfe2023q1 view_categories:jsfe2023q1 create_anonymous_token:jsfe2023q1 manage_my_payments:jsfe2023q1 manage_my_orders:jsfe2023q1 view_published_products:jsfe2023q1 manage_my_shopping_lists:jsfe2023q1 manage_my_quotes:jsfe2023q1 manage_my_profile:jsfe2023q1 manage_my_quote_requests:jsfe2023q1',
       ],
-      tokenCache: tokenCache,
+      tokenCache,
       fetch,
     });
 
