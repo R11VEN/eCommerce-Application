@@ -13,14 +13,14 @@ const _credentials = {
 
 export function getOptions(credentials?: { username: string; password: string }) {
   const state = JSON.parse(localStorage.getItem('state') as string);
-  const anonymousToken = state.auth && state.auth.anonymousToken;
-  const authorization = `Bearer ${anonymousToken}`;
-
+  const token = state?.auth?.token;
+  const authorization = `Bearer ${token}`;
+  // console.log('options token: ', `Bearer ${token}`);
   const options: { force: boolean } = {
     force: true,
   };
 
-  if (anonymousToken && !credentials) {
+  if (token && !credentials) {
     console.log('token Options', authorization);
     const authMiddleware = createAuthWithExistingToken(authorization, options);
     return {

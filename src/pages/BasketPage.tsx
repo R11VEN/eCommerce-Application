@@ -9,14 +9,14 @@ import { PageProps } from '../interfaces/page.interface.ts';
 const BasketPage = ({ showName }: PageProps) => {
   useEffect((): void => {
     showName && showName('Корзина');
-  }, [showName]);
+  }, []);
   const [cart, setCart] = useState<Cart>(); //Корзина
 
   //Получаем активную корзину
   useEffect((): void => {
     const getCart = async () => {
-      const optins = getOptions();
-      const cartRep = (await new CartRepository(optins).getActiveCart()) as ClientResponse<Cart>;
+      const options = getOptions();
+      const cartRep = (await new CartRepository(options).getActiveCart()) as ClientResponse<Cart>;
       if (cartRep?.statusCode == 200) {
         setCart(cartRep.body);
       }

@@ -1,18 +1,14 @@
 import { Cart, ClientResponse, Product } from '@commercetools/platform-sdk';
 import { useCallback, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import ProductItem from '../api/productGet';
-import { tokenCache } from '../api/tokenCache.tsx';
 import CartRepository from '../api/User/Cart.tsx';
 import { getOptions } from '../api/User/options.tsx';
 import Modal from '../components/Modal';
 import { Slider } from '../components/Slider';
 import classes from '../css/ui.module.css';
 import { Image } from '../interfaces/product.interface';
-import { setAnonymousToken } from '../redux/authSlice.ts';
-import { setAnonymousId, setId } from '../redux/basketSlice.ts';
 
 export const DetailedProductPage = () => {
   const { id } = useParams() as { id: string };
@@ -22,8 +18,6 @@ export const DetailedProductPage = () => {
   const [item, setProduct] = useState<Product>();
   const [modal, setModal] = useState<boolean>(false);
   const [content, setContent] = useState<string>('');
-  const dispatch = useDispatch();
-
   function handleModal(content: string) {
     setContent(content);
     setModal(true);
@@ -59,11 +53,6 @@ export const DetailedProductPage = () => {
           quantity: 1,
         },
       });
-
-      const token = tokenCache.get().token;
-      dispatch(setAnonymousToken({ anonymousToken: token }));
-      dispatch(setId({ id: `${currentCart.body.id}` }));
-      dispatch(setAnonymousId({ anonymousId: `${currentCart.body.anonymousId}` }));
 
       return cartRep;
     };

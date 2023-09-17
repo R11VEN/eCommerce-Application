@@ -213,32 +213,21 @@ export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
                 item.masterVariant.images &&
                 item.description
               ) {
-                if (item.masterVariant.prices[0].discounted) {
-                  return (
-                    <Card
-                      key={item.id}
-                      id={item.id}
-                      url={item.masterVariant.images[0].url}
-                      title={item.name['ru-BY']}
-                      price={item.masterVariant.prices[0].value.centAmount}
-                      discounted={item.masterVariant.prices[0].discounted.value.centAmount}
-                      currency={item.masterVariant.prices[0].value.currencyCode}
-                      description={item.description['ru-BY']}
-                    />
-                  );
-                } else {
-                  return (
-                    <Card
-                      key={item.id}
-                      id={item.id}
-                      url={item.masterVariant.images[0].url}
-                      title={item.name['ru-BY']}
-                      price={item.masterVariant.prices[0].value.centAmount}
-                      currency={item.masterVariant.prices[0].value.currencyCode}
-                      description={item.description['ru-BY']}
-                    />
-                  );
-                }
+                return (
+                  <Card
+                    key={item.id}
+                    id={item.id}
+                    url={item.masterVariant.images[0].url}
+                    title={item.name['ru-BY']}
+                    price={item.masterVariant.prices[0].value.centAmount}
+                    discounted={
+                      item.masterVariant.prices[0].discounted &&
+                      item.masterVariant.prices[0].discounted.value.centAmount
+                    }
+                    currency={item.masterVariant.prices[0].value.currencyCode}
+                    description={item.description['ru-BY']}
+                  />
+                );
               }
             })}
           </div>
