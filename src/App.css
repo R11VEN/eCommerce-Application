@@ -416,6 +416,28 @@ header {
   flex-direction: column;
 }
 
+/*---------------------------------about us page-----------------------*/
+.about-container,
+.colloboration {
+  max-width: 1280px;
+  width: 100%;
+  margin: auto;
+  background-color: rgb(184, 190, 188);
+  border-radius: 5px;
+  border: 1px solid transparent;
+}
+.team__heading,
+.colloboration__heading {
+  padding-top: 10px;
+  text-align: center;
+}
+
+.colloboration {
+  margin-top: 10px;
+  padding: 5px;
+  background-color: #78a37c;
+}
+
 /*---------------------------------footer-----------------------*/
 
 footer {
@@ -487,7 +509,15 @@ footer {
 .swiper-pagination .swiper-pagination-bullet-active {
   background-color: green;
 }
-
+.logo-link {
+  display: block;
+}
+.logo-link__img {
+  display: block;
+  margin: 10px  auto;
+  width: 30%;
+  height: auto;
+}
 @media (max-width: 860px) {
   .burger {
     display: block;
@@ -534,6 +564,9 @@ footer {
   }
   .logo {
     font-size: 1.2rem;
+  }
+  .colloboration {
+    text-align: center;
   }
 }
 
