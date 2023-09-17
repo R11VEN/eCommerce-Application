@@ -38,44 +38,12 @@ export async function signIn(email: string, password: string) {
       password: password,
     });
 
-    //const rootClient = new Client(options);
-    //const apiRoot = rootClient.getApiRoot(rootClient.getClientFromOption(options));
-    //const projectKey = rootClient.getProjectKey();
-    //const apiRoot = cartRep.apiRoot;
-    //const projectKey = cartRep.projectKey;
-    //const userData = await apiRoot
-    //  .withProjectKey({ projectKey: projectKey })
-    //  .me()
-    //  .login()
-    //  .post({
-    //    body: {
-    //      email,
-    //      password,
-    //      updateProductData: true,
-    //      activeCartSignInMode: 'MergeWithExistingCustomerCart',
-    //    },
-    //  })
-    //  .execute();
-
     const token = tokenCache.get().token;
 
     localStorage.setItem('auth', 'true');
     if (token) {
       localStorage.setItem('token', token);
     }
-
-    //const cart = async () => {
-    //  //const options = getOptions();
-    //  const cartRep = new CartRepository(options);
-    //  const currentCart = await cartRep.createCartForCurrentCustomer({
-    //    currency: 'EUR',
-    //    customerEmail: email,
-    //  });
-    //  return currentCart;
-    //};
-    //cart();
-
-    //Переделать, добавлено для теста
 
     //const userData = await apiRootPass({ username: email, password: password })
     //  .withProjectKey({ projectKey })
@@ -90,10 +58,6 @@ export async function signIn(email: string, password: string) {
     //    },
     //  })
     //  .execute();
-
-    //Тут, поидее, нужно создать/обновить/объединить корзину нашего юзера
-
-    //После логина у пользователя появляется корзина
 
     return userData;
   } catch (e) {

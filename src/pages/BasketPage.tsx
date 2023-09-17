@@ -64,7 +64,7 @@ const BasketPage = ({ showName }: PageProps) => {
                   id={item.id}
                   url={item.variant.images[0].url}
                   title={item.name['ru-BY']}
-                  price={item.price.value.centAmount}
+                  price={item.totalPrice.centAmount}
                   discounted={item.price.discounted.value.centAmount}
                   currency={item.price.value.currencyCode}
                 />
@@ -76,7 +76,7 @@ const BasketPage = ({ showName }: PageProps) => {
                   id={item.id}
                   url={item.variant.images[0].url}
                   title={item.name['ru-BY']}
-                  price={item.price.value.centAmount}
+                  price={item.totalPrice.centAmount}
                   currency={item.price.value.currencyCode}
                 />
               );

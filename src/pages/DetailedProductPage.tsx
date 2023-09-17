@@ -70,6 +70,27 @@ export const DetailedProductPage = () => {
     cart();
   }, []);
 
+  useEffect(() => {
+    const cart = async () => {
+      const opt = getOptions();
+      const cartRep = new CartRepository(opt);
+      const currentCart = (await cartRep.createCartForCurrentCustomer({
+        currency: 'EUR',
+      })) as ClientResponse<Cart>;
+
+      cartRep.addCartDiscount(
+        {
+          version: currentCart.body.version,
+          code: 'Discount20',
+        },
+        currentCart.body.id
+      );
+
+      return cartRep;
+    };
+    cart();
+  }, []);
+
   if (
     item &&
     item.masterData.current.masterVariant.prices &&
