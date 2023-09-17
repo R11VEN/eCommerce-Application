@@ -26,6 +26,7 @@ const LoginForm = ({ openModal }: { openModal: (content: string) => void }) => {
       navigate(MAIN_ROUTE);
     }, 2000);
   };
+
   const onSubmit = async ({ email, password }: FieldValues): Promise<void> => {
     try {
       dispatch(startAuth());

@@ -16,7 +16,7 @@ export const Card = ({
   title: string;
   price: number;
   discounted?: number;
-  description: string;
+  description?: string;
   url: string;
   id: string;
   currency: string;

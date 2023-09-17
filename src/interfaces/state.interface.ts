@@ -29,10 +29,13 @@ export interface AuthState {
   isAuth: boolean;
   clientId: string;
   version: number;
+  anonymousToken: string;
 }
 
 export interface BasketState {
   goods: good[];
+  anonymousId: string;
+  id: string;
 }
 
 export interface good {

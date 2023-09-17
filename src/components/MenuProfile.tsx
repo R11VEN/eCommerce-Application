@@ -17,10 +17,10 @@ const MenuProfile = ({ visible, onVisible }: IMenuProfile) => {
   const rootClasses = [classes['menu-profile']];
 
   const hideMenu = () => {
-    onVisible(false);
+    onVisible && onVisible(false);
   };
   visible && rootClasses.push(classes.active);
-  !auth.isAuth && hideMenu();
+  !auth.isAuth && visible && hideMenu();
   const logout = () => {
     try {
       // if (!window.confirm('Вы уверены, что хотите выйти?')) return;

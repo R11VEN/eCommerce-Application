@@ -10,6 +10,10 @@ import { PageProps } from '../interfaces/page.interface.ts';
 import { RootState } from '../interfaces/state.interface.ts';
 
 export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
+  useEffect(() => {
+    showName && showName('Catalog Page');
+  }, [showName]);
+
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const [productsOffset, setPagin] = useState(0);
@@ -22,18 +26,22 @@ export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
   const [minPrice, setMinPrice] = useState('0');
   const [maxPrice, setMaxPrice] = useState('*');
 
-  const getProducts = useCallback(async () => {
-    try {
-      setLoading(true);
-      const product = new Products();
-      await product
-        .getProducts(productsOffset, filterParam, sortParam, searchValue)
-        .then((body) => setProducts(body?.body));
-      setLoading(false);
-    } catch (e) {
-      setMessage('Ой!');
-    }
-  }, [productsOffset, filterParam, sortParam, searchValue]);
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        setLoading(true);
+        const product = new Products();
+        await product
+          .getProducts(productsOffset, filterParam, sortParam, searchValue)
+          .then((body) => setProducts(body?.body));
+        setLoading(false);
+      } catch (e) {
+        setMessage('Ой!');
+      }
+    };
+
+    getProducts();
+  }, [filterParam, productsOffset, searchValue, sortParam]);
 
   const changePage = useCallback(
     (event: React.MouseEvent) => {
@@ -82,11 +90,6 @@ export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
       setFilterParam('categories:exists');
     }
   };
-
-  useEffect(() => {
-    getProducts();
-    showName && showName('Catalog Page');
-  }, [getProducts, showName]);
 
   const select = (e: React.FormEvent) => {
     const target = e.target as HTMLSelectElement;
@@ -210,32 +213,21 @@ export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
                 item.masterVariant.images &&
                 item.description
               ) {
-                if (item.masterVariant.prices[0].discounted) {
-                  return (
-                    <Card
-                      key={item.id}
-                      id={item.id}
-                      url={item.masterVariant.images[0].url}
-                      title={item.name['ru-BY']}
-                      price={item.masterVariant.prices[0].value.centAmount}
-                      discounted={item.masterVariant.prices[0].discounted.value.centAmount}
-                      currency={item.masterVariant.prices[0].value.currencyCode}
-                      description={item.description['ru-BY']}
-                    />
-                  );
-                } else {
-                  return (
-                    <Card
-                      key={item.id}
-                      id={item.id}
-                      url={item.masterVariant.images[0].url}
-                      title={item.name['ru-BY']}
-                      price={item.masterVariant.prices[0].value.centAmount}
-                      currency={item.masterVariant.prices[0].value.currencyCode}
-                      description={item.description['ru-BY']}
-                    />
-                  );
-                }
+                return (
+                  <Card
+                    key={item.id}
+                    id={item.id}
+                    url={item.masterVariant.images[0].url}
+                    title={item.name['ru-BY']}
+                    price={item.masterVariant.prices[0].value.centAmount}
+                    discounted={
+                      item.masterVariant.prices[0].discounted &&
+                      item.masterVariant.prices[0].discounted.value.centAmount
+                    }
+                    currency={item.masterVariant.prices[0].value.currencyCode}
+                    description={item.description['ru-BY']}
+                  />
+                );
               }
             })}
           </div>

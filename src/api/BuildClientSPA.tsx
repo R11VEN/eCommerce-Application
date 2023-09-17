@@ -5,7 +5,7 @@ import {
   type HttpMiddlewareOptions,
 } from '@commercetools/sdk-client-v2';
 
-import { tokenCache } from './tokenCache';
+//import { tokenCache } from './tokenCache.tsx';
 
 const projectKey = 'jsfe2023q1';
 const scopes = [
@@ -20,7 +20,7 @@ const authMiddlewareOptions: AuthMiddlewareOptions = {
     clientSecret: 'pqpUkjhVQ3nyh55lreSbOZNnX5nhNNlp',
   },
   scopes,
-  tokenCache,
+  //tokenCache,
   fetch,
 };
 
@@ -33,7 +33,6 @@ const ctpClient = new ClientBuilder()
   //.withProjectKey(projectKey)
   .withClientCredentialsFlow(authMiddlewareOptions)
   .withHttpMiddleware(httpMiddlewareOptions)
-  //.withLoggerMiddleware() // Include middleware for logging
   .build();
 
 const apiRootSPA = () => {
