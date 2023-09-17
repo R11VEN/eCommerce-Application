@@ -1,11 +1,9 @@
 import { ClientResponse, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import {
   CustomerChangePassword,
-  //CustomerSignInResult,
   CustomerUpdateAction,
 } from '@commercetools/platform-sdk/dist/declarations/src/generated/models/customer';
 
-//import { ClientResponse } from '@commercetools/platform-sdk/dist/declarations/src/generated/shared/utils/common-types';
 import {
   API_CLIENT_ID,
   API_CLIENT_SECRET,
@@ -13,10 +11,7 @@ import {
   PROJECT_KEY,
 } from '../../constants/api.ts';
 import { client } from '../BuildClientAdmin.tsx';
-//import { apiRootPass, projectKey } from '../BuildClientPassword.tsx';
 import { tokenCache } from '../tokenCache.tsx';
-//import CartRepository from '../User/Cart.tsx';
-//import Client from '../User/Client';
 import { getOptions } from '../User/options.tsx';
 import { CustomerRepository } from '../User/User.tsx';
 
@@ -33,69 +28,10 @@ export async function signIn(email: string, password: string) {
     });
 
     const options = getOptions({ username: email, password: password });
-    const userData = await new CustomerRepository(options).getCustomer({
+    return await new CustomerRepository(options).getCustomer({
       email: email,
       password: password,
     });
-
-    //const rootClient = new Client(options);
-    //const apiRoot = rootClient.getApiRoot(rootClient.getClientFromOption(options));
-    //const projectKey = rootClient.getProjectKey();
-    //const apiRoot = cartRep.apiRoot;
-    //const projectKey = cartRep.projectKey;
-    //const userData = await apiRoot
-    //  .withProjectKey({ projectKey: projectKey })
-    //  .me()
-    //  .login()
-    //  .post({
-    //    body: {
-    //      email,
-    //      password,
-    //      updateProductData: true,
-    //      activeCartSignInMode: 'MergeWithExistingCustomerCart',
-    //    },
-    //  })
-    //  .execute();
-
-    const token = tokenCache.get().token;
-
-    localStorage.setItem('auth', 'true');
-    if (token) {
-      localStorage.setItem('token', token);
-    }
-
-    //const cart = async () => {
-    //  //const options = getOptions();
-    //  const cartRep = new CartRepository(options);
-    //  const currentCart = await cartRep.createCartForCurrentCustomer({
-    //    currency: 'EUR',
-    //    customerEmail: email,
-    //  });
-    //  return currentCart;
-    //};
-    //cart();
-
-    //Переделать, добавлено для теста
-
-    //const userData = await apiRootPass({ username: email, password: password })
-    //  .withProjectKey({ projectKey })
-    //  .me()
-    //  .login()
-    //  .post({
-    //    body: {
-    //      email,
-    //      password,
-    //      updateProductData: true,
-    //      activeCartSignInMode: 'MergeWithExistingCustomerCart',
-    //    },
-    //  })
-    //  .execute();
-
-    //Тут, поидее, нужно создать/обновить/объединить корзину нашего юзера
-
-    //После логина у пользователя появляется корзина
-
-    return userData;
   } catch (e) {
     throw new Error();
   }
@@ -106,7 +42,7 @@ export async function updateCustomer(
   version: number,
   actions: CustomerUpdateAction[]
 ): Promise<ClientResponse> {
-  const userData = await apiRoot
+  return await apiRoot
     .customers()
     .withId({ ID: id })
     .post({
@@ -116,7 +52,6 @@ export async function updateCustomer(
       },
     })
     .execute();
-  return userData;
 }
 
 export async function updateCustomerPassword(

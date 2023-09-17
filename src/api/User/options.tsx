@@ -12,14 +12,15 @@ const _credentials = {
 };
 
 export function getOptions(credentials?: { username: string; password: string }) {
-  //Токен для теста - переделать
-  const authorization = `Bearer ${localStorage.getItem('token')}`;
+  const state = JSON.parse(localStorage.getItem('state') as string);
+  const anonymousToken = state.auth && state.auth.anonymousToken;
+  const authorization = `Bearer ${anonymousToken}`;
 
   const options: { force: boolean } = {
     force: true,
   };
 
-  if (localStorage.getItem('token') && !credentials) {
+  if (anonymousToken && !credentials) {
     console.log('token Options', authorization);
     const authMiddleware = createAuthWithExistingToken(authorization, options);
     return {

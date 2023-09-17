@@ -61,8 +61,10 @@ class Client {
         .withHttpMiddleware(httpMiddlewareOptions)
         .build();
     }
+    const { auth } = JSON.parse(localStorage.getItem('state') as string);
+    const anonymousToken = auth && auth.anonymousToken;
 
-    if (localStorage.getItem('token') && !credentials.user) {
+    if (anonymousToken && !credentials.user) {
       console.log('token Client');
       return tokenClientBuilder
         .withProjectKey('jsfe2023q1')

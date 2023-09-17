@@ -109,8 +109,11 @@ export class CustomerRepository implements ICustomerRepository {
         .get()
         .execute();
 
-      const id = localStorage.getItem('id');
-      const anonymousId = localStorage.getItem('anonymousId');
+      const { auth } = JSON.parse(localStorage.getItem('state') as string);
+
+      const anonymousId = auth && auth.anonymousId;
+      const id = auth && auth.id;
+
       if (id && anonymousId) {
         const customer = await getApiRoot
           .login()
