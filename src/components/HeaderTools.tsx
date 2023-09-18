@@ -33,7 +33,9 @@ const HeaderTools = () => {
         onClick={basketClickHandler}
       >
         <img src={basketIcon} alt="basket icon" title="basket icon" />
-        <span className={classes['basket-count']}>{basket.goods.length}</span>
+        <span className={classes['basket-count']}>
+          {basket?.basket?.totalLineItemQuantity || 0}
+        </span>
       </div>
     </div>
   );

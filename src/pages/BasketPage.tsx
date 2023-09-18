@@ -1,10 +1,12 @@
 import { Cart, ClientResponse } from '@commercetools/platform-sdk';
 import { FormEvent, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import CartRepository from '../api/User/Cart.tsx';
 import { getOptions } from '../api/User/options.tsx';
 import { Card } from '../components/Card';
 import { PageProps } from '../interfaces/page.interface.ts';
+import { savaBasket } from '../redux/basketSlice.ts';
 
 const BasketPage = ({ showName }: PageProps) => {
   useEffect((): void => {
@@ -12,6 +14,7 @@ const BasketPage = ({ showName }: PageProps) => {
   }, []);
   const [cart, setCart] = useState<Cart>();
   const [discount, setDiscount] = useState('');
+  const dispatch = useDispatch();
 
   useEffect((): void => {
     const getCart = async () => {
@@ -26,8 +29,9 @@ const BasketPage = ({ showName }: PageProps) => {
 
   const deleteCart = async () => {
     const options = getOptions();
-    await new CartRepository(options).deleteCart();
+    const basket = await new CartRepository(options).deleteCart();
     setCart(undefined);
+    dispatch(savaBasket({ basket }));
   };
 
   const chengeHendeler = (event: React.ChangeEvent<HTMLInputElement>) => {

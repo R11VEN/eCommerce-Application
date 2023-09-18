@@ -8,6 +8,7 @@ import {
 
 import { getApiRoot } from '../BuildClientAdmin';
 import Client from './Client';
+import { getOptions } from './options.tsx';
 
 interface ICart {
   apiRoot: ApiRoot;
@@ -247,6 +248,11 @@ class CartRepository implements ICart {
         })
         .execute();
     }
+    const opt = getOptions();
+    const cartRep = new CartRepository(opt);
+    return (await cartRep.createCartForCurrentCustomer({
+      currency: 'EUR',
+    })) as ClientResponse<Cart>;
   }
 }
 

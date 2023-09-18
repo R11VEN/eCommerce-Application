@@ -1,37 +1,48 @@
-import type { PreloadedState } from '@reduxjs/toolkit';
-import { combineReducers, configureStore, Middleware } from '@reduxjs/toolkit';
+import { configureStore, Middleware } from '@reduxjs/toolkit';
 
+import { RootState } from '../interfaces/state.interface.ts';
 import authReducer from './authSlice.ts';
 import basketReducer from './basketSlice.ts';
 import searchSlice from './searchSlice.ts';
 import userProfileReducer from './userProfileSlice.ts';
 
 const saveToLocalStorage = (state: RootState) => {
-  const serializedState = JSON.stringify(state);
-  localStorage.setItem('state', serializedState);
+  try {
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem('state', serializedState);
+  } catch (e) {
+    console.warn('Could not save state', e);
+  }
 };
 
-const localStorageMiddleware: Middleware = (store) => (next) => (action) => {
+const loadFromLocalStorage = () => {
+  try {
+    const serializedState = localStorage.getItem('state');
+    if (serializedState === null) return undefined;
+    return JSON.parse(serializedState);
+  } catch (e) {
+    console.warn('Could not load state', e);
+    return undefined;
+  }
+};
+
+const localStorageMiddleware: Middleware = (storeAPI) => (next) => (action) => {
   const result = next(action);
-  saveToLocalStorage(store.getState());
+  saveToLocalStorage(storeAPI.getState());
   return result;
 };
 
-const rootReducer = combineReducers({
-  auth: authReducer,
-  basket: basketReducer,
-  userProfile: userProfileReducer,
-  search: searchSlice,
+const preloadedState = loadFromLocalStorage();
+
+const store = configureStore({
+  reducer: {
+    auth: authReducer,
+    basket: basketReducer,
+    userProfile: userProfileReducer,
+    search: searchSlice,
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware),
+  preloadedState,
 });
 
-export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
-  return configureStore({
-    reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware),
-    preloadedState,
-  });
-};
-
-export type RootState = ReturnType<typeof rootReducer>;
-export type AppStore = ReturnType<typeof setupStore>;
-export type AppDispatch = AppStore['dispatch'];
+export default store;
