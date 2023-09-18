@@ -1,4 +1,4 @@
-import { ApiRoot, type Cart } from '@commercetools/platform-sdk';
+import { ApiRoot, type Cart, type MyCartUpdate } from '@commercetools/platform-sdk';
 import {
   type ClientResponse,
   type Credentials,
@@ -6,6 +6,7 @@ import {
   type Middleware,
 } from '@commercetools/sdk-client-v2';
 
+import { getApiRoot } from '../BuildClientAdmin';
 import Client from './Client';
 
 interface ICart {
@@ -20,17 +21,17 @@ type CartDraft = {
   customerEmail?: string;
 };
 
-type MyCartUpdate = {
-  version: number;
-  actions: Array<MyCartUpdateAction>;
-};
+//type MyCartUpdate = {
+//  version: number;
+//  actions: Array<MyCartUpdateAction>;
+//};
 
-type MyCartUpdateAction = {
-  readonly action: 'addLineItem';
-  readonly productId?: string;
-  readonly variantId?: number;
-  readonly quantity?: number;
-};
+//type MyCartUpdateAction = {
+//  readonly action: 'addLineItem';
+//  readonly productId?: string;
+//  readonly variantId?: number;
+//  readonly quantity?: number;
+//};
 
 type MyCartRemoveItem = {
   version: number;
@@ -54,6 +55,11 @@ type CartRemoveItemDraft = {
   version: number;
   lineItemId: string;
   quantity: number;
+};
+
+type CartDiscountDraft = {
+  version: number;
+  code: string;
 };
 
 class CartRepository implements ICart {
@@ -106,6 +112,20 @@ class CartRepository implements ICart {
           action,
           lineItemId,
           quantity,
+        },
+      ],
+    };
+  }
+
+  private createCartDiscountDraft(cartDiscountDraft: CartDiscountDraft): MyCartUpdate {
+    const action = 'addDiscountCode';
+    const { version, code } = cartDiscountDraft;
+    return {
+      version,
+      actions: [
+        {
+          action,
+          code,
         },
       ],
     };
@@ -191,6 +211,41 @@ class CartRepository implements ICart {
       }
     } catch (error) {
       return error;
+    }
+  }
+
+  async addCartDiscount(cartDiscountDraft: CartDiscountDraft, id: string) {
+    try {
+      //const body = (await this.createCartForCurrentCustomer({
+      //  currency: 'EUR',
+      //})) as Cart;
+
+      const addDiscountCode = await getApiRoot
+        .carts()
+        .withId({ ID: id })
+        .post({ body: this.createCartDiscountDraft(cartDiscountDraft) })
+        .execute();
+
+      return addDiscountCode;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async deleteCart() {
+    const cart = (await this.getActiveCart()) as ClientResponse<Cart>;
+    if (cart.body) {
+      await this.apiRoot
+        .withProjectKey({ projectKey: this.projectKey })
+        .me()
+        .carts()
+        .withId({ ID: cart.body.id })
+        .delete({
+          queryArgs: {
+            version: cart.body.version,
+          },
+        })
+        .execute();
     }
   }
 }
