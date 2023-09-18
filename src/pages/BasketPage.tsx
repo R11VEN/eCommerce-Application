@@ -1,5 +1,5 @@
 import { Cart, ClientResponse } from '@commercetools/platform-sdk';
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 
 import CartRepository from '../api/User/Cart.tsx';
 import { getOptions } from '../api/User/options.tsx';
@@ -10,9 +10,9 @@ const BasketPage = ({ showName }: PageProps) => {
   useEffect((): void => {
     showName && showName('Корзина');
   }, []);
-  const [cart, setCart] = useState<Cart>(); //Корзина
+  const [cart, setCart] = useState<Cart>();
+  const [discount, setDiscount] = useState('');
 
-  //Получаем активную корзину
   useEffect((): void => {
     const getCart = async () => {
       const options = getOptions();
@@ -24,9 +24,47 @@ const BasketPage = ({ showName }: PageProps) => {
     getCart();
   }, []);
 
+  const deleteCart = async () => {
+    const options = getOptions();
+    await new CartRepository(options).deleteCart();
+    setCart(undefined);
+  };
+
+  const chengeHendeler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDiscount(event.target.value);
+  };
+
+  const addDiscount = async (e: FormEvent) => {
+    e.preventDefault();
+    try {
+      const opt = getOptions();
+      const cartRep = new CartRepository(opt);
+      const currentCart = (await cartRep.createCartForCurrentCustomer({
+        currency: 'EUR',
+      })) as ClientResponse<Cart>;
+
+      await cartRep.addCartDiscount(
+        {
+          version: currentCart.body.version,
+          code: discount,
+        },
+        currentCart.body.id
+      );
+
+      const newCart = (await cartRep.getActiveCart()) as ClientResponse<Cart>;
+      setCart(newCart.body);
+    } catch (e) {
+      throw new Error();
+    }
+  };
+
   return (
     <div className="basket-container">
       <h1>Корзина</h1>
+      <form onSubmit={addDiscount}>
+        <input type="text" placeholder="Enter discount code" onChange={chengeHendeler}></input>
+        <input type="submit" value={'Give discount'}></input>
+      </form>
       <div className="cart-container">
         {cart?.lineItems.map((item) => {
           if (item.variant.images) {
@@ -37,7 +75,7 @@ const BasketPage = ({ showName }: PageProps) => {
                   id={item.id}
                   url={item.variant.images[0].url}
                   title={item.name['ru-BY']}
-                  price={item.price.value.centAmount}
+                  price={item.totalPrice.centAmount}
                   discounted={item.price.discounted.value.centAmount}
                   currency={item.price.value.currencyCode}
                 />
@@ -49,7 +87,7 @@ const BasketPage = ({ showName }: PageProps) => {
                   id={item.id}
                   url={item.variant.images[0].url}
                   title={item.name['ru-BY']}
-                  price={item.price.value.centAmount}
+                  price={item.totalPrice.centAmount}
                   currency={item.price.value.currencyCode}
                 />
               );
@@ -57,6 +95,7 @@ const BasketPage = ({ showName }: PageProps) => {
           }
         })}
       </div>
+      <input type="button" value={'Delete cart'} onClick={deleteCart}></input>
     </div>
   );
 };

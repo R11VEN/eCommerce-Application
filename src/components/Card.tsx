@@ -31,7 +31,7 @@ export const Card = ({
     <NavLink className={classes.cardlink} to={`${PRODUCT_ROUTE}/${id}`} onClick={handleNavClick}>
       <div className={classes.card}>
         <img className={classes.card__img} src={url} alt={title} />
-        <CardButton></CardButton>
+        <CardButton id={id}></CardButton>
         <div className={classes.description}>
           <h2 className={classes.title}>{title}</h2>
           <div className={classes.pricecontainer}>
