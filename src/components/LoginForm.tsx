@@ -34,6 +34,7 @@ const LoginForm = ({ openModal }: { openModal: (content: string) => void }) => {
       const { id, name, version } = userData.body.customer;
       const { clientId } = userData.body.customer.createdBy;
       dispatch(authSuccess({ id, email, name, token, clientId, version }));
+      localStorage.setItem('token', token);
       dispatch(endAuth());
       redirect('Вы успешно авторизованы!');
     } catch (e) {

@@ -12,8 +12,7 @@ const _credentials = {
 };
 
 export function getOptions(credentials?: { username: string; password: string }) {
-  const state = JSON.parse(localStorage.getItem('state') as string);
-  const token = state?.auth?.token;
+  const token = localStorage.getItem('token');
   const authorization = `Bearer ${token}`;
   // console.log('options token: ', `Bearer ${token}`);
   const options: { force: boolean } = {
