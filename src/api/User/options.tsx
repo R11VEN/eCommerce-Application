@@ -20,7 +20,7 @@ export function getOptions(credentials?: { username: string; password: string })
   };
 
   if (token && !credentials) {
-    console.log('token Options', authorization);
+    // console.log('token Options', authorization);
     const authMiddleware = createAuthWithExistingToken(authorization, options);
     return {
       authMiddleware,
@@ -35,7 +35,7 @@ export function getOptions(credentials?: { username: string; password: string })
       },
     };
   } else if (credentials) {
-    console.log('user Options');
+    // console.log('user Options');
     const authMiddleware = createAuthForPasswordFlow({
       host: 'https://auth.europe-west1.gcp.commercetools.com',
       projectKey: 'jsfe2023q1',
@@ -69,7 +69,7 @@ export function getOptions(credentials?: { username: string; password: string })
       },
     };
   } else {
-    console.log('anon Options');
+    // console.log('anon Options');
     const authMiddleware = createAuthForAnonymousSessionFlow({
       host: 'https://auth.europe-west1.gcp.commercetools.com',
       projectKey: 'jsfe2023q1',

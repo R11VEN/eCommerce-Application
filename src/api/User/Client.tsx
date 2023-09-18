@@ -54,7 +54,7 @@ class Client {
     const { authMiddleware, httpMiddlewareOptions, credentials } = options;
 
     if (credentials.user) {
-      console.log('user Client', credentials);
+      // console.log('user Client', credentials);
       return userClientBuilder
         .withProjectKey('jsfe2023q1')
         .withMiddleware(authMiddleware)
@@ -64,7 +64,7 @@ class Client {
     const token = localStorage.getItem('token');
 
     if (token && !credentials.user) {
-      console.log('token Client');
+      // console.log('token Client');
       return tokenClientBuilder
         .withProjectKey('jsfe2023q1')
         .withMiddleware(authMiddleware)
@@ -72,7 +72,7 @@ class Client {
         .build();
     }
 
-    console.log('anon Client');
+    // console.log('anon Client');
     return anonymousClientBuilder
       .withProjectKey('jsfe2023q1')
       .withMiddleware(authMiddleware)
