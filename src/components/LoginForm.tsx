@@ -1,3 +1,4 @@
+import { Cart } from '@commercetools/platform-sdk';
 import { MouseEvent, useState } from 'react';
 import { FieldValues, FormProvider, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +8,8 @@ import { LoginAnton } from '../api/controllers/user.controller.ts';
 import { MAIN_ROUTE, REG_ROUTE } from '../constants/pages.ts';
 import { RootState } from '../interfaces/state.interface.ts';
 import { authFailure, authSuccess, endAuth, startAuth } from '../redux/authSlice.ts';
+import { savaBasket } from '../redux/basketSlice.ts';
+import { CustomResponse, getBasket } from '../utils.ts';
 import { FormInput } from './FormInput.tsx';
 
 const LoginForm = ({ openModal }: { openModal: (content: string) => void }) => {
@@ -33,9 +36,10 @@ const LoginForm = ({ openModal }: { openModal: (content: string) => void }) => {
       const { token, userData } = await LoginAnton(email, password);
       const { id, name, version } = userData.body.customer;
       const { clientId } = userData.body.customer.createdBy;
-      console.log(token);
       dispatch(authSuccess({ id, email, name, token, clientId, version }));
       localStorage.setItem('token', token);
+      const { currentCart }: CustomResponse<Cart> = await getBasket();
+      dispatch(savaBasket({ basket: currentCart.body }));
       dispatch(endAuth());
       redirect('Вы успешно авторизованы!');
     } catch (e) {

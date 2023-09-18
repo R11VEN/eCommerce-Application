@@ -1,36 +1,35 @@
 import { Cart, ClientResponse } from '@commercetools/platform-sdk';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CartRepository from '../api/User/Cart';
-import { getOptions } from '../api/User/options';
 import checked from '../assets/checked.svg';
 import plus from '../assets/plus.svg';
 import classes from '../css/ui.module.css';
 import { RootState } from '../interfaces/state.interface.ts';
 import { savaBasket } from '../redux/basketSlice.ts';
+import { CustomResponse, getBasket } from '../utils.ts';
 
 export const CardButton = ({ id }: { id: string }) => {
   const dispatch = useDispatch();
   const { basket } = useSelector((state: RootState) => state.basket);
-  const [isAdded, setIsAdded] = useState<boolean>(false);
+  const [isAdded, setIsAdded] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect((): void => {
-    const index = basket?.lineItems?.findIndex((item) => item.productId === id);
+    setIsLoading(true);
+    const index = basket?.lineItems?.findIndex((item) => item.id === id || item.productId === id);
     if (index) {
-      index > -1 ? setIsAdded(true) : setIsAdded(false);
+      index >= 0 ? setIsAdded(true) : setIsAdded(false);
     }
+    setIsLoading(false);
   }, [basket]);
 
   const toggleBasket = async (): Promise<CartRepository> => {
-    const opt = getOptions();
-    const cartRep = new CartRepository(opt);
-    const currentCart = (await cartRep.createCartForCurrentCustomer({
-      currency: 'EUR',
-    })) as ClientResponse<Cart>;
+    const { cartRep, currentCart }: CustomResponse<Cart> = await getBasket();
 
     const remove = async (): Promise<ClientResponse<Cart>> => {
-      const item = basket?.lineItems?.find((item) => item.productId === id);
+      const item = basket?.lineItems?.find((item) => item.id === id || item.productId === id);
       if (!item?.id) return currentCart;
       return (await cartRep.removeLineItem({
         version: currentCart.body.version,
@@ -59,12 +58,19 @@ export const CardButton = ({ id }: { id: string }) => {
   };
 
   return (
-    <a
-      className={`${classes.button} ${classes.cardBtn} ${isAdded && classes.button_remove}`}
-      onClick={toggleBasket}
-    >
-      <img src={isAdded ? checked : plus} alt="" className="button-image" />
-      <span className="button-span">{isAdded ? 'Remove from Cart' : 'Add to Cart'}</span>
-    </a>
+    <Fragment>
+      {isLoading ? (
+        <span className="loading"></span>
+      ) : (
+        <a
+          className={`${classes.button} ${classes.cardBtn} ${isAdded && classes.button_remove}`}
+          onClick={toggleBasket}
+          key={id}
+        >
+          <img src={isAdded ? checked : plus} alt="" className="button-image" />
+          <span className="button-span">{isAdded ? 'Remove from Cart' : 'Add to Cart'}</span>
+        </a>
+      )}
+    </Fragment>
   );
 };

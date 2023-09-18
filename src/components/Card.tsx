@@ -1,5 +1,5 @@
 import { MouseEvent } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { PRODUCT_ROUTE } from '../constants/pages';
 import classes from '../css/ui.module.css';
@@ -22,15 +22,18 @@ export const Card = ({
   id: string;
   currency: string;
 }) => {
+  const navigate = useNavigate();
   const handleNavClick = (e: MouseEvent) => {
     const target = e.target as HTMLAnchorElement;
     if (target?.className === 'button-image' || target?.className === 'button-span') {
       e.preventDefault();
+    } else {
+      navigate(`${PRODUCT_ROUTE}/${id}`);
     }
   };
 
   return (
-    <NavLink className={classes.cardlink} to={`${PRODUCT_ROUTE}/${id}`} onClick={handleNavClick}>
+    <div className={classes.cardlink} onClick={handleNavClick}>
       <div className={classes.card}>
         <img className={classes.card__img} src={url} alt={title} />
         <CardButton id={id}></CardButton>
@@ -62,6 +65,6 @@ export const Card = ({
           <p className={classes.carddescription}>{description}</p>
         </div>
       </div>
-    </NavLink>
+    </div>
   );
 };
