@@ -33,7 +33,9 @@ const LoginForm = ({ openModal }: { openModal: (content: string) => void }) => {
       const { token, userData } = await LoginAnton(email, password);
       const { id, name, version } = userData.body.customer;
       const { clientId } = userData.body.customer.createdBy;
+      console.log(token);
       dispatch(authSuccess({ id, email, name, token, clientId, version }));
+      localStorage.setItem('token', token);
       dispatch(endAuth());
       redirect('Вы успешно авторизованы!');
     } catch (e) {

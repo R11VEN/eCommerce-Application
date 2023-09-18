@@ -9,8 +9,7 @@ import { tokenCache } from './api/tokenCache.tsx';
 import CartRepository from './api/User/Cart.tsx';
 import { getOptions } from './api/User/options.tsx';
 import Layout from './layout/Layout.tsx';
-import { setAnonymousToken } from './redux/authSlice.ts';
-import { setAnonymousId, setId } from './redux/basketSlice.ts';
+import { savaBasket } from './redux/basketSlice.ts';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -23,10 +22,17 @@ const App = () => {
         currency: 'EUR',
       })) as ClientResponse<Cart>;
 
+      dispatch(savaBasket({ basket: currentCart.body }));
+
+      const id = localStorage.getItem('id');
+      if (!id) {
+        localStorage.setItem('id', `${currentCart.body.id}`);
+      }
+
       const token = tokenCache.get().token;
-      dispatch(setAnonymousToken({ anonymousToken: token }));
-      dispatch(setId({ id: `${currentCart.body.id}` }));
-      dispatch(setAnonymousId({ anonymousId: `${currentCart.body.anonymousId}` }));
+      if (token) {
+        localStorage.setItem('token', token);
+      }
 
       return cartRep;
     };

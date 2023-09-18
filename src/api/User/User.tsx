@@ -109,20 +109,34 @@ export class CustomerRepository implements ICustomerRepository {
         .get()
         .execute();
 
-      const state = JSON.parse(localStorage.getItem('state') as string);
+      // const id = localStorage.getItem('id');
+      // const anonymousId = localStorage.getItem('anonymousId');
 
-      const anonymousId = state?.basket?.anonymousId;
-      const id = state?.basket?.id;
-      console.log(anonymousId);
-      console.log(id);
-      if (id && anonymousId) {
+      const state = JSON.parse(localStorage.getItem('state') as string);
+      const id = state?.basket?.basket?.id;
+      const anonymousId = state?.basket?.basket?.anonymousId;
+      const customerId = state?.basket?.basket?.customerId;
+
+      if (customerId) {
         const customer = await getApiRoot
           .login()
           .post({
             body: {
               email,
               password,
-              anonymousCartId: id,
+              updateProductData: true,
+            },
+          })
+          .execute();
+        return customer;
+      } else if (id && anonymousId) {
+        const customer = await getApiRoot
+          .login()
+          .post({
+            body: {
+              email,
+              password,
+              anonymousCart: { typeId: 'cart', id: id },
               updateProductData: true,
               anonymousId: anonymousId,
               anonymousCartSignInMode: 'MergeWithExistingCustomerCart',

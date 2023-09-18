@@ -26,7 +26,6 @@ const NavAuth = ({ setMobileMenuActive, menuProfileVisible, showMenuProfile }: I
       {auth.isAuth ? (
         <div
           className={'logout'}
-          // onClick={checkLogout}
           onClick={() => showMenuProfile && showMenuProfile(!menuProfileVisible)}
         >
           <img src={logoutImg} title="Logout" alt="Logout" />

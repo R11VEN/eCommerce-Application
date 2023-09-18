@@ -1,14 +1,17 @@
 import { Cart, ClientResponse } from '@commercetools/platform-sdk';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import CartRepository from '../api/User/Cart';
 import { getOptions } from '../api/User/options';
 import checked from '../assets/checked.svg';
 import plus from '../assets/plus.svg';
 import classes from '../css/ui.module.css';
+import { savaBasket } from '../redux/basketSlice.ts';
 
 export const CardButton = ({ id }: { id: string }) => {
   const [isAdded, setAdding] = useState(false);
+  const dispatch = useDispatch();
 
   const cart = async () => {
     const opt = getOptions();
@@ -17,7 +20,7 @@ export const CardButton = ({ id }: { id: string }) => {
       currency: 'EUR',
     })) as ClientResponse<Cart>;
 
-    await cartRep.updateActiveCart({
+    const { body: basket } = (await cartRep.updateActiveCart({
       cartId: currentCart.body.id,
       cartUpdateDraft: {
         version: currentCart.body.version,
@@ -25,7 +28,9 @@ export const CardButton = ({ id }: { id: string }) => {
         variantId: 1,
         quantity: 1,
       },
-    });
+    })) as ClientResponse<Cart>;
+
+    dispatch(savaBasket({ basket }));
     return cartRep;
   };
 
