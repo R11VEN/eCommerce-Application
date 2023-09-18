@@ -15,7 +15,7 @@ export const Card = ({
   currency,
 }: {
   title: string;
-  price: number;
+  price?: number;
   discounted?: number;
   description?: string;
   url: string;
@@ -43,7 +43,7 @@ export const Card = ({
                 style: 'currency',
                 currency: currency,
                 currencySign: 'accounting',
-              }).format(price)}{' '}
+              }).format(price ? price : 0)}{' '}
             </p>
             {discounted ? (
               <p className={classes.discountprice}>
