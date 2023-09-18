@@ -1,12 +1,20 @@
-export function setFocus(target: HTMLDivElement) {
-  const range = document.createRange();
-  range.selectNodeContents(target);
-  range.collapse(false);
-  const sel = window.getSelection();
-  sel && sel.removeAllRanges();
-  sel && sel.addRange(range);
-}
+import { Cart, ClientResponse } from '@commercetools/platform-sdk';
 
+import CartRepository from './api/User/Cart.tsx';
+import { getOptions } from './api/User/options.tsx';
+
+export interface CustomResponse<T> {
+  cartRep: CartRepository;
+  currentCart: ClientResponse<T>;
+}
+export async function getBasket(): Promise<CustomResponse<Cart>> {
+  const opt = getOptions();
+  const cartRep = new CartRepository(opt);
+  const currentCart = (await cartRep.createCartForCurrentCustomer({
+    currency: 'EUR',
+  })) as ClientResponse<Cart>;
+  return { cartRep, currentCart };
+}
 export function createDate(time: string) {
   const date = new Date(time);
   return (

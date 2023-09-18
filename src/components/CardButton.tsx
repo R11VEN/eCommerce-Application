@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CartRepository from '../api/User/Cart';
-import { getOptions } from '../api/User/options';
 import checked from '../assets/checked.svg';
 import plus from '../assets/plus.svg';
 import classes from '../css/ui.module.css';
 import { RootState } from '../interfaces/state.interface.ts';
 import { savaBasket } from '../redux/basketSlice.ts';
+import { CustomResponse, getBasket } from '../utils.ts';
 
 export const CardButton = ({ id }: { id: string }) => {
   const dispatch = useDispatch();
@@ -23,11 +23,7 @@ export const CardButton = ({ id }: { id: string }) => {
   }, [basket]);
 
   const toggleBasket = async (): Promise<CartRepository> => {
-    const opt = getOptions();
-    const cartRep = new CartRepository(opt);
-    const currentCart = (await cartRep.createCartForCurrentCustomer({
-      currency: 'EUR',
-    })) as ClientResponse<Cart>;
+    const { cartRep, currentCart }: CustomResponse<Cart> = await getBasket();
 
     const remove = async (): Promise<ClientResponse<Cart>> => {
       const item = basket?.lineItems?.find((item) => item.productId === id);
