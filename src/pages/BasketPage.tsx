@@ -40,7 +40,7 @@ const BasketPage = ({ showName }: PageProps) => {
     const basket = await new CartRepository(options).deleteCart();
     setCart(undefined);
     setTotalPrice(0);
-    dispatch(savaBasket({ basket }));
+    dispatch(savaBasket({ basket: basket.body }));
   };
 
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -73,10 +73,16 @@ const BasketPage = ({ showName }: PageProps) => {
     <Fragment>
       {cart?.totalLineItemQuantity ? (
         <div className="basket-container">
-          <h1>Корзина</h1>
-          <form onSubmit={addDiscount}>
-            <input type="text" placeholder="Enter discount code" onChange={changeHandler}></input>
-            <input type="submit" value={'Give discount'}></input>
+          <h2>Корзина</h2>
+          <span className="discount">20% discount with discount code: Discount20</span>
+          <form className="discount-form" onSubmit={addDiscount}>
+            <input
+              className="discount-input"
+              type="text"
+              placeholder="Enter discount code"
+              onChange={changeHandler}
+            ></input>
+            <input className="give-discount" type="submit" value={'Give discount'}></input>
           </form>
           <div className="cart-container">
             <Carts lineItems={cart.lineItems}></Carts>
@@ -84,7 +90,12 @@ const BasketPage = ({ showName }: PageProps) => {
           <div className="total-price">
             Total price: {totalPrice + ', ' + basket?.totalPrice?.currencyCode}
           </div>
-          <input type="button" value={'Delete cart'} onClick={deleteCart}></input>
+          <input
+            className="delete-cart"
+            type="button"
+            value={'Delete cart'}
+            onClick={deleteCart}
+          ></input>
         </div>
       ) : (
         <>

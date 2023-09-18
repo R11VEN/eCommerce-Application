@@ -77,6 +77,27 @@
   cursor: pointer;
 }
 
+.cardButtons {
+  display: flex;
+  justify-content: space-around;
+  width: 100px;
+  margin: 10px auto;
+  font-weight: 500;
+}
+
+.cardButtons > input {
+  border-radius: 5px;
+  border: antiquewhite;
+  background-color: #127627;
+  cursor: pointer;
+  width: 25px;
+  color: aliceblue;
+}
+
+.cardButtons > input:hover {
+  background-color: #0ba72d;
+}
+
 .card__img {
   max-width: 250px;
   min-height: 120px;

@@ -217,10 +217,6 @@ class CartRepository implements ICart {
 
   async addCartDiscount(cartDiscountDraft: CartDiscountDraft, id: string) {
     try {
-      //const body = (await this.createCartForCurrentCustomer({
-      //  currency: 'EUR',
-      //})) as Cart;
-
       const addDiscountCode = await getApiRoot
         .carts()
         .withId({ ID: id })
