@@ -41,7 +41,7 @@ export const AboutUsPage = () => {
         <div className="team">
           <h2 className="team__heading">Development Team</h2>
           {data.map((item) => (
-            <MemberProfile member={item}></MemberProfile>
+            <MemberProfile member={item} key={item.name}></MemberProfile>
           ))}
         </div>
       </div>

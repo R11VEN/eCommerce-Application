@@ -12,9 +12,9 @@ export const MemberProfile = ({
   };
 }) => {
   return (
-    <div className={classes.profile}>
+    <div className={classes.profile} key={member.name}>
       <img className={classes.profile__img} src={member.img}></img>
-      <div className={classes.profile__info}>
+      <div className={classes.profile__info} key={`div_${member.name}`}>
         <h3 className={classes.profile__heading}>{member.name}</h3>
         <p className={classes.profile__p}>
           <span className={classes.profile__highlight}>Role</span> : {member.role}
