@@ -14,6 +14,7 @@ const BasketPage = ({ showName }: PageProps) => {
   }, []);
   const [cart, setCart] = useState<Cart>();
   const [discount, setDiscount] = useState('');
+  const [totalPrice, setToralPrice] = useState(0);
   const dispatch = useDispatch();
 
   useEffect((): void => {
@@ -22,6 +23,7 @@ const BasketPage = ({ showName }: PageProps) => {
       const cartRep = (await new CartRepository(options).getActiveCart()) as ClientResponse<Cart>;
       if (cartRep?.statusCode == 200) {
         setCart(cartRep.body);
+        setToralPrice(cartRep.body.totalPrice.centAmount);
       }
     };
     getCart();
@@ -31,6 +33,7 @@ const BasketPage = ({ showName }: PageProps) => {
     const options = getOptions();
     const basket = await new CartRepository(options).deleteCart();
     setCart(undefined);
+    setToralPrice(0);
     dispatch(savaBasket({ basket }));
   };
 
@@ -57,6 +60,7 @@ const BasketPage = ({ showName }: PageProps) => {
 
       const newCart = (await cartRep.getActiveCart()) as ClientResponse<Cart>;
       setCart(newCart.body);
+      setToralPrice(newCart.body.totalPrice.centAmount);
     } catch (e) {
       throw new Error();
     }
@@ -72,15 +76,38 @@ const BasketPage = ({ showName }: PageProps) => {
       <div className="cart-container">
         {cart?.lineItems.map((item) => {
           if (item.variant.images) {
-            if (item.price.discounted) {
+            if (item.price.discounted && item.discountedPricePerQuantity.length == 0) {
               return (
                 <Card
                   key={item.id}
                   id={item.id}
                   url={item.variant.images[0].url}
                   title={item.name['ru-BY']}
-                  price={item.totalPrice.centAmount}
-                  discounted={item.price.discounted.value.centAmount}
+                  price={item.price.discounted.value.centAmount}
+                  currency={item.price.value.currencyCode}
+                />
+              );
+            } else if (item.price.discounted && item.discountedPricePerQuantity.length > 0) {
+              return (
+                <Card
+                  key={item.id}
+                  id={item.id}
+                  url={item.variant.images[0].url}
+                  title={item.name['ru-BY']}
+                  price={item.price.discounted.value.centAmount}
+                  discounted={item.discountedPricePerQuantity[0].discountedPrice.value.centAmount}
+                  currency={item.price.value.currencyCode}
+                />
+              );
+            } else if (item.discountedPricePerQuantity.length > 0) {
+              return (
+                <Card
+                  key={item.id}
+                  id={item.id}
+                  url={item.variant.images[0].url}
+                  title={item.name['ru-BY']}
+                  price={item.price.value.centAmount}
+                  discounted={item.discountedPricePerQuantity[0].discountedPrice.value.centAmount}
                   currency={item.price.value.currencyCode}
                 />
               );
@@ -91,7 +118,7 @@ const BasketPage = ({ showName }: PageProps) => {
                   id={item.id}
                   url={item.variant.images[0].url}
                   title={item.name['ru-BY']}
-                  price={item.totalPrice.centAmount}
+                  price={item.price.value.centAmount}
                   currency={item.price.value.currencyCode}
                 />
               );
@@ -99,6 +126,7 @@ const BasketPage = ({ showName }: PageProps) => {
           }
         })}
       </div>
+      <div className="total-price">Total price: {totalPrice}</div>
       <input type="button" value={'Delete cart'} onClick={deleteCart}></input>
     </div>
   );

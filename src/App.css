@@ -310,6 +310,10 @@ header {
   justify-content: center;
 }
 
+.total-price {
+  font-size: 2rem;
+}
+
 /*---------------------------------user-page-----------------------*/
 
 .user-container {
