@@ -12,7 +12,7 @@ import { RootState } from '../interfaces/state.interface.ts';
 export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
   useEffect(() => {
     showName && showName('Catalog Page');
-  }, [showName]);
+  }, []);
 
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');

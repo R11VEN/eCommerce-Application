@@ -139,12 +139,12 @@
   align-items: center;
   gap: 5px;
 }
-.button_inactive {
+.button_remove {
   opacity: 0.7;
-  cursor: not-allowed;
+  background-color: #cb676f;
 }
 
-.button_inactive:hover {
+.button_remove:hover {
   box-shadow: none;
 }
 .detailedpagecontainer {
