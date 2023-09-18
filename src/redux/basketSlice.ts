@@ -14,6 +14,9 @@ const basketSlice = createSlice({
     savaBasket: (state, action) => {
       state.basket = action.payload.basket;
     },
+    addToBasket: (state, action) => {
+      state.basket = action.payload.basket;
+    },
   },
 });
 

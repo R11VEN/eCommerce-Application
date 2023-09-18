@@ -1,5 +1,5 @@
 import { Cart, ClientResponse } from '@commercetools/platform-sdk';
-import { FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import CartRepository from '../api/User/Cart.tsx';
@@ -34,7 +34,7 @@ const BasketPage = ({ showName }: PageProps) => {
     dispatch(savaBasket({ basket }));
   };
 
-  const chengeHendeler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setDiscount(event.target.value);
   };
 
@@ -57,6 +57,7 @@ const BasketPage = ({ showName }: PageProps) => {
 
       const newCart = (await cartRep.getActiveCart()) as ClientResponse<Cart>;
       setCart(newCart.body);
+      dispatch(savaBasket({ basket: newCart.body }));
     } catch (e) {
       throw new Error();
     }
@@ -66,7 +67,7 @@ const BasketPage = ({ showName }: PageProps) => {
     <div className="basket-container">
       <h1>Корзина</h1>
       <form onSubmit={addDiscount}>
-        <input type="text" placeholder="Enter discount code" onChange={chengeHendeler}></input>
+        <input type="text" placeholder="Enter discount code" onChange={changeHandler}></input>
         <input type="submit" value={'Give discount'}></input>
       </form>
       <div className="cart-container">
