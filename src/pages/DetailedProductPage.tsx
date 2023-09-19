@@ -1,8 +1,11 @@
-import { Product } from '@commercetools/platform-sdk';
+import { Cart, ClientResponse, Product } from '@commercetools/platform-sdk';
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import ProductItem from '../api/productGet';
+import CartRepository from '../api/User/Cart';
+import { getOptions } from '../api/User/options';
+import { CardButton } from '../components/CardButton';
 import Modal from '../components/Modal';
 import { Slider } from '../components/Slider';
 import classes from '../css/ui.module.css';
@@ -15,7 +18,11 @@ export const DetailedProductPage = () => {
   name = description = price = discounted = '';
   const [item, setProduct] = useState<Product>();
   const [modal, setModal] = useState<boolean>(false);
+  const [notificationModal, setNotificationModal] = useState<boolean>(false);
   const [content, setContent] = useState<string>('');
+  const [notificationContent, setNotificationContent] = useState<string>('');
+  const [addState, setAddState] = useState(false);
+
   function handleModal(content: string) {
     setContent(content);
     setModal(true);
@@ -27,6 +34,17 @@ export const DetailedProductPage = () => {
       setProduct(body?.body);
     });
   }, [id]);
+
+  useEffect((): void => {
+    const getCart = async () => {
+      const options = getOptions();
+      const cartRep = (await new CartRepository(options).getActiveCart()) as ClientResponse<Cart>;
+      return cartRep;
+    };
+    getCart().then((cart) => {
+      if (cart.body.lineItems.find((item) => item.productId === id)) setAddState(!addState);
+    });
+  }, []);
 
   useEffect(() => {
     getProduct();
@@ -74,6 +92,26 @@ export const DetailedProductPage = () => {
           {content && content}
         </Modal>
       </div>
+      {addState && (
+        <p style={{ color: 'red', textAlign: 'center' }}>This product is already in the cart</p>
+      )}
+      <div className="cardBtn-conatainer">
+        {
+          <CardButton
+            id={id}
+            handleState={() => {
+              setAddState(!addState);
+              setNotificationModal(true);
+              addState
+                ? setNotificationContent(() => 'Removed')
+                : setNotificationContent(() => 'Added');
+            }}
+          ></CardButton>
+        }
+      </div>
+      <Modal visible={notificationModal} setDisplay={setNotificationModal}>
+        {notificationContent && notificationContent}
+      </Modal>
     </div>
   );
 };
