@@ -135,9 +135,25 @@
 
 .btncontainer {
   display: flex;
-  gap: 5px;
+  gap: 10px;
   width: fit-content;
   margin: auto auto 20px auto;
+  font-weight: 500;
+}
+
+.previousPage,
+.nextPage {
+  border-radius: 5px;
+  border: antiquewhite;
+  background-color: #127627;
+  cursor: pointer;
+  width: 25px;
+  color: #f0f8ff;
+}
+
+.previousPage:hover,
+.nextPage:hover {
+  background-color: #0ba72d;
 }
 
 .button {
