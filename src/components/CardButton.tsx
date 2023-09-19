@@ -34,7 +34,7 @@ export const CardButton = ({ id }: { id: string }) => {
       return (await cartRep.removeLineItem({
         version: currentCart.body.version,
         lineItemId: item.id,
-        quantity: 1,
+        quantity: item.quantity,
       })) as ClientResponse<Cart>;
     };
 

@@ -45,15 +45,12 @@ export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
 
   const changePage = useCallback(
     (event: React.MouseEvent) => {
-      if ((event.target as HTMLInputElement).className === 'next-page' && products?.total) {
+      if ((event.target as HTMLInputElement).id === 'next-page' && products?.total) {
         if (productsOffset < products?.total - products.count) {
           setPagin(productsOffset + 8);
           setPage(page + 1);
         }
-      } else if (
-        (event.target as HTMLInputElement).className === 'previous-page' &&
-        productsOffset > 0
-      ) {
+      } else if ((event.target as HTMLInputElement).id === 'previous-page' && productsOffset > 0) {
         setPagin(productsOffset - 8);
         setPage(page - 1);
       }
@@ -232,9 +229,21 @@ export const CatalogPage = ({ showName }: PageProps): JSX.Element => {
             })}
           </div>
           <div className={classes.btncontainer}>
-            <input type="button" className="previous-page" value="<" onClick={changePage} />
+            <input
+              type="button"
+              id="previous-page"
+              className={classes.previousPage}
+              value="<"
+              onClick={changePage}
+            />
             <div>{page}</div>
-            <input type="button" className="next-page" value=">" onClick={changePage} />
+            <input
+              type="button"
+              id="next-page"
+              className={classes.nextPage}
+              value=">"
+              onClick={changePage}
+            />
           </div>
         </>
       )}
