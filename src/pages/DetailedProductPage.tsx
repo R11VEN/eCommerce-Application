@@ -5,11 +5,11 @@ import { useParams } from 'react-router-dom';
 import ProductItem from '../api/productGet';
 import CartRepository from '../api/User/Cart';
 import { getOptions } from '../api/User/options';
+import { CardButton } from '../components/CardButton';
 import Modal from '../components/Modal';
 import { Slider } from '../components/Slider';
 import classes from '../css/ui.module.css';
 import { Image } from '../interfaces/product.interface';
-import { CardButton } from '../components/CardButton';
 
 export const DetailedProductPage = () => {
   const { id } = useParams() as { id: string };
@@ -92,20 +92,22 @@ export const DetailedProductPage = () => {
           {content && content}
         </Modal>
       </div>
-      {addState && <p style={{ color: 'red', textAlign:'center' }}>This product is already in the cart</p>}
-      <div className='cardBtn-conatainer'>
+      {addState && (
+        <p style={{ color: 'red', textAlign: 'center' }}>This product is already in the cart</p>
+      )}
+      <div className="cardBtn-conatainer">
         {
           <CardButton
             id={id}
-          handleState={() => {
-            setAddState(!addState);
-            setNotificationModal(true);
-            addState
-              ? setNotificationContent(() => 'Removed')
-              : setNotificationContent(() => 'Added');
-          }}
-        ></CardButton>
-      }
+            handleState={() => {
+              setAddState(!addState);
+              setNotificationModal(true);
+              addState
+                ? setNotificationContent(() => 'Removed')
+                : setNotificationContent(() => 'Added');
+            }}
+          ></CardButton>
+        }
       </div>
       <Modal visible={notificationModal} setDisplay={setNotificationModal}>
         {notificationContent && notificationContent}

@@ -537,7 +537,6 @@ footer {
   height: auto;
 }
 
-
 @media (max-width: 860px) {
   .burger {
     display: block;
@@ -591,8 +590,6 @@ footer {
   .colloboration {
     text-align: center;
   }
-
-  
 }
 
 .loader {

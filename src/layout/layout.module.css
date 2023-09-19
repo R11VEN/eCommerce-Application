@@ -361,7 +361,7 @@ header {
   border-radius: 10px;
   justify-content: center;
   font-weight: 400;
-  align-items: flex-start
+  align-items: flex-start;
 }
 
 /*--------------------------header-end-----------------------*/
