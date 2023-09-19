@@ -429,7 +429,11 @@ header {
   display: flex;
   flex-direction: column;
 }
-
+/*---------------------------------detailed product  page-----------------------*/
+.cardBtn-conatainer {
+  width: 20%;
+  margin: auto;
+}
 /*---------------------------------about us page-----------------------*/
 .about-container,
 .colloboration {
@@ -532,6 +536,8 @@ footer {
   width: 30%;
   height: auto;
 }
+
+
 @media (max-width: 860px) {
   .burger {
     display: block;
@@ -567,6 +573,9 @@ footer {
   .nav-list_item > a {
     color: #ffffff;
   }
+  .cardBtn-conatainer {
+    width: 60%;
+  }
 }
 
 @media (max-width: 660px) {
@@ -582,6 +591,8 @@ footer {
   .colloboration {
     text-align: center;
   }
+
+  
 }
 
 .loader {

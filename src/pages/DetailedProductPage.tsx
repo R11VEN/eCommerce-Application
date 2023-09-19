@@ -18,7 +18,9 @@ export const DetailedProductPage = () => {
   name = description = price = discounted = '';
   const [item, setProduct] = useState<Product>();
   const [modal, setModal] = useState<boolean>(false);
+  const [notificationModal, setNotificationModal] = useState<boolean>(false);
   const [content, setContent] = useState<string>('');
+  const [notificationContent, setNotificationContent] = useState<string>('');
   const [addState, setAddState] = useState(false);
 
   function handleModal(content: string) {
@@ -90,8 +92,24 @@ export const DetailedProductPage = () => {
           {content && content}
         </Modal>
       </div>
-      {addState && <p style={{ color: 'red' }}>This product is already in the cart</p>}
-      {addState && <CardButton id={id} handleState={() => setAddState(!addState)}></CardButton>}
+      {addState && <p style={{ color: 'red', textAlign:'center' }}>This product is already in the cart</p>}
+      <div className='cardBtn-conatainer'>
+        {
+          <CardButton
+            id={id}
+          handleState={() => {
+            setAddState(!addState);
+            setNotificationModal(true);
+            addState
+              ? setNotificationContent(() => 'Removed')
+              : setNotificationContent(() => 'Added');
+          }}
+        ></CardButton>
+      }
+      </div>
+      <Modal visible={notificationModal} setDisplay={setNotificationModal}>
+        {notificationContent && notificationContent}
+      </Modal>
     </div>
   );
 };
