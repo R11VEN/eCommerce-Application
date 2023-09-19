@@ -38,14 +38,15 @@ const MenuProfile = ({ visible, onVisible }: IMenuProfile) => {
   const logout = async () => {
     try {
       // if (!window.confirm('Вы уверены, что хотите выйти?')) return;
+      const basket = await cart();
+      setIsModal(true);
       dispatch(authLogout());
       userLogout();
-      const basket = await cart();
       dispatch(savaBasket({ basket }));
-      setIsModal(true);
       setTimeout(() => {
         setIsModal(false);
       }, 2000);
+      location.reload();
     } catch (e) {
       /* empty */
     }
