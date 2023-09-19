@@ -1,12 +1,15 @@
-import { Product } from '@commercetools/platform-sdk';
+import { Cart, ClientResponse, Product } from '@commercetools/platform-sdk';
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import ProductItem from '../api/productGet';
+import CartRepository from '../api/User/Cart';
+import { getOptions } from '../api/User/options';
 import Modal from '../components/Modal';
 import { Slider } from '../components/Slider';
 import classes from '../css/ui.module.css';
 import { Image } from '../interfaces/product.interface';
+import { CardButton } from '../components/CardButton';
 
 export const DetailedProductPage = () => {
   const { id } = useParams() as { id: string };
@@ -16,6 +19,8 @@ export const DetailedProductPage = () => {
   const [item, setProduct] = useState<Product>();
   const [modal, setModal] = useState<boolean>(false);
   const [content, setContent] = useState<string>('');
+  const [addState, setAddState] = useState(false);
+
   function handleModal(content: string) {
     setContent(content);
     setModal(true);
@@ -27,6 +32,17 @@ export const DetailedProductPage = () => {
       setProduct(body?.body);
     });
   }, [id]);
+
+  useEffect((): void => {
+    const getCart = async () => {
+      const options = getOptions();
+      const cartRep = (await new CartRepository(options).getActiveCart()) as ClientResponse<Cart>;
+      return cartRep;
+    };
+    getCart().then((cart) => {
+      if (cart.body.lineItems.find((item) => item.productId === id)) setAddState(!addState);
+    });
+  }, []);
 
   useEffect(() => {
     getProduct();
@@ -74,6 +90,8 @@ export const DetailedProductPage = () => {
           {content && content}
         </Modal>
       </div>
+      {addState && <p style={{ color: 'red' }}>This product is already in the cart</p>}
+      {addState && <CardButton id={id} handleState={() => setAddState(!addState)}></CardButton>}
     </div>
   );
 };

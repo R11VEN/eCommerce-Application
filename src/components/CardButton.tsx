@@ -10,7 +10,7 @@ import { RootState } from '../interfaces/state.interface.ts';
 import { savaBasket } from '../redux/basketSlice.ts';
 import { CustomResponse, getBasket } from '../utils.ts';
 
-export const CardButton = ({ id }: { id: string }) => {
+export const CardButton = ({ id, handleState }: { id: string; handleState?: () => void }) => {
   const dispatch = useDispatch();
   const { basket } = useSelector((state: RootState) => state.basket);
   const [isAdded, setIsAdded] = useState<boolean>(true);
@@ -54,6 +54,7 @@ export const CardButton = ({ id }: { id: string }) => {
 
     setIsAdded(!isAdded);
     dispatch(savaBasket({ basket: body as Cart }));
+    handleState && handleState();
     return cartRep;
   };
 
