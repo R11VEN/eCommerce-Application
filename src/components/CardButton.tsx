@@ -26,6 +26,7 @@ export const CardButton = ({ id }: { id: string }) => {
   }, [basket]);
 
   const toggleBasket = async (): Promise<CartRepository> => {
+    setIsLoading(true);
     const { cartRep, currentCart }: CustomResponse<Cart> = await getBasket();
 
     const remove = async (): Promise<ClientResponse<Cart>> => {
@@ -54,13 +55,20 @@ export const CardButton = ({ id }: { id: string }) => {
 
     setIsAdded(!isAdded);
     dispatch(savaBasket({ basket: body as Cart }));
+    setIsLoading(false);
     return cartRep;
   };
 
   return (
     <Fragment>
       {isLoading ? (
-        <span className="loading"></span>
+        <a
+          className={`${classes.button} ${classes.cardBtn} ${isAdded && classes.button_remove}`}
+          onClick={toggleBasket}
+          key={id}
+        >
+          <span className="loading"></span>
+        </a>
       ) : (
         <a
           className={`${classes.button} ${classes.cardBtn} ${isAdded && classes.button_remove}`}
