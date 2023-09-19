@@ -29,6 +29,7 @@ const MainPage = ({ showName }: PageProps): JSX.Element => {
   return (
     <div className="main-container" key="main-page">
       <h1 key="h1-main-page">I am Main Page</h1>
+      <h2 className="discount">20% discount with discount code: Discount20</h2>
       {routerPagesAndAuth.map(createRoute)}
     </div>
   );

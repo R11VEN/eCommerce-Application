@@ -203,6 +203,11 @@ header {
   flex-direction: column;
 }
 
+.discount {
+  color: #ff3d00;
+  font-size: 2rem;
+}
+
 /*---------------------------------auth-page-----------------------*/
 
 .auth-container {
@@ -310,8 +315,51 @@ header {
   justify-content: center;
 }
 
+.discount-form {
+  display: flex;
+  gap: 10px;
+}
+
+.give-discount {
+  height: 30px;
+  width: 120px;
+  border-radius: 5px;
+  border: antiquewhite;
+  background-color: #127627;
+  color: aliceblue;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.give-discount:hover {
+  background-color: #0ba72d;
+}
+
+.discount-input {
+  border: #127627 solid 1px;
+  border-radius: 5px;
+}
+
 .total-price {
   font-size: 2rem;
+}
+
+.delete-cart {
+  margin-top: 10px;
+  height: 50px;
+  width: 150px;
+  border-radius: 5px;
+  border: antiquewhite;
+  background-color: #127627;
+  color: aliceblue;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.delete-cart:hover {
+  background-color: #0ba72d;
 }
 
 /*---------------------------------user-page-----------------------*/
