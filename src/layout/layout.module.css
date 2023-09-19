@@ -369,7 +369,6 @@ header {
 .main {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-around;
   flex-grow: 1;
   padding-bottom: 10px;
