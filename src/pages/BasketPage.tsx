@@ -10,6 +10,8 @@ import { PageProps } from '../interfaces/page.interface.ts';
 import { RootState } from '../interfaces/state.interface.ts';
 import { savaBasket } from '../redux/basketSlice.ts';
 import { CustomResponse, getBasket } from '../utils.ts';
+import { NavLink } from 'react-router-dom';
+import { CAT_ROUTE } from '../constants/pages.ts';
 
 const BasketPage = ({ showName }: PageProps) => {
   const { basket } = useSelector((state: RootState) => state.basket);
@@ -101,6 +103,9 @@ const BasketPage = ({ showName }: PageProps) => {
         <>
           <div style={{ margin: '0 auto', textAlign: 'center' }}>
             <img src={emptyBasket} alt="Empty basket" style={{ maxWidth: '80%' }} />
+            <p>
+              Nothing here yet... You can visit {<NavLink to={CAT_ROUTE}>Catalog Page</NavLink>} for shopping
+            </p>
           </div>
         </>
       )}
