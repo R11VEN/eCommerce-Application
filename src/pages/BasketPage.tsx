@@ -1,17 +1,17 @@
 import { Cart, ClientResponse } from '@commercetools/platform-sdk';
 import { ChangeEvent, FormEvent, Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 import CartRepository from '../api/User/Cart.tsx';
 import { getOptions } from '../api/User/options.tsx';
 import emptyBasket from '../assets/img/empty-basket.png';
 import Carts from '../components/Carts.tsx';
+import { CAT_ROUTE } from '../constants/pages.ts';
 import { PageProps } from '../interfaces/page.interface.ts';
 import { RootState } from '../interfaces/state.interface.ts';
 import { savaBasket } from '../redux/basketSlice.ts';
 import { CustomResponse, getBasket } from '../utils.ts';
-import { NavLink } from 'react-router-dom';
-import { CAT_ROUTE } from '../constants/pages.ts';
 
 const BasketPage = ({ showName }: PageProps) => {
   const { basket } = useSelector((state: RootState) => state.basket);
@@ -27,7 +27,7 @@ const BasketPage = ({ showName }: PageProps) => {
 
   useEffect((): void => {
     const getCart = async () => {
-      const options = getOptions();
+      const options = await getOptions();
       const cartRep = (await new CartRepository(options).getActiveCart()) as ClientResponse<Cart>;
       if (cartRep?.statusCode == 200) {
         setCart(cartRep.body);
@@ -38,7 +38,7 @@ const BasketPage = ({ showName }: PageProps) => {
   }, [basket]);
 
   const deleteCart = async () => {
-    const options = getOptions();
+    const options = await getOptions();
     const basket = await new CartRepository(options).deleteCart();
     setCart(undefined);
     setTotalPrice(0);
@@ -104,7 +104,8 @@ const BasketPage = ({ showName }: PageProps) => {
           <div style={{ margin: '0 auto', textAlign: 'center' }}>
             <img src={emptyBasket} alt="Empty basket" style={{ maxWidth: '80%' }} />
             <p>
-              Nothing here yet... You can visit {<NavLink to={CAT_ROUTE}>Catalog Page</NavLink>} for shopping
+              Nothing here yet... You can visit {<NavLink to={CAT_ROUTE}>Catalog Page</NavLink>} for
+              shopping
             </p>
           </div>
         </>
