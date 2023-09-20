@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 
+import { tokenInspection } from './api/controllers/user.service.ts';
 import { tokenCache } from './api/tokenCache.tsx';
 import Layout from './layout/Layout.tsx';
 import { savaBasket } from './redux/basketSlice.ts';
@@ -15,6 +16,16 @@ const App = () => {
 
   useEffect(() => {
     const cart = async () => {
+      const loken = localStorage.getItem('token');
+      if (loken) {
+        const check = await tokenInspection(loken);
+        if (check.active == false) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('id');
+          localStorage.removeItem('state');
+        }
+      }
+
       const { cartRep, currentCart }: CustomResponse<Cart> = await getBasket();
 
       dispatch(savaBasket({ basket: currentCart.body }));
