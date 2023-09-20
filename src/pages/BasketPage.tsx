@@ -8,6 +8,7 @@ import { getOptions } from '../api/User/options.tsx';
 import emptyBasket from '../assets/img/empty-basket.png';
 import Carts from '../components/Carts.tsx';
 import { CAT_ROUTE } from '../constants/pages.ts';
+import classes from '../css/ui.module.css';
 import { PageProps } from '../interfaces/page.interface.ts';
 import { RootState } from '../interfaces/state.interface.ts';
 import { savaBasket } from '../redux/basketSlice.ts';
@@ -15,6 +16,7 @@ import { CustomResponse, getBasket } from '../utils.ts';
 
 const BasketPage = ({ showName }: PageProps) => {
   const { basket } = useSelector((state: RootState) => state.basket);
+  const [modal, setModal] = useState({ display: 'none' });
 
   useEffect((): void => {
     showName && showName('Корзина');
@@ -71,6 +73,14 @@ const BasketPage = ({ showName }: PageProps) => {
     }
   };
 
+  const showModal = () => {
+    if (modal.display == 'flex') {
+      setModal({ display: 'none' });
+    } else {
+      setModal({ display: 'flex' });
+    }
+  };
+
   return (
     <Fragment>
       {cart?.totalLineItemQuantity ? (
@@ -96,8 +106,17 @@ const BasketPage = ({ showName }: PageProps) => {
             className="delete-cart"
             type="button"
             value={'Delete cart'}
-            onClick={deleteCart}
+            onClick={showModal}
           ></input>
+          <div className={classes.deleteModal} style={modal}>
+            <div className={classes.deleteModalBox}>
+              <p>Вы уверены, что хотите очистить корзину?</p>
+              <div className={classes.deleteModalButtons}>
+                <input type="button" value={'Yes'} onClick={deleteCart}></input>
+                <input type="button" value={'No'} onClick={showModal}></input>
+              </div>
+            </div>
+          </div>
         </div>
       ) : (
         <>
