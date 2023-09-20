@@ -23,8 +23,9 @@ const BasketPage = ({ showName }: PageProps) => {
   }, []);
 
   const [cart, setCart] = useState<Cart>();
-  const [discount, setDiscount] = useState('');
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [discount, setDiscount] = useState<string>('');
+  const [isDiscount, setIsDiscount] = useState<boolean>(false);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
   const dispatch = useDispatch();
 
   useEffect((): void => {
@@ -73,6 +74,7 @@ const BasketPage = ({ showName }: PageProps) => {
     }
   };
 
+
   const showModal = () => {
     if (modal.display == 'flex') {
       setModal({ display: 'none' });
@@ -80,6 +82,15 @@ const BasketPage = ({ showName }: PageProps) => {
       setModal({ display: 'flex' });
     }
   };
+
+  useEffect(() => {
+    if (basket && basket.discountCodes && basket.discountCodes.length > 0) {
+      setIsDiscount(true);
+    } else {
+      setIsDiscount(false);
+    }
+  }, [basket?.discountCodes]);
+
 
   return (
     <Fragment>
@@ -99,8 +110,16 @@ const BasketPage = ({ showName }: PageProps) => {
           <div className="cart-container">
             <Carts lineItems={cart.lineItems}></Carts>
           </div>
-          <div className="total-price">
-            Total price: {totalPrice + ', ' + basket?.totalPrice?.currencyCode}
+
+          <div className="total-price" style={{ textAlign: 'center' }}>
+            <div>
+              {isDiscount &&
+                `Total price: ${(totalPrice * 100) / 80}, ${basket?.totalPrice?.currencyCode}`}
+            </div>
+            <div style={{ backgroundColor: 'antiquewhite' }}>
+              {isDiscount ? 'With discount: ' : 'Total price: '}
+              {totalPrice + ', ' + basket?.totalPrice?.currencyCode}
+            </div>
           </div>
           <input
             className="delete-cart"
