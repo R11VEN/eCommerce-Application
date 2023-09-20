@@ -27,7 +27,7 @@ const BasketPage = ({ showName }: PageProps) => {
 
   useEffect((): void => {
     const getCart = async () => {
-      const options = await getOptions();
+      const options = getOptions();
       const cartRep = (await new CartRepository(options).getActiveCart()) as ClientResponse<Cart>;
       if (cartRep?.statusCode == 200) {
         setCart(cartRep.body);
@@ -38,7 +38,7 @@ const BasketPage = ({ showName }: PageProps) => {
   }, [basket]);
 
   const deleteCart = async () => {
-    const options = await getOptions();
+    const options = getOptions();
     const basket = await new CartRepository(options).deleteCart();
     setCart(undefined);
     setTotalPrice(0);
