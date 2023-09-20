@@ -64,10 +64,10 @@ const PrintCard = (item: LineItem) => {
 
   if (item.variant.images) {
     return (
-      <div>
+      <div key={item.id}>
         <Card
           key={item.id}
-          id={item.id}
+          id={item.productId}
           url={item.variant.images[0].url}
           title={item.name['ru-BY']}
           price={price}

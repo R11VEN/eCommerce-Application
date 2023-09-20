@@ -99,7 +99,6 @@ const BasketPage = ({ showName }: PageProps) => {
         </div>
       ) : (
         <>
-          <div>Пацаны, тут нехер ловить!</div>
           <div style={{ margin: '0 auto', textAlign: 'center' }}>
             <img src={emptyBasket} alt="Empty basket" style={{ maxWidth: '80%' }} />
           </div>

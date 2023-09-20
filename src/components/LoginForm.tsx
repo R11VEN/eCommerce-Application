@@ -56,7 +56,7 @@ const LoginForm = ({ openModal }: { openModal: (content: string) => void }) => {
   return (
     <FormProvider {...methods}>
       <form
-        className={loading ? 'login-form loading' : 'login-form'}
+        className={loading ? 'login-form' : 'login-form'}
         onSubmit={methods.handleSubmit(onSubmit)}
         noValidate
       >

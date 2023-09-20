@@ -214,6 +214,7 @@
 
 .category {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   text-align: center;
   font-size: 0.8rem;
