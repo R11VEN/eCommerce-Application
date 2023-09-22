@@ -1,6 +1,8 @@
 export const userLogout = () => {
-  if (localStorage.getItem('loginToken') && localStorage.getItem('isAuth') === 'true') {
-    localStorage.removeItem('loginToken');
-    localStorage.setItem('isAuth', 'false');
+  if (localStorage.getItem('token')) {
+    localStorage.removeItem('token');
+    localStorage.removeItem('id');
+    localStorage.removeItem('state');
+    //localStorage.setItem('isAuth', 'false');
   }
 };

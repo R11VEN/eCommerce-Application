@@ -1,4 +1,4 @@
 export interface IMenuProfile {
   visible: boolean;
-  onVisible: (value: boolean) => void;
+  onVisible?: (value: boolean) => void;
 }

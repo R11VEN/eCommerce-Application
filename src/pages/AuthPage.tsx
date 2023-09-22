@@ -31,11 +31,13 @@ const AuthPage = ({ showName }: PageProps): JSX.Element => {
 
   useEffect(() => {
     const checkAuth = async (): Promise<void> => {
-      const token = auth.token;
-      const { active, client_id } = await CheckAuthorization(token);
-      if (active && client_id === API_CLIENT_ID) {
-        setContent('Вы уже авторизованы');
-        redirect();
+      if (auth.isAuth) {
+        const token = auth.token;
+        const { active, client_id } = await CheckAuthorization(token);
+        if (active && client_id === API_CLIENT_ID) {
+          setContent('Вы уже авторизованы');
+          redirect();
+        }
       }
     };
     checkAuth();

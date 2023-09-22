@@ -2,6 +2,8 @@ import { type ClientResponse, type CustomerSignInResult } from '@commercetools/p
 
 import { CustomerData, CustomerRepository } from './User';
 
+//CustomerService нигде не задействован
+
 interface ICustomerService {
   customerRepository: CustomerRepository;
   createCustomer(

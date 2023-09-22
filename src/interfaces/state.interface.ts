@@ -1,3 +1,5 @@
+import { Cart } from '@commercetools/platform-sdk';
+
 import { UserProfileState } from '../redux/userProfileSlice.ts';
 
 export interface RootState {
@@ -33,6 +35,7 @@ export interface AuthState {
 
 export interface BasketState {
   goods: good[];
+  basket?: Partial<Cart>;
 }
 
 export interface good {

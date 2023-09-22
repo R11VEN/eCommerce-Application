@@ -1,9 +1,8 @@
-import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
+import { ClientResponse, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import {
   CustomerChangePassword,
   CustomerUpdateAction,
 } from '@commercetools/platform-sdk/dist/declarations/src/generated/models/customer';
-import { ClientResponse } from '@commercetools/platform-sdk/dist/declarations/src/generated/shared/utils/common-types';
 
 import {
   API_CLIENT_ID,
@@ -12,7 +11,9 @@ import {
   PROJECT_KEY,
 } from '../../constants/api.ts';
 import { client } from '../BuildClientAdmin.tsx';
-import { apiRootPass, projectKey } from '../BuildClientPassword.tsx';
+import { tokenCache } from '../tokenCache.tsx';
+import { getOptions } from '../User/options.tsx';
+import { CustomerRepository } from '../User/User.tsx';
 
 const apiRoot = createApiBuilderFromCtpClient(client).withProjectKey({
   projectKey: PROJECT_KEY,
@@ -20,18 +21,17 @@ const apiRoot = createApiBuilderFromCtpClient(client).withProjectKey({
 
 export async function signIn(email: string, password: string) {
   try {
-    const userData = await apiRootPass({ username: email, password: password })
-      .withProjectKey({ projectKey })
-      .me()
-      .login()
-      .post({
-        body: {
-          email,
-          password,
-        },
-      })
-      .execute();
-    return userData;
+    tokenCache.set({
+      token: '',
+      expirationTime: 0,
+      refreshToken: '',
+    });
+
+    const options = getOptions({ username: email, password: password });
+    return await new CustomerRepository(options).getCustomer({
+      email: email,
+      password: password,
+    });
   } catch (e) {
     throw new Error();
   }
@@ -42,7 +42,7 @@ export async function updateCustomer(
   version: number,
   actions: CustomerUpdateAction[]
 ): Promise<ClientResponse> {
-  const userData = await apiRoot
+  return await apiRoot
     .customers()
     .withId({ ID: id })
     .post({
@@ -52,7 +52,6 @@ export async function updateCustomer(
       },
     })
     .execute();
-  return userData;
 }
 
 export async function updateCustomerPassword(

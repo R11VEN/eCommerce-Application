@@ -1,13 +1,17 @@
+import { Cart, ClientResponse } from '@commercetools/platform-sdk';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+import CartRepository from '../api/User/Cart.tsx';
+import { getOptions } from '../api/User/options.tsx';
 import { userLogout } from '../api/userLogout.tsx';
 import { USER_ROUTE } from '../constants/pages.ts';
 import { IMenuProfile } from '../interfaces/layout.interface.ts';
 import { RootState } from '../interfaces/state.interface.ts';
 import classes from '../layout/layout.module.css';
 import { authLogout } from '../redux/authSlice.ts';
+import { savaBasket } from '../redux/basketSlice.ts';
 import Modal from './Modal.tsx';
 
 const MenuProfile = ({ visible, onVisible }: IMenuProfile) => {
@@ -17,19 +21,32 @@ const MenuProfile = ({ visible, onVisible }: IMenuProfile) => {
   const rootClasses = [classes['menu-profile']];
 
   const hideMenu = () => {
-    onVisible(false);
+    onVisible && onVisible(false);
   };
   visible && rootClasses.push(classes.active);
-  !auth.isAuth && hideMenu();
-  const logout = () => {
+  !auth.isAuth && visible && hideMenu();
+
+  const cart = async () => {
+    const opt = getOptions();
+    const cartRep = new CartRepository(opt);
+    const res = (await cartRep.createCartForCurrentCustomer({
+      currency: 'EUR',
+    })) as ClientResponse<Cart>;
+    return res.body;
+  };
+
+  const logout = async () => {
     try {
       // if (!window.confirm('Вы уверены, что хотите выйти?')) return;
+      const basket = await cart();
+      setIsModal(true);
       dispatch(authLogout());
       userLogout();
-      setIsModal(true);
+      dispatch(savaBasket({ basket }));
       setTimeout(() => {
         setIsModal(false);
       }, 2000);
+      location.reload();
     } catch (e) {
       /* empty */
     }

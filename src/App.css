@@ -203,6 +203,11 @@ header {
   flex-direction: column;
 }
 
+.discount {
+  color: #ff3d00;
+  font-size: 2rem;
+}
+
 /*---------------------------------auth-page-----------------------*/
 
 .auth-container {
@@ -298,6 +303,64 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.cart-container {
+  display: flex;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px;
+  gap: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.discount-form {
+  display: flex;
+  gap: 10px;
+}
+
+.give-discount {
+  height: 30px;
+  width: 120px;
+  border-radius: 5px;
+  border: antiquewhite;
+  background-color: #127627;
+  color: aliceblue;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.give-discount:hover {
+  background-color: #0ba72d;
+}
+
+.discount-input {
+  border: #127627 solid 1px;
+  border-radius: 5px;
+}
+
+.total-price {
+  font-size: 2rem;
+  transition: font-size 0.3s;
+}
+
+.delete-cart {
+  margin-top: 10px;
+  height: 50px;
+  width: 150px;
+  border-radius: 5px;
+  border: antiquewhite;
+  background-color: #127627;
+  color: aliceblue;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.delete-cart:hover {
+  background-color: #0ba72d;
 }
 
 /*---------------------------------user-page-----------------------*/
@@ -415,6 +478,32 @@ header {
   display: flex;
   flex-direction: column;
 }
+/*---------------------------------detailed product  page-----------------------*/
+.cardBtn-conatainer {
+  width: 20%;
+  margin: auto;
+}
+/*---------------------------------about us page-----------------------*/
+.about-container,
+.colloboration {
+  max-width: 1280px;
+  width: 100%;
+  margin: auto;
+  background-color: rgb(184, 190, 188);
+  border-radius: 5px;
+  border: 1px solid transparent;
+}
+.team__heading,
+.colloboration__heading {
+  padding-top: 10px;
+  text-align: center;
+}
+
+.colloboration {
+  margin-top: 10px;
+  padding: 5px;
+  background-color: #78a37c;
+}
 
 /*---------------------------------footer-----------------------*/
 
@@ -487,6 +576,15 @@ footer {
 .swiper-pagination .swiper-pagination-bullet-active {
   background-color: green;
 }
+.logo-link {
+  display: block;
+}
+.logo-link__img {
+  display: block;
+  margin: 10px auto;
+  width: 30%;
+  height: auto;
+}
 
 @media (max-width: 860px) {
   .burger {
@@ -523,6 +621,9 @@ footer {
   .nav-list_item > a {
     color: #ffffff;
   }
+  .cardBtn-conatainer {
+    width: 60%;
+  }
 }
 
 @media (max-width: 660px) {
@@ -535,6 +636,13 @@ footer {
   .logo {
     font-size: 1.2rem;
   }
+  .colloboration {
+    text-align: center;
+  }
+  .total-price {
+    font-size: 1.5rem;
+    transition: font-size 0.3s;
+  }
 }
 
 .loader {
@@ -543,6 +651,18 @@ footer {
   left: 50%;
   width: 48px;
   height: 48px;
+  border: 5px solid #fff;
+  border-bottom-color: #ff3d00;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+.loading {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
   border: 5px solid #fff;
   border-bottom-color: #ff3d00;
   border-radius: 50%;

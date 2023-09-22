@@ -4,22 +4,22 @@ import { BasketState } from '../interfaces/state.interface.ts';
 
 const initialState: BasketState = {
   goods: [],
+  basket: {},
 };
 
 const basketSlice = createSlice({
   name: 'basket',
   initialState,
   reducers: {
-    addGood: (state, action) => {
-      state.goods = [...state.goods, action.payload];
+    savaBasket: (state, action) => {
+      state.basket = action.payload.basket;
     },
-    removeGood: (state, action) => {
-      const id = action.payload.id;
-      state.goods = state.goods.filter((good) => good.id !== id);
+    addToBasket: (state, action) => {
+      state.basket = action.payload.basket;
     },
   },
 });
 
-export const { addGood, removeGood } = basketSlice.actions;
+export const { savaBasket } = basketSlice.actions;
 
 export default basketSlice.reducer;

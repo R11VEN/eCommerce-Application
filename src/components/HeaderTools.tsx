@@ -8,7 +8,7 @@ import { RootState } from '../interfaces/state.interface.ts';
 import classes from '../layout/layout.module.css';
 import { setVisible } from '../redux/searchSlice.ts';
 
-const Tools = () => {
+const HeaderTools = () => {
   const navigate = useNavigate();
   const basket = useSelector((state: RootState) => state.basket);
   const searchState = useSelector((state: RootState) => state.search);
@@ -26,17 +26,19 @@ const Tools = () => {
   return (
     <div className={classes['tools']}>
       <div className={classes['tool-icon'] + ' ' + 'tool-search'} onClick={searchHandler}>
-        <img src={searchIcon} alt="search icon" title="search icon" />
+        <img src={searchIcon} alt="search icon" title={classes['search icon']} />
       </div>
       <div
         className={classes['tool-icon'] + ' ' + classes['tool-basket']}
         onClick={basketClickHandler}
       >
         <img src={basketIcon} alt="basket icon" title="basket icon" />
-        <span className={classes['basket-count']}>{basket.goods.length}</span>
+        <span className={classes['basket-count']}>
+          {basket?.basket?.totalLineItemQuantity || 0}
+        </span>
       </div>
     </div>
   );
 };
 
-export default Tools;
+export default HeaderTools;

@@ -1,7 +1,9 @@
-import { NavLink } from 'react-router-dom';
+import { MouseEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { PRODUCT_ROUTE } from '../constants/pages';
 import classes from '../css/ui.module.css';
+import { CardButton } from './CardButton';
 
 export const Card = ({
   title,
@@ -13,17 +15,28 @@ export const Card = ({
   currency,
 }: {
   title: string;
-  price: number;
+  price?: number;
   discounted?: number;
-  description: string;
+  description?: string;
   url: string;
   id: string;
   currency: string;
 }) => {
+  const navigate = useNavigate();
+  const handleNavClick = (e: MouseEvent) => {
+    const target = e.target as HTMLAnchorElement;
+    if (target?.className === 'button-image' || target?.className === 'button-span') {
+      e.preventDefault();
+    } else {
+      navigate(`${PRODUCT_ROUTE}/${id}`);
+    }
+  };
+
   return (
-    <NavLink className={classes.cardlink} to={`${PRODUCT_ROUTE}/${id}`}>
+    <div className={classes.cardlink} onClick={handleNavClick}>
       <div className={classes.card}>
         <img className={classes.card__img} src={url} alt={title} />
+        <CardButton id={id}></CardButton>
         <div className={classes.description}>
           <h2 className={classes.title}>{title}</h2>
           <div className={classes.pricecontainer}>
@@ -33,7 +46,7 @@ export const Card = ({
                 style: 'currency',
                 currency: currency,
                 currencySign: 'accounting',
-              }).format(price)}{' '}
+              }).format(price ? price : 0)}{' '}
             </p>
             {discounted ? (
               <p className={classes.discountprice}>
@@ -52,6 +65,6 @@ export const Card = ({
           <p className={classes.carddescription}>{description}</p>
         </div>
       </div>
-    </NavLink>
+    </div>
   );
 };
