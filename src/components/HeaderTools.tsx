@@ -6,7 +6,7 @@ import searchIcon from '../assets/search_green.svg';
 import { BASKET_ROUTE } from '../constants/pages.ts';
 import { RootState } from '../interfaces/state.interface.ts';
 import classes from '../layout/layout.module.css';
-import { setVisible } from '../redux/searchSlice.ts';
+import { setVisible } from '../redux/reducers/searchSlice.ts';
 
 const HeaderTools = () => {
   const navigate = useNavigate();

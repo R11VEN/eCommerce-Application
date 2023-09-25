@@ -28,6 +28,7 @@ export async function signIn(email: string, password: string) {
     });
 
     const options = getOptions({ username: email, password: password });
+    console.log(email, password);
     return await new CustomerRepository(options).getCustomer({
       email: email,
       password: password,

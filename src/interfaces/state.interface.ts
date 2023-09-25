@@ -1,6 +1,6 @@
-import { Cart } from '@commercetools/platform-sdk';
+import { Cart, Customer } from '@commercetools/platform-sdk';
 
-import { UserProfileState } from '../redux/userProfileSlice.ts';
+import { UserProfileState } from '../redux/reducers/userProfileSlice.ts';
 
 export interface RootState {
   auth: AuthState;
@@ -24,17 +24,14 @@ export interface AuthState {
   name: string;
   email: string;
   id: string;
-  registerStatus: string;
-  registerError: string;
-  loginError: string;
   loading: boolean;
   isAuth: boolean;
   clientId: string;
   version: number;
+  customer: Partial<Customer>;
 }
 
 export interface BasketState {
-  goods: good[];
   basket?: Partial<Cart>;
 }
 

@@ -10,8 +10,8 @@ import { USER_ROUTE } from '../constants/pages.ts';
 import { IMenuProfile } from '../interfaces/layout.interface.ts';
 import { RootState } from '../interfaces/state.interface.ts';
 import classes from '../layout/layout.module.css';
-import { authLogout } from '../redux/authSlice.ts';
-import { savaBasket } from '../redux/basketSlice.ts';
+import { authLogout } from '../redux/reducers/authSlice.ts';
+import { savaBasket } from '../redux/reducers/basketSlice.ts';
 import Modal from './Modal.tsx';
 
 const MenuProfile = ({ visible, onVisible }: IMenuProfile) => {
@@ -37,7 +37,6 @@ const MenuProfile = ({ visible, onVisible }: IMenuProfile) => {
 
   const logout = async () => {
     try {
-      // if (!window.confirm('Вы уверены, что хотите выйти?')) return;
       const basket = await cart();
       setIsModal(true);
       dispatch(authLogout());

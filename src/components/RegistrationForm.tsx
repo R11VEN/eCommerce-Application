@@ -1,5 +1,6 @@
 import { ChangeEvent, MouseEvent, useState } from 'react';
 import { FieldValues, FormProvider, useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { CreateUser } from '../api/controllers/user.controller.ts';
@@ -7,6 +8,7 @@ import { userData } from '../api/userCreate.tsx';
 import { MAIN_ROUTE } from '../constants/pages.ts';
 import { UserFormEnum } from '../constants/userForm.ts';
 import { Customer } from '../interfaces/form.interface.ts';
+import { fetchUser } from '../redux/actions/ActionCreaters.ts';
 import { FormInput } from './FormInput.tsx';
 import { Select, SelectBilling } from './Select.tsx';
 
@@ -15,7 +17,7 @@ export const RegistrationForm = ({ openModal }: { openModal: (content: string) =
   const [loading, setLoading] = useState<boolean>(false);
   const [display, setDisplay] = useState<string>('none');
   const [isDisable, setIsDisable] = useState<boolean>(true);
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const togglePassword = (e: MouseEvent): void => {
@@ -30,17 +32,19 @@ export const RegistrationForm = ({ openModal }: { openModal: (content: string) =
 
   const onSubmit = async (data: FieldValues): Promise<void> => {
     setLoading(true);
-    try {
-      const userData = (await CreateUser(data as Customer)) as userData;
-      if (userData.statusCode === 200) {
-        openModal('Пользователь уже существует!');
-      } else if (userData.statusCode === 201) {
-        openModal('Вы успешно зарегистрировались!');
-        setTimeout(() => {
-          navigate(MAIN_ROUTE);
-        }, 2000);
-      }
-    } catch {
+    const userData = (await CreateUser(data as Customer)) as userData;
+    if (userData.statusCode === 200) {
+      openModal('Пользователь уже существует!');
+    } else if (userData.statusCode === 201) {
+      openModal('Вы успешно зарегистрировались!');
+      console.log(data.email, data.password);
+      // @ts-ignore
+      dispatch(fetchUser(data.email, data.password));
+      setTimeout(() => {
+        navigate(MAIN_ROUTE);
+      }, 2000);
+    }
+    if (!userData) {
       openModal('Произошла ошибка. Попробуйте снова!');
     }
     setLoading(false);

@@ -389,7 +389,6 @@ input:checked ~ .sortListItem {
   background-color: #0ba72d;
 }
 
-
 @media (max-width: 425px) {
   .pricebox {
     flex-direction: column;

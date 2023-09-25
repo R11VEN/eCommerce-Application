@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import CartRepository from '../api/User/Cart.tsx';
 import { getOptions } from '../api/User/options.tsx';
 import classes from '../css/ui.module.css';
-import { savaBasket } from '../redux/basketSlice.ts';
+import { savaBasket } from '../redux/reducers/basketSlice.ts';
 import { Card } from './Card.tsx';
 
 const PrintCard = (item: LineItem) => {

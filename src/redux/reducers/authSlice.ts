@@ -1,19 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { AuthState } from '../interfaces/state.interface.ts';
-
+import { AuthState } from '../../interfaces/state.interface.ts';
 const initialState: AuthState = {
   token: '',
   name: '',
   email: '',
   id: '',
-  registerStatus: '',
-  registerError: '',
-  loginError: '',
   loading: false,
   isAuth: false,
   clientId: '',
   version: 0,
+  customer: {},
 };
 
 const authSlice = createSlice({
@@ -34,6 +31,7 @@ const authSlice = createSlice({
       state.token = action.payload.token;
       state.clientId = action.payload.clientId;
       state.version = action.payload.version;
+      state.customer = action.payload.customer;
     },
     setToken: (state, action) => {
       state.token = action.payload.token;
@@ -51,6 +49,7 @@ const authSlice = createSlice({
       state.email = '';
       state.token = '';
       state.clientId = '';
+      state.customer = {};
     },
   },
 });

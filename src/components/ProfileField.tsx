@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { IEditState } from '../pages/UserPage.tsx';
-import { saveEditForm } from '../redux/userProfileSlice.ts';
+import { saveEditForm } from '../redux/reducers/userProfileSlice.ts';
 
 export interface IProfileField {
   id: string;

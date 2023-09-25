@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { userUpdate } from '../api/controllers/user.controller.ts';
 import { RootState } from '../interfaces/state.interface.ts';
-import { setVersion } from '../redux/authSlice.ts';
+import { setVersion } from '../redux/reducers/authSlice.ts';
 import {
   changedSuccess,
   removeEditMode,
   resetEditForm,
   setEditMode,
-} from '../redux/userProfileSlice.ts';
+} from '../redux/reducers/userProfileSlice.ts';
 import { prepareActions } from '../utils.ts';
 import Modal from './Modal.tsx';
 import ChangePass from './Modals/ChangePass.tsx';

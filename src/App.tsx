@@ -8,7 +8,7 @@ import { HashRouter } from 'react-router-dom';
 import { tokenInspection } from './api/controllers/user.service.ts';
 import { tokenCache } from './api/tokenCache.tsx';
 import Layout from './layout/Layout.tsx';
-import { savaBasket } from './redux/basketSlice.ts';
+import { savaBasket } from './redux/reducers/basketSlice.ts';
 import { CustomResponse, getBasket } from './utils.ts';
 
 const App = () => {
