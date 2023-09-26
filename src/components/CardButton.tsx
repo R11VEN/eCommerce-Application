@@ -7,7 +7,7 @@ import checked from '../assets/checked.svg';
 import plus from '../assets/plus.svg';
 import classes from '../css/ui.module.css';
 import { RootState } from '../interfaces/state.interface.ts';
-import { savaBasket } from '../redux/basketSlice.ts';
+import { savaBasket } from '../redux/reducers/basketSlice.ts';
 import { CustomResponse, getBasket } from '../utils.ts';
 
 export const CardButton = ({ id, handleState }: { id: string; handleState?: () => void }) => {

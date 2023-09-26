@@ -1,10 +1,10 @@
 import { configureStore, Middleware } from '@reduxjs/toolkit';
 
 import { RootState } from '../interfaces/state.interface.ts';
-import authReducer from './authSlice.ts';
-import basketReducer from './basketSlice.ts';
-import searchSlice from './searchSlice.ts';
-import userProfileReducer from './userProfileSlice.ts';
+import authReducer from './reducers/authSlice.ts';
+import basketReducer from './reducers/basketSlice.ts';
+import searchSlice from './reducers/searchSlice.ts';
+import userProfileReducer from './reducers/userProfileSlice.ts';
 
 const saveToLocalStorage = (state: RootState) => {
   try {

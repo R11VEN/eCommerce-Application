@@ -11,7 +11,7 @@ import { CAT_ROUTE } from '../constants/pages.ts';
 import classes from '../css/ui.module.css';
 import { PageProps } from '../interfaces/page.interface.ts';
 import { RootState } from '../interfaces/state.interface.ts';
-import { savaBasket } from '../redux/basketSlice.ts';
+import { savaBasket } from '../redux/reducers/basketSlice.ts';
 import { CustomResponse, getBasket } from '../utils.ts';
 
 const BasketPage = ({ showName }: PageProps) => {
@@ -74,7 +74,6 @@ const BasketPage = ({ showName }: PageProps) => {
     }
   };
 
-
   const showModal = () => {
     if (modal.display == 'flex') {
       setModal({ display: 'none' });
@@ -90,7 +89,6 @@ const BasketPage = ({ showName }: PageProps) => {
       setIsDiscount(false);
     }
   }, [basket?.discountCodes]);
-
 
   return (
     <Fragment>

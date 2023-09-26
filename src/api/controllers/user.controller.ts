@@ -39,7 +39,9 @@ export async function userUpdate(
 export async function LoginAnton(email: string, password: string): Promise<userResponse> {
   try {
     const userData = await signIn(email, password);
+    console.log(userData);
     const token = tokenCache.get().token;
+
     return { userData, token } as userResponse;
   } catch {
     throw new Error();

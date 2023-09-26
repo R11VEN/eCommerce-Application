@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import closeIcon from '../assets/close_green.svg';
 import { RootState } from '../interfaces/state.interface.ts';
 import classes from '../layout/layout.module.css';
-import { setSearchValue, setVisible } from '../redux/searchSlice.ts';
+import { setSearchValue, setVisible } from '../redux/reducers/searchSlice.ts';
 
 const HeaderSearch = () => {
   const dispatch = useDispatch();

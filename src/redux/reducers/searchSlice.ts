@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { SearchState } from '../interfaces/state.interface.ts';
+import { SearchState } from '../../interfaces/state.interface.ts';
 
 const initialState: SearchState = {
   value: '',

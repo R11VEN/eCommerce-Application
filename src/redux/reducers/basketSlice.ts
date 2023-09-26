@@ -1,9 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { BasketState } from '../interfaces/state.interface.ts';
+import { BasketState } from '../../interfaces/state.interface.ts';
 
 const initialState: BasketState = {
-  goods: [],
   basket: {},
 };
 

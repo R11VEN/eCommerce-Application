@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { LoginAnton, userUpdatePassword } from '../../api/controllers/user.controller.ts';
 import { RootState } from '../../interfaces/state.interface.ts';
-import { setToken } from '../../redux/authSlice.ts';
+import { setToken } from '../../redux/reducers/authSlice.ts';
 
 const ChangePass = () => {
   const [currentPassword, setCurrentPassword] = useState<string>('');

@@ -10,7 +10,9 @@ import {
 } from '@commercetools/sdk-client-v2';
 
 import { getApiRoot } from '../BuildClientAdmin';
+import CartRepository from './Cart.tsx';
 import Client from './Client';
+import { getOptions } from './options.tsx';
 
 export type CustomerData = {
   email: string;
@@ -102,16 +104,8 @@ export class CustomerRepository implements ICustomerRepository {
     password: string;
   }): Promise<ClientResponse<CustomerSignInResult> | unknown> {
     try {
-      await this.apiRoot
-        .withProjectKey({ projectKey: this.projectKey })
-        .me()
-        .activeCart()
-        .get()
-        .execute();
-
-      // const id = localStorage.getItem('id');
-      // const anonymousId = localStorage.getItem('anonymousId');
-
+      const cart = new CartRepository(getOptions({ username: email, password: password }));
+      await cart.createCartForCurrentCustomer({ currency: 'EUR' });
       const state = JSON.parse(localStorage.getItem('state') as string);
       const id = state?.basket?.basket?.id;
       const anonymousId = state?.basket?.basket?.anonymousId;
