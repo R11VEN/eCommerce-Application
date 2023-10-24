@@ -1,0 +1,83 @@
+{
+  "name": "vite-project",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix --color",
+    "preview": "vite preview",
+    "prettier": "prettier . --ignore-path .gitignore",
+    "format:check": "npm run prettier -- --check",
+    "format:fix": "npm run prettier -- --write",
+    "validate": "run-p lint:fix format:check",
+    "prepare": "husky install",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@commercetools/platform-sdk": "^5.0.0",
+    "@commercetools/sdk-auth": "^4.0.1",
+    "@commercetools/sdk-client-v2": "^2.2.0",
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
+    "@reduxjs/toolkit": "^1.9.5",
+    "@types/react-redux": "^7.1.25",
+    "identity-obj-proxy": "^3.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.45.4",
+    "react-redux": "^8.1.2",
+    "react-router-dom": "^6.15.0",
+    "redux": "^4.2.1",
+    "redux-thunk": "^2.4.2",
+    "rollup-plugin-node-polyfills": "^0.2.1",
+    "swiper": "^10.2.0",
+    "vite-plugin-node-polyfills": "^0.11.2"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^14.0.0",
+    "@types/css-modules": "^1.0.2",
+    "@types/jest": "^29.5.3",
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
+    "@types/react-test-renderer": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-react": "^4.0.3",
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^8.10.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.33.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "history": "^5.3.0",
+    "husky": "^8.0.3",
+    "jest": "^29.6.2",
+    "jest-environment-jsdom": "^29.6.2",
+    "lint-staged": "^13.2.3",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.0.1",
+    "react-test-renderer": "^18.2.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.1.6",
+    "vite": "^4.4.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{json,css,scss,md}": [
+      "npm run format:fix",
+      "npm run validate"
+    ],
+    "**/*.{js,jsx,ts,tsx}": [
+      "npm run format:fix",
+      "npm run lint:fix",
+      "npm run format:check"
+    ]
+  }
+}
